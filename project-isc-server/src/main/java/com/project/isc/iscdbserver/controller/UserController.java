@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.isc.iscdbserver.entity.SmsCode;
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.service.RedisService;
 import com.project.isc.iscdbserver.service.UserService;
+import com.project.isc.iscdbserver.statusType.SmsType;
 import com.project.isc.iscdbserver.util.UserUtil;
 import com.project.isc.iscdbserver.util.ValidateErrorUtil;
 import com.project.isc.iscdbserver.util.MD5Util;
@@ -42,6 +45,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RedisService redisService;
+	
 	//新增用户
 	@GetMapping("/testsave")
 	public User saveTestUser() {
@@ -52,14 +58,12 @@ public class UserController {
 	/**
 	 * @Description：新增用户
 	 */
-	@PostMapping("/save")
+	@PostMapping("/firstsave")
 	@Transactional
 	public RetMsg saveUser(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
-		String account = userSavePostParams.getAccount();
+		String phone = userSavePostParams.getPhone();
 		String password = userSavePostParams.getPassword();
-		String parentAccount = userSavePostParams.getParentAccount();
-		String recommendAccount = userSavePostParams.getRecommendAccount();
-		String position = userSavePostParams.getPosition();
+		String smsCodeString = userSavePostParams.getSmsCode();
 
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -67,15 +71,42 @@ public class UserController {
 			return retMsg;
 
 		// account不允许重复
-		if (null != this.userService.findByAccount(account))
-			throw new RuntimeException("用户名重复");
+		if (null != this.userService.findByUserPhone(phone))
+			throw new RuntimeException("此手机号已注册");
+			
+			// 验证短信验证码是否正确
+			try {
+				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+					if (!smsCode.getCode().equals(smsCodeString)){
+						retMsg = new RetMsg();
+						retMsg.setMessage("验证码不正确");
+						retMsg.setCode(400);
+						retMsg.setSuccess(false);
+						return retMsg;
+					}
+				}else {
+					retMsg = new RetMsg();
+					retMsg.setMessage("请先获取验证码");
+					retMsg.setCode(400);
+					retMsg.setSuccess(false);
+					return retMsg;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("系统异常");
+			}
 			User user = new User();
-
+			user.setUserPhone(phone);
+			user.setPassword(MD5Util.encrypeByMd5(password));
+			user.setCreateTime(new Date());
+			//返回用户的邀请码
+			
 			// 返回新增用户信息
 			retMsg = new RetMsg();
 			retMsg.setCode(200);
 			retMsg.setData(UserUtil.UserToUserVO(user));
-			retMsg.setMessage("用户添加成功");
+			retMsg.setMessage("用户注册成功");
 			retMsg.setSuccess(true);
 			return retMsg;
 	}

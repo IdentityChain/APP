@@ -145,5 +145,9 @@ public class UserService {
 
 		return this.userRepositoy.findAll(spec, pageable);
 	}
+
+	public User findByUserPhone(String phone) {
+		return this.userRepositoy.findByUserPhone(phone);
+	}
 	
 }
