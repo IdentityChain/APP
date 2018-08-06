@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="text-align: center;margin-top: 25%">
+      <h1>欢迎加入ISC </h1>
+    </div>
     <box gap="10px 10px" style="margin-top: 20%">
       <group title="">
 
@@ -8,22 +11,34 @@
           <!--width="24" height="24">-->
 
         </x-input>
-
+        <x-input title="验证码" class="weui-vcode">
+          <x-button slot="right" type="primary" mini>发送验证码</x-button>
+        </x-input>
       </group>
       <br>
       <x-button plain  @click.native="nextStep" :disabled="isInput">下一步</x-button>
-
-
-      <p style="text-align: right;font-size: small;margin-top: 10px;color: grey">新用户注册</p>
     </box>
   </div>
 </template>
 
 <script>
+import { XInput, XButton, Group, Box } from 'vux'
 export default {
   name: 'Register',
+  components: {
+    XInput,
+    XButton,
+    Group,
+    Box
+  },
   data () {
     return {
+      telNum: ''
+    }
+  },
+  computed: {
+    isInput () {
+      return this.telNum.length === 0
     }
   }
 }

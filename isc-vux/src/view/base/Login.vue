@@ -17,18 +17,17 @@
         <x-button plain  @click.native="nextStep" :disabled="isInput">下一步</x-button>
 
 
-      <p style="text-align: right;font-size: small;margin-top: 10px;color: grey">新用户注册</p>
+      <p style="text-align: right;font-size: small;margin-top: 10px;color: grey" ><button @click="register" style="border: 0px none;background-color: #FAF7FE" > 新用户注册</button></p>
     </box>
   </div>
 </template>
 
 <script>
-import { Group, Cell, XInput, XButton, Box } from 'vux'
+import { Group, XInput, XButton, Box } from 'vux'
 
 export default {
   components: {
     Group,
-    Cell,
     XInput,
     XButton,
     Box
@@ -43,6 +42,10 @@ export default {
     }
   },
   methods: {
+    register () {
+      console.log('goto register')
+      this.$router.push({name: 'register'})
+    },
     nextStep () {
       if (this.$refs.input1.valid) {
         const urlstr = this.AppConfig.apiServer + '/user/findByAccount?account=administrator'
