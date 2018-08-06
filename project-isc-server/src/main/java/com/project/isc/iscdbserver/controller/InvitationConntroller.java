@@ -21,6 +21,11 @@ import com.project.isc.iscdbserver.viewentity.RetMsg;
 
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * 
+ * @author ISC
+ *
+ */
 @RestController
 @RequestMapping("/invita")
 @CrossOrigin

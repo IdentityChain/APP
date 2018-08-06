@@ -22,7 +22,7 @@ public class SmsController {
 	@Autowired
 	private RedisService redisService;
 
-	@GetMapping("/getCodeByAccount")
+	@GetMapping("/getCodeByPhone")
 	public RetMsg getSmsCodeByAccount(String phoneNumber) {
 		RetMsg retMsg = new RetMsg();
 

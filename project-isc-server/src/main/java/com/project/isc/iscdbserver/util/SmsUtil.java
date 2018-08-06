@@ -58,7 +58,7 @@ public class SmsUtil {
         //必填:待发送手机号
         request.setPhoneNumbers(phoneNumber);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("完善信息");
+        request.setSignName("ISC注册");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode("SMS_138065715");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
@@ -111,7 +111,7 @@ public class SmsUtil {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         //发短信
-        SendSmsResponse response = sendSms("13520580169","1024");
+        SendSmsResponse response = sendSms("18637953970","1024");
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
@@ -122,7 +122,7 @@ public class SmsUtil {
 
         //查明细
         if(response.getCode() != null && response.getCode().equals("OK")) {
-            QuerySendDetailsResponse querySendDetailsResponse = querySendDetails(response.getBizId(),"13520580169");
+            QuerySendDetailsResponse querySendDetailsResponse = querySendDetails(response.getBizId(),"18637953970");
             System.out.println("短信明细查询接口返回数据----------------");
             System.out.println("Code=" + querySendDetailsResponse.getCode());
             System.out.println("Message=" + querySendDetailsResponse.getMessage());

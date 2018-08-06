@@ -17,6 +17,7 @@ import com.project.isc.iscdbserver.entity.User;
 public interface UserRepositoy extends JpaSpecificationExecutor<User>,JpaRepository<User, Long> {
 	public User findByAccount(String account);
 	public User findByUserId(long userId);
+	public User findByUserPhone(String phone);
 	public List<User> findByNickName(String nickName);
 	
 	//基于createTime，查询用户数
@@ -25,4 +26,5 @@ public interface UserRepositoy extends JpaSpecificationExecutor<User>,JpaReposit
 	
 	//多条件分页查询
 	public Page<User> findAll(Specification<User> spec, Pageable pageable);
+
 }
