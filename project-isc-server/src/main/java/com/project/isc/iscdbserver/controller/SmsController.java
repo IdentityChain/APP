@@ -8,12 +8,15 @@ import com.project.isc.iscdbserver.statusType.SmsType;
 import com.project.isc.iscdbserver.util.SmsUtil;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 
+import io.swagger.annotations.Api;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(value = "短信管理", tags = "短信管理")
 @RestController
 @CrossOrigin
 @RequestMapping("/sms")

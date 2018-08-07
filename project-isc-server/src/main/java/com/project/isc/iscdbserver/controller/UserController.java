@@ -34,6 +34,9 @@ import com.project.isc.iscdbserver.viewentity.UserLoginRequest;
 import com.project.isc.iscdbserver.viewentity.UserLoginSettingRequest;
 import com.project.isc.iscdbserver.viewentity.UserSaveRequest;
 
+import io.swagger.annotations.Api;
+
+@Api(value = "用户管理", tags = "用户管理")
 @RestController
 @RequestMapping("/user")
 @CrossOrigin

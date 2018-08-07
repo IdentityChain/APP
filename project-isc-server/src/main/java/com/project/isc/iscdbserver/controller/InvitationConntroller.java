@@ -19,6 +19,7 @@ import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.viewentity.InvitaInfoVo;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
  * @author ISC
  *
  */
+@Api(value = "邀请管理", tags = "邀请管理")
 @RestController
 @RequestMapping("/invita")
 @CrossOrigin
