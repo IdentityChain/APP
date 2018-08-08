@@ -12,9 +12,16 @@
              <!--width="24" height="24">-->
 
       </x-input>
+
+      <x-input title="密码"  required v-model="password" :min="6" :max="13" ref="input2">
+        <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
+        <!--width="24" height="24">-->
+
+      </x-input>
+
     </group>
         <br>
-        <x-button plain  @click.native="nextStep" :disabled="isInput">下一步</x-button>
+        <x-button plain  @click.native="nextStep" :disabled="isInput" type="submit" >登陆</x-button>
 
 
       <p style="text-align: right;font-size: small;margin-top: 10px;color: grey" ><button @click="register" style="border: 0px none;background-color: #FAF7FE" > 新用户注册</button></p>
@@ -38,7 +45,8 @@ export default {
       // with hot-reload because the reloaded component
       // preserves its current state and we are modifying
       // its initial state.
-      telNum: ''
+      telNum: '',
+      password: ''
     }
   },
   methods: {
