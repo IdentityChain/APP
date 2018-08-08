@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +26,8 @@ public class SmsController {
 	@Autowired
 	private RedisService redisService;
 
-	@GetMapping("/getCodeByPhone")
-	public RetMsg getSmsCodeByAccount(String phoneNumber) {
+	@GetMapping("/getCodeByPhone//{phoneNumber}")
+	public RetMsg getSmsCodeByAccount(@PathVariable("phoneNumber") String phoneNumber) {
 		RetMsg retMsg = new RetMsg();
 
 		// 创建验证码

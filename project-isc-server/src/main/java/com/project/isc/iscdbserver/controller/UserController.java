@@ -65,7 +65,6 @@ public class UserController {
 	@Transactional
 	public RetMsg saveUser(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
-		String password = userSavePostParams.getPassword();
 		String smsCodeString = userSavePostParams.getSmsCode();
 
 		// 如果数据校验有误，则直接返回校验错误信息
@@ -101,7 +100,6 @@ public class UserController {
 			}
 			User user = new User();
 			user.setUserPhone(phone);
-			user.setPassword(MD5Util.encrypeByMd5(password));
 			user.setCreateTime(new Date());
 			//返回用户的邀请码
 			
