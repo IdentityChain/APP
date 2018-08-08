@@ -63,7 +63,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
-	// 用户奖金
+	// isc数目
 	@Column
 	private double iscCoin;
 
