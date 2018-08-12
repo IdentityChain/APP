@@ -43,13 +43,13 @@ export default {
   },
   methods: {
     nextStep () {
-      this.$router.push({name: 'initUserInfo'})
+      this.$router.push({name: 'home'})
     },
     getSmsCode () {
       if (this.$refs.input1.valid) {
         console.log(this.telNum)
         console.log(this.telNum.replace(/[ ]/g, ''))
-        const urlstr = this.AppConfig.apiServer + '/sms/getCodeByPhone?phoneNumber=' + this.telNum.replace(/[ ]/g, '')
+        const urlstr = this.AppConfig.apiServer + '/sms/getCodeByPhone/phoneNumber=' + this.telNum.replace(/[ ]/g, '')
         this.doGet({
           url: urlstr
         }).then(result => {

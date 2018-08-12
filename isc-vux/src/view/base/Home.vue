@@ -1,59 +1,50 @@
 <template>
   <div class="bg">
-    <div class="dp-header">
-     <h1>hello</h1>
-    </div>
-    <div class="body">
-      <h2>sdfsfd</h2>
-    </div>
+    <view-box body-padding-bottom="55px">
+    <keep-alive>
+      <component :is="currentView" @linkTo="changeView" ref="nowView"></component>
+    </keep-alive>
     <tabbar>
-      <tabbar-item>
+      <tabbar-item selected @click.native="changeView('index1')">
         <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">Wechat</span>
+        <span slot="label">挖宝</span>
       </tabbar-item>
-      <tabbar-item show-dot>
+      <tabbar-item  @click.native="changeView('index2')">
         <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">Message</span>
+        <span slot="label">应用</span>
       </tabbar-item>
-      <tabbar-item selected link="/component/demo">
+      <tabbar-item  @click.native="changeView('my')" >
         <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">Explore</span>
-      </tabbar-item>
-      <tabbar-item badge="2">
-        <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">News</span>
+        <span slot="label">我的</span>
       </tabbar-item>
     </tabbar>
+    </view-box>
   </div>
 </template>
 
 <script>
-  import { Tabbar, TabbarItem } from 'vux'
-  import BGIMG from '../../assets/bg.jpeg'
+  import { Tabbar, TabbarItem, ViewBox } from 'vux'
+  import Index1 from '../home/Index1'
+  import Index2 from '../home/Index2'
+  import My from '../home/my'
   export default {
     name: 'Home',
-    mounted () {
-      this.calBgImage = (document.body.clientWidth / document.body.clientHeight) > 1.92
-// 然后监听window的resize事件．在浏览器窗口变化时再设置下背景图高度．
-      const that = this
-      window.onresize = function temp () {
-        that.calBgImage = (document.body.clientWidth / document.body.clientHeight) > 1.92
-      }
-    },
     components: {
       TabbarItem,
-      Tabbar
+      Tabbar,
+      ViewBox,
+      'index1': Index1,
+      'index2': Index2,
+      'my': My
     },
     data () {
       return {
-        calBgImage: false,
-        img: BGIMG,
-        bg: {
-          backgroundImage: 'url(' + require('../../assets/bg.jpeg') + ')',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100% auto',
-          marginTop: '0px'
-        }
+        currentView: 'index1'
+      }
+    },
+    methods: {
+      changeView (view) {
+        this.currentView = view
       }
     }
   }
@@ -61,8 +52,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+  html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
   .bg {
-    background:url('../../assets/bg.jpeg') no-repeat;
+    /*background:url('../../assets/bg.jpeg') no-repeat;*/
     height: 100%;
     position: fixed;
     width: 100%;

@@ -16,6 +16,7 @@ Vue.use(HttpRequest)
 Vue.use(ToastPlugin)
 Vue.prototype.AppConfig = AppConfig
 
+Vue.http.options.emulateJSON = true
 FastClick.attach(document.body)
 
 Vue.config.productionTip = false
