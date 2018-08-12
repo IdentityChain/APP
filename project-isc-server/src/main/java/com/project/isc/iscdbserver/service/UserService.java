@@ -16,14 +16,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.project.isc.iscdbserver.entity.User;
-import com.project.isc.iscdbserver.repository.UserRepositoy;
+import com.project.isc.iscdbserver.repository.UserRepository;
 import com.project.isc.iscdbserver.util.DateFormatUtil;
 import com.project.isc.iscdbserver.viewentity.UserTypeQueryRequest;
 
 @Service
 public class UserService {
 	@Autowired
-	private UserRepositoy userRepositoy;
+	private UserRepository userRepositoy;
 	
 	// 新增用户
 	@Transactional

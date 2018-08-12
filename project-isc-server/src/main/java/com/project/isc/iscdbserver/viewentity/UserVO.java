@@ -1,105 +1,65 @@
 package com.project.isc.iscdbserver.viewentity;
 
+import java.util.Date;
+
+import com.project.isc.iscdbserver.statusType.UserLevel;
+import com.project.isc.iscdbserver.statusType.UserType;
+
 public class UserVO {
+	// 用户id
+	private long userId;
+
+	// 账号
 	private String account;
+
+	// 昵称
 	private String nickName;
-	private String userLevel;
-	private String userType;
-	private String userStatus;
+
+	// 用户密码
+	private String password;
+
+	// 用户级别
+	private String userLevel = UserLevel.CONSUMER;
+
+	// 用户类型
+	private String userType = UserType.COMMON;
+	
+	//邀请码
+	private String invitationCode;
+
+	// 用户状态(false:未激活(初始化默认值),true:激活)
+	private boolean userStatus = true;
+
+	// 创建时间
+	private Date createTime;
+
+	// isc数目
+	private double iscCoin;
+	
+	//用户算力
+	private int calculateValue;
+
+	// 用户积分
+	private double productCoin;
+
+	// 用户激活时间
+	private Date activateTime;
+
+	// 用户手机号码
 	private String userPhone;
-	private String accountA;
-	private String accountB;
-	private String accountC;
-	private String createTime;
-	private String assessDate;
-	private String assessStatus;
-	private long bonusCoin;
-	private long consumeCoin;
-	private long productCoin;
-	private String activateTime;
-	private String identityNo;
-	private String passwordReset;
+	
+	// 省区
 	private String province;
+
+	// 市区
 	private String city;
 
-	public long getBonusCoin() {
-		return bonusCoin;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setBonusCoin(long bonusCoin) {
-		this.bonusCoin = bonusCoin;
-	}
-
-	public long getConsumeCoin() {
-		return consumeCoin;
-	}
-
-	public void setConsumeCoin(long consumeCoin) {
-		this.consumeCoin = consumeCoin;
-	}
-
-	public long getProductCoin() {
-		return productCoin;
-	}
-
-	public void setProductCoin(long productCoin) {
-		this.productCoin = productCoin;
-	}
-
-	public String getIdentityNo() {
-		return identityNo;
-	}
-
-	public void setIdentityNo(String identityNo) {
-		this.identityNo = identityNo;
-	}
-
-	public String getAccountA() {
-		return accountA;
-	}
-
-	public void setAccountA(String accountA) {
-		this.accountA = accountA;
-	}
-
-	public String getAccountB() {
-		return accountB;
-	}
-
-	public void setAccountB(String accountB) {
-		this.accountB = accountB;
-	}
-
-	public String getAccountC() {
-		return accountC;
-	}
-
-	public void setAccountC(String accountC) {
-		this.accountC = accountC;
-	}
-
-	public String getPasswordReset() {
-		return passwordReset;
-	}
-
-	public void setPasswordReset(String passwordReset) {
-		this.passwordReset = passwordReset;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getAccount() {
@@ -118,6 +78,14 @@ public class UserVO {
 		this.nickName = nickName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getUserLevel() {
 		return userLevel;
 	}
@@ -134,6 +102,62 @@ public class UserVO {
 		this.userType = userType;
 	}
 
+	public String getInvitationCode() {
+		return invitationCode;
+	}
+
+	public void setInvitationCode(String invitationCode) {
+		this.invitationCode = invitationCode;
+	}
+
+	public boolean isUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(boolean userStatus) {
+		this.userStatus = userStatus;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public double getIscCoin() {
+		return iscCoin;
+	}
+
+	public void setIscCoin(double iscCoin) {
+		this.iscCoin = iscCoin;
+	}
+
+	public int getCalculateValue() {
+		return calculateValue;
+	}
+
+	public void setCalculateValue(int calculateValue) {
+		this.calculateValue = calculateValue;
+	}
+
+	public double getProductCoin() {
+		return productCoin;
+	}
+
+	public void setProductCoin(double productCoin) {
+		this.productCoin = productCoin;
+	}
+
+	public Date getActivateTime() {
+		return activateTime;
+	}
+
+	public void setActivateTime(Date activateTime) {
+		this.activateTime = activateTime;
+	}
+
 	public String getUserPhone() {
 		return userPhone;
 	}
@@ -142,44 +166,21 @@ public class UserVO {
 		this.userPhone = userPhone;
 	}
 
-	public String getCreateTime() {
-		return createTime;
+	public String getProvince() {
+		return province;
 	}
 
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
-	public String getAssessDate() {
-		return assessDate;
+	public String getCity() {
+		return city;
 	}
 
-	public void setAssessDate(String assessDate) {
-		this.assessDate = assessDate;
+	public void setCity(String city) {
+		this.city = city;
 	}
-
-	public String getActivateTime() {
-		return activateTime;
-	}
-
-	public void setActivateTime(String activateTime) {
-		this.activateTime = activateTime;
-	}
-
-	public String getUserStatus() {
-		return userStatus;
-	}
-
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-	}
-
-	public String getAssessStatus() {
-		return assessStatus;
-	}
-
-	public void setAssessStatus(String assessStatus) {
-		this.assessStatus = assessStatus;
-	}
-
+	
+	
 }

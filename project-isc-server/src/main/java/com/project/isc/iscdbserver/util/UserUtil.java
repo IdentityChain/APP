@@ -14,7 +14,6 @@ public class UserUtil {
 	public static UserVO UserToUserVO(User user) {
 		UserVO userVO = new UserVO();
 		userVO.setAccount(user.getAccount());
-		userVO.setActivateTime(DateFormatUtil.DateObjectToString(user.getActivateTime()));
 		
 		return userVO;
 	}

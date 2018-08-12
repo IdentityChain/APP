@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.isc.iscdbserver.entity.Invitation;
-import com.project.isc.iscdbserver.repository.InvitationRepositoy;
+import com.project.isc.iscdbserver.repository.InvitationRepository;
 
 @Service
 public class InvitationService {
 
 	@Autowired
-	private InvitationRepositoy invitationRepositoy;
+	private InvitationRepository invitationRepositoy;
 	
 	
 	/**

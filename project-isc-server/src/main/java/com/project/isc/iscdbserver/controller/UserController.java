@@ -102,6 +102,7 @@ public class UserController {
 			user.setUserPhone(phone);
 			user.setCreateTime(new Date());
 			//返回用户的邀请码
+			user.setInvitationCode("邀请码AAA");
 			
 			// 返回新增用户信息
 			retMsg = new RetMsg();
