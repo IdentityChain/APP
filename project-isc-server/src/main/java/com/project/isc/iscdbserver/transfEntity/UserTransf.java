@@ -10,6 +10,7 @@ public class UserTransf{
 		uvo.setCreateTime(u.getCreateTime());
 		uvo.setNickName(u.getNickName());
 		uvo.setInvitationCode(u.getInvitationCode());
+		uvo.setIscCoin(u.getIscCoin());
 		return uvo;
 	}
 	

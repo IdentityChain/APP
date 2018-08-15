@@ -112,6 +112,70 @@ public class UserController {
 	}
 
 	/**
+	 * @Description：使用手机号登录
+	 */
+	@PostMapping("/loginbyphone")
+	@Transactional
+	public RetMsg loginByPhone(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+		String phone = userSavePostParams.getPhone();
+		String smsCodeString = userSavePostParams.getSmsCode();
+		String invitationCode = userSavePostParams.getInvitationCode();
+
+		// 如果数据校验有误，则直接返回校验错误信息
+		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
+		if (null != retMsg)
+			return retMsg;
+
+
+			
+			// 验证短信验证码是否正确
+			try {
+				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+					if (!smsCode.getCode().equals(smsCodeString)){
+						retMsg = new RetMsg();
+						retMsg.setMessage("验证码不正确");
+						retMsg.setCode(400);
+						retMsg.setSuccess(false);
+						return retMsg;
+					}
+				}else {
+					retMsg = new RetMsg();
+					retMsg.setMessage("请先获取验证码");
+					retMsg.setCode(400);
+					retMsg.setSuccess(false);
+					return retMsg;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("系统异常");
+			}
+			User user = this.userService.findByUserPhone(phone);
+			//如果得到用户信息允许登录否则直接注册登录
+			// phone不允许重复
+			if (null != user) {
+					
+			}else {
+				user = new User();
+				user.setUserPhone(phone);
+				user.setCreateTime(new Date());
+				user.setPinvitationCode(invitationCode);
+				userService.save(user);
+				//返回用户的邀请码
+				String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());
+				user.setInvitationCode(myInvitationCode);
+				userService.save(user);
+			}
+			// 返回新增用户信息
+			retMsg = new RetMsg();
+			retMsg.setCode(200);
+			retMsg.setData(UserTransf.transfToVO(user));
+			retMsg.setMessage("用户登录成功");
+			retMsg.setSuccess(true);
+			return retMsg;
+	}
+	
+	/**
 	 * @Description：更新用户登录密码
 	 * @return：RetMsg
 	 */
@@ -146,7 +210,7 @@ public class UserController {
 
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(user.getAccount());
+		retMsg.setData(UserTransf.transfToVO(user));
 		retMsg.setMessage("用户登录密码更新成功");
 		retMsg.setSuccess(true);
 
