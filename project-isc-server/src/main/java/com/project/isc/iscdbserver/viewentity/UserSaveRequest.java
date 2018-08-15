@@ -10,24 +10,14 @@ public class UserSaveRequest {
 	@NotBlank(message = "新增手机号不能为空!")
 	private String phone;
 	
-	@NotBlank(message = "新增用户密码不能为空!")
-	private String password;
-	
 	@NotBlank(message = "验证码不能为空!")
 	private String smsCode;
 	
+	//邀请码，选填
+	private String invitationCode;
+	
 	public UserSaveRequest() {
 	}
-
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 
 	public String getPhone() {
 		return phone;
@@ -47,7 +37,12 @@ public class UserSaveRequest {
 		this.smsCode = smsCode;
 	}
 
+	public String getInvitationCode() {
+		return invitationCode;
+	}
 
-	
+	public void setInvitationCode(String invitationCode) {
+		this.invitationCode = invitationCode;
+	}
 
 }

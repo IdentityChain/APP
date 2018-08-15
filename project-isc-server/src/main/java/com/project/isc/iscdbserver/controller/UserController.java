@@ -23,9 +23,10 @@ import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.service.RedisService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.SmsType;
-import com.project.isc.iscdbserver.util.UserUtil;
+import com.project.isc.iscdbserver.transfEntity.UserTransf;
 import com.project.isc.iscdbserver.util.ValidateErrorUtil;
 import com.project.isc.iscdbserver.util.MD5Util;
+import com.project.isc.iscdbserver.util.ShareCodeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 import com.project.isc.iscdbserver.viewentity.UpdatePaymentPasswordRequest;
@@ -51,13 +52,6 @@ public class UserController {
 	@Autowired
 	private RedisService redisService;
 	
-	//新增用户
-	@GetMapping("/testsave")
-	public User saveTestUser() {
-		User user = UserUtil.getTestUser();
-		return this.userService.save(user);
-	}
-	
 	/**
 	 * @Description：新增用户
 	 */
@@ -66,6 +60,7 @@ public class UserController {
 	public RetMsg saveUser(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
+		String invitationCode = userSavePostParams.getInvitationCode();
 
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -101,13 +96,16 @@ public class UserController {
 			User user = new User();
 			user.setUserPhone(phone);
 			user.setCreateTime(new Date());
+			user.setPinvitationCode(invitationCode);
+			userService.save(user);
 			//返回用户的邀请码
-			user.setInvitationCode("邀请码AAA");
-			
+			String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());
+			user.setInvitationCode(myInvitationCode);
+			userService.save(user);
 			// 返回新增用户信息
 			retMsg = new RetMsg();
 			retMsg.setCode(200);
-			retMsg.setData(UserUtil.UserToUserVO(user));
+			retMsg.setData(UserTransf.transfToVO(user));
 			retMsg.setMessage("用户注册成功");
 			retMsg.setSuccess(true);
 			return retMsg;
@@ -191,7 +189,7 @@ public class UserController {
 		if (!user.isPasswordReset()) {
 			retMsg.setCode(200);
 			retMsg.setSuccess(true);
-			retMsg.setData(UserUtil.UserToUserVO(user));
+			retMsg.setData(UserTransf.transfToVO(user));
 			retMsg.setMessage("用户重置密码");
 
 			return retMsg;
@@ -199,7 +197,7 @@ public class UserController {
 
 		retMsg.setCode(200);
 		retMsg.setSuccess(true);
-		retMsg.setData(UserUtil.UserToUserVO(user));
+		retMsg.setData(UserTransf.transfToVO(user));
 
 		return retMsg;
 	}
@@ -260,7 +258,7 @@ public class UserController {
 
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(UserUtil.UserToUserVO(user));
+		retMsg.setData(UserTransf.transfToVO(user));
 		retMsg.setSuccess(true);
 		retMsg.setMessage("用户设置成功");
 
@@ -302,7 +300,7 @@ public class UserController {
 			User u = this.userService.findByAccount(account);
 			RetMsg retMsg = new RetMsg();
 			retMsg.setCode(200);
-			retMsg.setData(UserUtil.UserToUserVO(u));
+			retMsg.setData(UserTransf.transfToVO(u));
 			retMsg.setMessage("用户查询成功");
 			retMsg.setSuccess(true);
 			return retMsg;
@@ -344,7 +342,7 @@ public class UserController {
 
 			retMsg = new RetMsg();
 			retMsg.setCode(200);
-			retMsg.setData(UserUtil.UserToUserVO(user));
+			retMsg.setData(UserTransf.transfToVO(user));
 			retMsg.setMessage("支付密码修改成功");
 			retMsg.setSuccess(true);
 

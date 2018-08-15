@@ -53,6 +53,10 @@ public class User implements Serializable {
 	//邀请码
 	@Column
 	private String invitationCode;
+	
+	//邀请人-谁邀请的我
+	@Column
+	private String pinvitationCode;
 
 	// 用户状态(false:未激活(初始化默认值),true:激活)
 	@Column(nullable = false)
@@ -268,6 +272,14 @@ public class User implements Serializable {
 
 	public void setInvitationCode(String invitationCode) {
 		this.invitationCode = invitationCode;
+	}
+
+	public String getPinvitationCode() {
+		return pinvitationCode;
+	}
+
+	public void setPinvitationCode(String pinvitationCode) {
+		this.pinvitationCode = pinvitationCode;
 	}
 
 	/**
