@@ -26,7 +26,7 @@ public class SmsController {
 	@Autowired
 	private RedisService redisService;
 
-	@GetMapping("/getCodeByPhone//{phoneNumber}")
+	@GetMapping("/getCodeByPhone/{phoneNumber}")
 	public RetMsg getSmsCodeByAccount(@PathVariable("phoneNumber") String phoneNumber) {
 		RetMsg retMsg = new RetMsg();
 
