@@ -73,27 +73,27 @@ public class UserController {
 			throw new RuntimeException("此手机号已注册");
 			
 			// 验证短信验证码是否正确
-//			try {
-//				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
-//				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
-//					if (!smsCode.getCode().equals(smsCodeString)){
-//						retMsg = new RetMsg();
-//						retMsg.setMessage("验证码不正确");
-//						retMsg.setCode(400);
-//						retMsg.setSuccess(false);
-//						return retMsg;
-//					}
-//				}else {
-//					retMsg = new RetMsg();
-//					retMsg.setMessage("请先获取验证码");
-//					retMsg.setCode(400);
-//					retMsg.setSuccess(false);
-//					return retMsg;
-//				}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				throw new RuntimeException("系统异常");
-//			}
+			try {
+				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+					if (!smsCode.getCode().equals(smsCodeString)){
+						retMsg = new RetMsg();
+						retMsg.setMessage("验证码不正确");
+						retMsg.setCode(400);
+						retMsg.setSuccess(false);
+						return retMsg;
+					}
+				}else {
+					retMsg = new RetMsg();
+					retMsg.setMessage("请先获取验证码");
+					retMsg.setCode(400);
+					retMsg.setSuccess(false);
+					return retMsg;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException("系统异常");
+			}
 			User user = new User();
 			user.setUserPhone(phone);
 			user.setAccount(phone);
