@@ -100,6 +100,7 @@ public class UserController {
 			user.setCreateTime(new Date());
 			user.setPinvitationCode(invitationCode);//设置邀请码
 			user.setPassword(MD5Util.encrypeByMd5(password));
+			user.setCalculateValue(100);
 			userService.save(user);
 			//返回用户的邀请码
 			String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());
@@ -253,14 +254,14 @@ public class UserController {
 
 		retMsg = new RetMsg();
 		// 验证用户是否需要重置密码
-		if (!user.isPasswordReset()) {
-			retMsg.setCode(200);
-			retMsg.setSuccess(true);
-			retMsg.setData(UserTransf.transfToVO(user));
-			retMsg.setMessage("用户重置密码");
-
-			return retMsg;
-		}
+//		if (!user.isPasswordReset()) {
+//			retMsg.setCode(200);
+//			retMsg.setSuccess(true);
+//			retMsg.setData(UserTransf.transfToVO(user));
+//			retMsg.setMessage("用户重置密码");
+//
+//			return retMsg;
+//		}
 
 		retMsg.setCode(200);
 		retMsg.setSuccess(true);
