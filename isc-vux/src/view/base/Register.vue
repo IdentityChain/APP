@@ -48,6 +48,7 @@ export default {
       vcode: '',
       reget: '',
       password: '',
+      yaoqingma: '',
       waiting: false,
       counter: 59
     }
@@ -56,6 +57,28 @@ export default {
     doRegister () {
       if (this.$refs.input1.valid && this.$refs.input2.valid && this.$refs.input3.valid) {
         console.log('do register')
+        let requestOptions = {
+          url: this.AppConfig.apiServer + '/user/firstsave',
+          params: {
+            phone: this.telNum.replace(/[ ]/g, ''),
+            password: this.password,
+            smsCode: this.vcode,
+            invitationCode: this.yaoqingma
+          }
+        }
+        this.doPost(requestOptions).then(result => {
+          if (result.success) {
+            this.$vux.toast.show({
+              type: 'success',
+              text: '注册成功'
+            })
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              text: result.message
+            })
+          }
+        })
       } else {
         this.$vux.toast.show({
           type: 'text',

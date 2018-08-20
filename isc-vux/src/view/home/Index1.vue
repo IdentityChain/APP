@@ -1,6 +1,6 @@
 <template>
-  <div class="">
-    <group>
+  <div class="" style="background-color: #EFEFEF;">
+    <img src="../../assets/wakuang/bg_panel.png" style="z-index: -10;height: 100%;width: 100%"/>
       <!--<cell title="公告">-->
       <!--<marquee>-->
       <!--<marquee-item v-for="i in 5" :key="i" @click.native="onClick(i)">{{ 'JavaScript is the best language'}}-->
@@ -8,20 +8,10 @@
       <!--</marquee-item>-->
       <!--</marquee>-->
       <!--</cell>-->
-      <div style="height: 350px;">
-        <index-panel></index-panel>
-      </div>
-      <cell title="公告">
-        <marquee style="width: 80%;text-align: right">
-          <marquee-item>xxxxxxxxxxxxxx111111111111122222222222222</marquee-item>
-        </marquee>
-      </cell>
+      <!--<div style="height: 350px;">-->
+        <!--<index-panel></index-panel>-->
+      <!--</div>-->
 
-      <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper>
-    </group>
-    <group title="开心夺宝">
-      <img style="width: 100%" src="../../assets/swipper.png"/>
-    </group>
   </div>
 </template>
 

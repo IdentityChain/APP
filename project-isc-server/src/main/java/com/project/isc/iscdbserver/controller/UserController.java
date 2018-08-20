@@ -73,27 +73,27 @@ public class UserController {
 			throw new RuntimeException("此手机号已注册");
 			
 			// 验证短信验证码是否正确
-			try {
-				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
-				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
-					if (!smsCode.getCode().equals(smsCodeString)){
-						retMsg = new RetMsg();
-						retMsg.setMessage("验证码不正确");
-						retMsg.setCode(400);
-						retMsg.setSuccess(false);
-						return retMsg;
-					}
-				}else {
-					retMsg = new RetMsg();
-					retMsg.setMessage("请先获取验证码");
-					retMsg.setCode(400);
-					retMsg.setSuccess(false);
-					return retMsg;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("系统异常");
-			}
+//			try {
+//				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+//				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+//					if (!smsCode.getCode().equals(smsCodeString)){
+//						retMsg = new RetMsg();
+//						retMsg.setMessage("验证码不正确");
+//						retMsg.setCode(400);
+//						retMsg.setSuccess(false);
+//						return retMsg;
+//					}
+//				}else {
+//					retMsg = new RetMsg();
+//					retMsg.setMessage("请先获取验证码");
+//					retMsg.setCode(400);
+//					retMsg.setSuccess(false);
+//					return retMsg;
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("系统异常");
+//			}
 			User user = new User();
 			user.setUserPhone(phone);
 			user.setAccount(phone);
@@ -252,18 +252,19 @@ public class UserController {
 		response.setHeader("loginStatus", "true");
 
 		retMsg = new RetMsg();
-		// 验证用户是否需要重置密码
-		if (!user.isPasswordReset()) {
-			retMsg.setCode(200);
-			retMsg.setSuccess(true);
-			retMsg.setData(UserTransf.transfToVO(user));
-			retMsg.setMessage("用户重置密码");
-
-			return retMsg;
-		}
+//		// 验证用户是否需要重置密码
+//		if (!user.isPasswordReset()) {
+//			retMsg.setCode(200);
+//			retMsg.setSuccess(true);
+//			retMsg.setData(UserTransf.transfToVO(user));
+//			retMsg.setMessage("用户重置密码");
+//
+//			return retMsg;
+//		}
 
 		retMsg.setCode(200);
 		retMsg.setSuccess(true);
+		retMsg.setMessage("登陆成功");
 		retMsg.setData(UserTransf.transfToVO(user));
 
 		return retMsg;

@@ -6,16 +6,19 @@
     </keep-alive>
     <tabbar slot="bottom">
       <tabbar-item selected @click.native="changeView('index1')">
-        <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">挖宝</span>
+        <img slot="icon" src="../../assets/icon/WK_hui.png">
+        <img slot="icon-active" src="../../assets/icon/WK.png">
+        <!--<span slot="label" style="color: mediumslateblue">挖宝</span>-->
       </tabbar-item>
       <tabbar-item  @click.native="changeView('index2')">
-        <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">应用</span>
+        <img slot="icon" src="../../assets/icon/yingyong_hui.png">
+        <img slot="icon-active" src="../../assets/icon/YINGYONG.png">
+        <!--<span slot="label">应用</span>-->
       </tabbar-item>
       <tabbar-item  @click.native="changeView('my')" >
-        <img slot="icon" src="../../assets/icon/tel.png">
-        <span slot="label">我的</span>
+        <img slot="icon" src="../../assets/icon/my_hui.png">
+        <img slot="icon-active" src="../../assets/icon/MY.png">
+        <!--<span slot="label">我的</span>-->
       </tabbar-item>
     </tabbar>
     </view-box>
