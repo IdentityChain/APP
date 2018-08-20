@@ -1,5 +1,6 @@
 package com.project.isc.iscdbserver.util;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -82,14 +83,18 @@ public class ShareCodeUtil {
         return res;
     }
     
-    public static void main(String[] args) {
-    		Map<String,String> map = new HashMap<String,String>();
-    		for (int i = 0; i < 10000000; i++) {
-    			String code = ShareCodeUtil.toSerialCode(Long.parseLong(i+""));
-    			map.put(code, code);
+    public static void main(String[] args) throws InterruptedException {
+//    		Map<String,String> map = new HashMap<String,String>();
+//    		for (int i = 0; i < 10000000; i++) {
+////    			String code = ShareCodeUtil.toSerialCode(Long.parseLong(i+""));
+//        			String code = ShareCodeUtil.toSerialCode(new Date().getTime());
+//        			Thread.sleep(100);
+////    			map.put(code, code);
 //    			System.out.println(i+":"+code);
-		}
-    		System.out.println("10000000:"+map.size());
+//		}
+////    		System.out.println("10000000:"+map.size());
+    		
+
 
 	}
 }

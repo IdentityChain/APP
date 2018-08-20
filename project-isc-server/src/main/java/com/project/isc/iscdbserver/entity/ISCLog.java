@@ -17,24 +17,38 @@ import javax.persistence.TemporalType;
 public class ISCLog implements Serializable{
 
 	private static final long serialVersionUId = 1L;
-	
+	//id
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long isclId;
+	//用户ID
 	@Column
 	private long userId;
+	//活动ID
 	@Column
 	private long activityId;;
+	//原始ISC
 	@Column
 	private double originalISC;
+	//新增ISC
 	@Column
 	private double addISC;
+	//最终ISC
 	@Column
 	private double finallyISC;
+	//状态
+	@Column
+	private String status;
 	
+	//创建时间
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
+	
+	//确认时间
+	@Column
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date confirmTime;
 
 	public long getIsclId() {
 		return isclId;
@@ -90,6 +104,22 @@ public class ISCLog implements Serializable{
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Date getConfirmTime() {
+		return confirmTime;
+	}
+
+	public void setConfirmTime(Date confirmTime) {
+		this.confirmTime = confirmTime;
 	}
 	
 }

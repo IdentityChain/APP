@@ -57,10 +57,11 @@ public class UserController {
 	 */
 	@PostMapping("/firstsave")
 	@Transactional
-	public RetMsg saveUser(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+	public RetMsg firstsave(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
 		String invitationCode = userSavePostParams.getInvitationCode();
+		String password = userSavePostParams.getPassword();
 
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -72,31 +73,33 @@ public class UserController {
 			throw new RuntimeException("此手机号已注册");
 			
 			// 验证短信验证码是否正确
-			try {
-				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
-				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
-					if (!smsCode.getCode().equals(smsCodeString)){
-						retMsg = new RetMsg();
-						retMsg.setMessage("验证码不正确");
-						retMsg.setCode(400);
-						retMsg.setSuccess(false);
-						return retMsg;
-					}
-				}else {
-					retMsg = new RetMsg();
-					retMsg.setMessage("请先获取验证码");
-					retMsg.setCode(400);
-					retMsg.setSuccess(false);
-					return retMsg;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException("系统异常");
-			}
+//			try {
+//				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+//				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+//					if (!smsCode.getCode().equals(smsCodeString)){
+//						retMsg = new RetMsg();
+//						retMsg.setMessage("验证码不正确");
+//						retMsg.setCode(400);
+//						retMsg.setSuccess(false);
+//						return retMsg;
+//					}
+//				}else {
+//					retMsg = new RetMsg();
+//					retMsg.setMessage("请先获取验证码");
+//					retMsg.setCode(400);
+//					retMsg.setSuccess(false);
+//					return retMsg;
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				throw new RuntimeException("系统异常");
+//			}
 			User user = new User();
 			user.setUserPhone(phone);
+			user.setAccount(phone);
 			user.setCreateTime(new Date());
-			user.setPinvitationCode(invitationCode);
+			user.setPinvitationCode(invitationCode);//设置邀请码
+			user.setPassword(MD5Util.encrypeByMd5(password));
 			userService.save(user);
 			//返回用户的邀请码
 			String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());

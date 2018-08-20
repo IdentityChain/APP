@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
+import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
+import com.project.isc.iscdbserver.service.UserService;
+import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 
@@ -33,6 +37,8 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin
 public class CalculateController {
 	@Autowired
+	private UserService userService;
+	@Autowired
 	private CalculateService calculateService;
 	@Autowired
 	private ActivtyService activtyService;
@@ -45,17 +51,23 @@ public class CalculateController {
 		
 //		calculateStatistics.get
 		List<CalculateStatisticsVO> ccsvos = new ArrayList<CalculateStatisticsVO>();
-		for (int i = 1; i < 100; i++) {
+//		for (int i = 1; i < 100; i++) {
+//			CalculateStatisticsVO vo = new CalculateStatisticsVO();
+//			vo.setName("zs"+i);
+//			vo.setCcsId(i);
+//			vo.setCreateTime(new Date());
+//			vo.setCalculateValue(168-i);
+//			vo.setRanking(i);
+//			ccsvos.add(vo);
+//		}
+		List<CalculateStatistics> ccss =calculateService.getTop100();
+		for (CalculateStatistics ccs : ccss) {
 			CalculateStatisticsVO vo = new CalculateStatisticsVO();
-			vo.setName("zs"+i);
-			vo.setCcsId(i);
-			vo.setCreateTime(new Date());
-			vo.setCalculateValue(168-i);
-			vo.setRanking(i);
+			vo.setCreateTime(ccs.getCreateTime());
+			vo.setCalculateValue(ccs.getCalculateValue());
+			vo.setRanking(ccs.getRanking());
 			ccsvos.add(vo);
 		}
-
-		
 		
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
@@ -75,7 +87,7 @@ public class CalculateController {
 		RetMsg retMsg = new RetMsg();
 		
 //		User user = userService.getUserById(userid);
-		List<ISCLog> isclogs = calculateService.getCalculateLog(userid);
+		List<ISCLog> isclogs = calculateService.getCalculateLogByUserId(userid);
 		
 		
 		
@@ -97,11 +109,25 @@ public class CalculateController {
 		RetMsg retMsg = new RetMsg();
 		
 //		User user = userService.getUserById(userid);
+		String massage = "数据异常";
+		ISCLog isclog = calculateService.getCalculateLog(logid);
+		//状态是新增的处理
+		if(isclog!=null && ISCConstant.ISC_LOG_NEW.equals(isclog.getStatus())) {
+			isclog.setConfirmTime(new Date());
+			
+			Long userid = isclog.getUserId();
+			User user = userService.getUserById(userid);
+			user.setIscCoin(user.getIscCoin()+isclog.getAddISC());
+			
+			calculateService.saveCalculateLog(isclog);
+			userService.save(user);
+			massage = "挖矿成功";
+		}		
 		
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(true);
-		retMsg.setMessage("用户点击挖矿数据成功");
+		retMsg.setData(massage);
+		retMsg.setMessage("成功");
 		retMsg.setSuccess(true);
 
 		return retMsg;
