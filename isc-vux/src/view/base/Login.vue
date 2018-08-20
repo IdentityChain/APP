@@ -31,7 +31,7 @@
         </flexbox-item>
       </flexbox>
       <div style="text-align: right;margin-right: 10px;margin-top: 5px">
-        <a href="">忘记密码</a>
+        <a href="#" @click="resetPasswd">忘记密码</a>
       </div>
     </box>
   </div>
@@ -60,12 +60,40 @@ export default {
     }
   },
   methods: {
+    resetPasswd () {
+      this.$router.push({name: 'resetPasswd'})
+    },
     register () {
       console.log('goto register')
       this.$router.push({name: 'register'})
     },
     doLogin () {
       if (this.$refs.input1.valid && this.$refs.input2.valid) {
+        let requestOption = {
+          url: this.AppConfig.apiServer + '/user/login',
+          params: {
+            account: this.telNum.replace(/[ ]/g, ''),
+            password: this.password
+          }
+        }
+        this.doPost(requestOption).then(result => {
+          if (result.success) {
+            console.log(result)
+            const userObj = result.data
+            window.localStorage.setItem('User', JSON.stringify(userObj))
+            this.$router.push({name: 'home'})
+            this.$vux.toast.show({
+              type: 'success',
+              text: result.message
+            })
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              text: result.message,
+              width: '10em'
+            })
+          }
+        })
       }
     },
     nextStep () {

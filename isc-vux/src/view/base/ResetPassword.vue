@@ -18,7 +18,10 @@
       <!--</group>-->
       <flexbox>
         <flexbox-item>
-          <x-button plain type="default">重置密码</x-button>
+          <x-button plain type="default" @click.native="goLogin">返回登陆</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button plain type="default" @click.native="doResetPasswd">重置密码</x-button>
         </flexbox-item>
       </flexbox>
     </box>
@@ -42,11 +45,18 @@
         telNum: '',
         vcode: '',
         reget: '',
+        password: '',
         waiting: false,
         counter: 59
       }
     },
     methods: {
+      goLogin () {
+        this.$router.push({name: 'login'})
+      },
+      doResetPasswd () {
+        console.log('do reset')
+      },
       nextStep () {
         this.$router.push({name: 'home'})
       },
@@ -54,7 +64,7 @@
         if (this.$refs.input1.valid) {
           console.log(this.telNum)
           console.log(this.telNum.replace(/[ ]/g, ''))
-          const urlstr = this.AppConfig.apiServer + '/sms/getCodeByPhone/phoneNumber=' + this.telNum.replace(/[ ]/g, '')
+          const urlstr = this.AppConfig.apiServer + '/sms/getCodeByPhone/' + this.telNum.replace(/[ ]/g, '')
           this.doGet({
             url: urlstr
           }).then(result => {
@@ -85,6 +95,8 @@
         this.reget = '(' + this.counter + ')'
         this.counter --
         if (this.counter < 0) {
+          this.waiting = false
+          this.reget = ''
           window.clearInterval(this.timer)
           this.counter = 59
         }
