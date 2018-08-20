@@ -1,11 +1,10 @@
 <template>
   <div>
-    <div style="text-align: left;margin-left:14px;margin-top: 25%">
-      <h3>ISC身份登陆/创建 </h3>
-    </div>
-    <box gap="10px 10px" style="margin-top: 10%">
-      <group title="">
+    <img style="height: 100%;width: 100%;z-index: -10;position: absolute;top: 0px; left: 0px;" src="../../assets/bg.png"/>
+    <box gap="70% 40px" style="border-radius: 10px;background-color: #fbf9fe;padding-top: 20px">
 
+      <!--<group title="" style="margin-top: 30px">-->
+      <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">
         <x-input title="手机号" mask="999 9999 9999" required v-model="telNum" :max="13" ref="input1" is-type="china-mobile">
           <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
           <!--width="24" height="24">-->
@@ -15,33 +14,48 @@
           <x-button slot="right" type="primary" mini @click.native="getSmsCode" :disabled="waiting">获取验证码{{reget}}</x-button>
         </x-input>
 
-      </group>
-      <br>
-      <x-button plain  @click.native="nextStep" :disabled="isInput">确认</x-button>
+        <x-input title="密码" type="password" placeholder="设置您的登陆密码"  required v-model="password" :min="6" :max="20" ref="input2"></x-input>
+        <x-input title="邀请码" mask="999 9999 9999"  :max="13" ref="input3" placeholder="可选填邀请码"></x-input>
+      </div>
+      <!--</group>-->
+      <flexbox>
+        <flexbox-item>
+          <x-button plain type="default">注册</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button plain type="default" @click.native="login">登陆</x-button>
+        </flexbox-item>
+      </flexbox>
     </box>
   </div>
 </template>
 
 <script>
-import { XInput, XButton, Group, Box } from 'vux'
+import { XInput, XButton, Group, Box, Flexbox, FlexboxItem } from 'vux'
 export default {
   name: 'Register',
   components: {
     XInput,
     XButton,
     Group,
-    Box
+    Box,
+    Flexbox,
+    FlexboxItem
   },
   data () {
     return {
       telNum: '',
       vcode: '',
       reget: '',
+      password: '',
       waiting: false,
       counter: 59
     }
   },
   methods: {
+    login () {
+      this.$router.push({name: 'login'})
+    },
     nextStep () {
       this.$router.push({name: 'home'})
     },

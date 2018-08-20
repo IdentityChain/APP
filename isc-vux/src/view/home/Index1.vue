@@ -2,25 +2,33 @@
   <div class="">
     <group>
       <!--<cell title="公告">-->
-        <!--<marquee>-->
-          <!--<marquee-item v-for="i in 5" :key="i" @click.native="onClick(i)">{{ 'JavaScript is the best language'}}-->
-            <!--{{i}}-->
-          <!--</marquee-item>-->
-        <!--</marquee>-->
+      <!--<marquee>-->
+      <!--<marquee-item v-for="i in 5" :key="i" @click.native="onClick(i)">{{ 'JavaScript is the best language'}}-->
+      <!--{{i}}-->
+      <!--</marquee-item>-->
+      <!--</marquee>-->
       <!--</cell>-->
-      <div style="height: 200px">
-        待制作面板
+      <div style="height: 350px;">
+        <index-panel></index-panel>
       </div>
+      <cell title="公告">
+        <marquee style="width: 80%;text-align: right">
+          <marquee-item>xxxxxxxxxxxxxx111111111111122222222222222</marquee-item>
+        </marquee>
+      </cell>
+
       <swiper :list="demo01_list" v-model="demo01_index" @on-index-change="demo01_onIndexChange"></swiper>
     </group>
     <group title="开心夺宝">
-        <img style="width: 100%" src="../../assets/swipper.png"/>
+      <img style="width: 100%" src="../../assets/swipper.png"/>
     </group>
   </div>
 </template>
 
 <script>
-  import {Group, Cell, Swiper} from 'vux'
+  import {Group, Cell, Swiper, Marquee, MarqueeItem} from 'vux'
+  import IndexPanel from '../../components/IndexPanel'
+
   const baseList = [{
     url: 'javascript:',
     img: 'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg',
@@ -41,7 +49,10 @@
     components: {
       Group,
       Cell,
-      Swiper
+      Swiper,
+      Marquee,
+      MarqueeItem,
+      IndexPanel
     },
     data () {
       return {

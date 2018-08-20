@@ -4,7 +4,7 @@
     <keep-alive>
       <component :is="currentView" @linkTo="changeView" ref="nowView"></component>
     </keep-alive>
-    <tabbar>
+    <tabbar slot="bottom">
       <tabbar-item selected @click.native="changeView('index1')">
         <img slot="icon" src="../../assets/icon/tel.png">
         <span slot="label">挖宝</span>

@@ -1,43 +1,53 @@
 <template>
   <div>
-    <div style="text-align: center;margin-top: 15%">
-      <img class="logo" src="../../assets/logo.jpeg" style="width: 40%;height: 40%">
-      <h1> </h1>
-    </div>
-    <box gap="10px 10px">
-    <group title="">
-
-      <x-input title="手机号" mask="999 9999 9999" required v-model="telNum" :max="13" ref="input1" is-type="china-mobile">
-        <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
-             <!--width="24" height="24">-->
-
-      </x-input>
-
-      <x-input title="密码"  required v-model="password" :min="6" :max="13" ref="input2">
-        <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
-        <!--width="24" height="24">-->
-
-      </x-input>
-
-    </group>
-        <br>
-        <x-button plain  @click.native="nextStep" :disabled="isInput" type="submit" >登陆</x-button>
+    <img style="height: 100%;width: 100%;z-index: -10;position: absolute;top: 0px; left: 0px;" src="../../assets/bg.png"/>
+    <!--<div style="text-align: center;margin-top: 15%">-->
+      <!--<img class="logo" src="../../assets/logo.jpeg" style="width: 40%;height: 40%">-->
+      <!--<h1> </h1>-->
+    <!--</div>-->
+    <box gap="70% 40px" style="border-radius: 10px;background-color: #fbf9fe;padding-top: 20px">
+        <!--<group title="" style="margin-top: 30px">-->
+          <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">
 
 
-      <p style="text-align: right;font-size: small;margin-top: 10px;color: grey" ><button @click="register" style="border: 0px none;background-color: #FAF7FE" > 新用户注册</button></p>
+          <x-input title="手机号码" mask="999 9999 9999" required v-model="telNum" :max="13" ref="input1" is-type="china-mobile">
+            <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
+            <!--width="24" height="24">-->
+
+          </x-input>
+
+          <x-input title="密码" type="password"  required v-model="password" :min="6" :max="13" ref="input2">
+            <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
+            <!--width="24" height="24">-->
+          </x-input>
+          </div>
+        <!--</group>-->
+      <flexbox>
+        <flexbox-item>
+          <x-button plain type="default" @click.native="register">注册</x-button>
+        </flexbox-item>
+        <flexbox-item>
+          <x-button plain type="default" @click.native="doLogin" :disabled="isDisableLogin">登陆</x-button>
+        </flexbox-item>
+      </flexbox>
+      <div style="text-align: right;margin-right: 10px;margin-top: 5px">
+        <a href="">忘记密码</a>
+      </div>
     </box>
   </div>
 </template>
 
 <script>
-import { Group, XInput, XButton, Box } from 'vux'
+import { Group, XInput, XButton, Box, Flexbox, FlexboxItem } from 'vux'
 
 export default {
   components: {
     Group,
     XInput,
     XButton,
-    Box
+    Box,
+    Flexbox,
+    FlexboxItem
   },
   data () {
     return {
@@ -53,6 +63,10 @@ export default {
     register () {
       console.log('goto register')
       this.$router.push({name: 'register'})
+    },
+    doLogin () {
+      if (this.$refs.input1.valid && this.$refs.input2.valid) {
+      }
     },
     nextStep () {
       if (this.$refs.input1.valid) {
@@ -76,8 +90,8 @@ export default {
     }
   },
   computed: {
-    isInput () {
-      return this.telNum.length === 0
+    isDisableLogin () {
+      return this.telNum.length === 0 || this.password.length === 0
     }
   }
 }

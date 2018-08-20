@@ -5,7 +5,7 @@ import FastClick from 'fastclick'
 import VueRouter from 'vue-router'
 import router from './router/index'
 import VueResource from 'vue-resource'
-import { ToastPlugin } from 'vux'
+import {ToastPlugin} from 'vux'
 import AppConfig from './config/config'
 import HttpRequest from './util/ajax'
 import App from './App'
@@ -22,7 +22,10 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
+// document.addEventListener('deviceready', function () {
 new Vue({
   router,
   render: h => h(App)
 }).$mount('#app-box')
+//   window.navigator.splashscreen.hide()
+// }, false)
