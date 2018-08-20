@@ -10,17 +10,17 @@
           <!--width="24" height="24">-->
 
         </x-input>
-        <x-input title="验证码" class="weui-vcode" v-model="vcode">
+        <x-input title="验证码" required class="weui-vcode" v-model="vcode" :min="4" :max="4" :show-clear="false" ref="input2">
           <x-button slot="right" type="primary" mini @click.native="getSmsCode" :disabled="waiting">获取验证码{{reget}}</x-button>
         </x-input>
 
-        <x-input title="密码" type="password" placeholder="设置您的登陆密码"  required v-model="password" :min="6" :max="20" ref="input2"></x-input>
-        <x-input title="邀请码" mask="999 9999 9999"  :max="13" ref="input3" placeholder="可选填邀请码"></x-input>
+        <x-input title="密码" type="password" placeholder="设置您的登陆密码"  required v-model="password" :min="6" :max="20" ref="input3"></x-input>
+        <x-input title="邀请码" mask="999 9999 9999" :min="6"  :max="6" ref="input3" placeholder="可选填邀请码"></x-input>
       </div>
       <!--</group>-->
       <flexbox>
         <flexbox-item>
-          <x-button plain type="default">注册</x-button>
+          <x-button plain type="default" @click.native="doRegister">注册</x-button>
         </flexbox-item>
         <flexbox-item>
           <x-button plain type="default" @click.native="login">登陆</x-button>
@@ -53,6 +53,16 @@ export default {
     }
   },
   methods: {
+    doRegister () {
+      if (this.$refs.input1.valid && this.$refs.input2.valid && this.$refs.input3.valid) {
+        console.log('do register')
+      } else {
+        this.$vux.toast.show({
+          type: 'text',
+          text: '请完整填写信息'
+        })
+      }
+    },
     login () {
       this.$router.push({name: 'login'})
     },
@@ -88,12 +98,13 @@ export default {
           width: '10em'
         })
       }
-      console.log('sdf')
     },
     changeBtnText () {
       this.reget = '(' + this.counter + ')'
       this.counter --
       if (this.counter < 0) {
+        this.waiting = false
+        this.reget = ''
         window.clearInterval(this.timer)
         this.counter = 59
       }

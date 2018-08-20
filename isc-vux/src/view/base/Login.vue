@@ -66,6 +66,20 @@ export default {
     },
     doLogin () {
       if (this.$refs.input1.valid && this.$refs.input2.valid) {
+        let requestOption = {
+          url: this.AppConfig.apiServer + '/user/login',
+          params: {
+            account: this.telNum,
+            password: this.password
+          }
+        }
+        this.doPost(requestOption).then(result => {
+          if (result.success) {
+            console.log(result)
+          } else {
+            console.log(result.message)
+          }
+        })
       }
     },
     nextStep () {
