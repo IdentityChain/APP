@@ -1,5 +1,6 @@
 package com.project.isc.iscdbserver.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,5 +13,7 @@ import com.project.isc.iscdbserver.entity.ISCLog;
 public interface ISCLogRepository extends JpaRepository<ISCLog, Long>, JpaSpecificationExecutor<ISCLog> {
 
 	List<ISCLog> findByUserId(Long userid);
+
+	List<ISCLog> findByCreateTimeLessThanAndStatus(Date date,String status);
 
 }

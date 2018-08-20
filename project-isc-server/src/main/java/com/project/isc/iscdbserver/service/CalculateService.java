@@ -1,5 +1,6 @@
 package com.project.isc.iscdbserver.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,28 @@ public class CalculateService {
 	public List<ISCLog> getAllCalculateLog() {
 		//这里只出现新增的
 		List<ISCLog> isclogs = iscLogRepository.findAll();
+		return isclogs;
+	}
+	
+	/**
+	 * 保存所有矿数据
+	 * @param isclogs
+	 */
+	public void savaAllCalculateLog(List<ISCLog> isclogs) {
+		iscLogRepository.save(isclogs);
+	}
+	
+	/**
+	 * 保存所有排名信息
+	 * @param ccss
+	 */
+	public void saveAllCalculateStatistics(List<CalculateStatistics> ccss) {
+		calculateStatisticsRepository.save(ccss);
+	}
+	
+	public List<ISCLog> getAllCalculateLogByCreateTime(Date date,String status) {
+		//这里只出现新增的
+		List<ISCLog> isclogs = iscLogRepository.findByCreateTimeLessThanAndStatus(date,status);
 		return isclogs;
 	}
 }

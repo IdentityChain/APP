@@ -1,14 +1,22 @@
 package com.project.isc.iscdbserver.server;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.isc.iscdbserver.entity.CalculateStatistics;
+import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
+import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 
 @Service
@@ -25,25 +33,64 @@ public class IscServerSchedul {
 	/**
 	 * 统计top100
 	 */
+	@Transactional
 	public void mainTop100() {
-		
+		List<User> users = userService.findAllOrderByCalculateValueTop100();
+		List<CalculateStatistics> ccss = new ArrayList<CalculateStatistics>();
+		if(users!=null && users.size()>0) {
+			int i =1;
+			for (User user : users) {
+				CalculateStatistics ccs = new CalculateStatistics();
+				ccs.setCalculateValue(user.getCalculateValue());
+				ccs.setCreateTime(new Date());
+				ccs.setName(user.getNickName());
+				ccs.setRanking(i);
+				i++;
+				ccs.setUserId(user.getUserId());
+				ccss.add(ccs);
+			}
+//			calculateService
+			calculateService.saveAllCalculateStatistics(ccss);
+		}
 	}
 	
 	/**
 	 * 生成矿数据
 	 */
+	@Transactional
 	public void mainISCcoin() {
+		double addisc =1.23;
 		Iterable<User> users = userService.getAll();
-		
+		List<ISCLog> isclogs = new ArrayList<ISCLog>();
 		for (User user : users) {
-			
+			ISCLog isclog = new ISCLog();
+			isclog.setCreateTime(new Date());
+			isclog.setStatus(ISCConstant.ISC_LOG_NEW);
+			isclog.setOriginalISC(user.getIscCoin());
+			isclog.setAddISC(addisc);
+			isclog.setFinallyISC(user.getIscCoin()+addisc);
+			isclog.setUserId(user.getUserId());
+			isclogs.add(isclog);
 		}
+		calculateService.savaAllCalculateLog(isclogs);
 	}
 	
 	/**
 	 * 修改的矿数据
 	 */
+	@Transactional
 	public void mainDeleteISCcoinlog() {
+		Date nowDate = TimeUtil.addDay(new Date(),-2);
 		
+		List<ISCLog> isclogs = calculateService.getAllCalculateLogByCreateTime(nowDate,ISCConstant.ISC_LOG_NEW);
+		if(isclogs!=null && isclogs.size()>0) {
+			for (ISCLog iscLog : isclogs) {
+				if(ISCConstant.ISC_LOG_NEW.equals(iscLog.getStatus())) {
+					iscLog.setStatus(ISCConstant.ISC_LOG_OVER);
+					iscLog.setConfirmTime(new Date());
+				}
+			}
+			calculateService.savaAllCalculateLog(isclogs);
+		}
 	}
 }

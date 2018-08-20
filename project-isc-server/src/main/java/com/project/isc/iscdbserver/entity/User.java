@@ -50,6 +50,9 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String userType = UserType.COMMON;
 	
+	@Column
+	private int calculateValue;
+
 	//邀请码
 	@Column
 	private String invitationCode;
@@ -281,7 +284,14 @@ public class User implements Serializable {
 	public void setPinvitationCode(String pinvitationCode) {
 		this.pinvitationCode = pinvitationCode;
 	}
+	
+	public int getCalculateValue() {
+		return calculateValue;
+	}
 
+	public void setCalculateValue(int calculateValue) {
+		this.calculateValue = calculateValue;
+	}
 	/**
 	 * 密码盐.
 	 * 

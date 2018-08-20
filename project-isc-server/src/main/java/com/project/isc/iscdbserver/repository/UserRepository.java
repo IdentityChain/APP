@@ -26,5 +26,9 @@ public interface UserRepository extends JpaSpecificationExecutor<User>,JpaReposi
 	
 	//多条件分页查询
 	public Page<User> findAll(Specification<User> spec, Pageable pageable);
+	
+//	@Query("SELECT r FROM User r ORDER BY calculate_value DESC LIMIT 100")
+	@Query("SELECT r FROM User r")
+	public List<User> findAllOrderByCalculateValueTop100(Pageable pageable);
 
 }

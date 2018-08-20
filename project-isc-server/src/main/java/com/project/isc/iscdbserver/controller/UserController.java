@@ -253,19 +253,7 @@ public class UserController {
 		response.setHeader("loginStatus", "true");
 
 		retMsg = new RetMsg();
-<<<<<<< HEAD
 		// 验证用户是否需要重置密码
-=======
-//		// 验证用户是否需要重置密码
->>>>>>> 960ac238efd96e176ebc86c5954583612281287c
-//		if (!user.isPasswordReset()) {
-//			retMsg.setCode(200);
-//			retMsg.setSuccess(true);
-//			retMsg.setData(UserTransf.transfToVO(user));
-//			retMsg.setMessage("用户重置密码");
-//
-//			return retMsg;
-//		}
 
 		retMsg.setCode(200);
 		retMsg.setSuccess(true);

@@ -11,7 +11,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -76,6 +78,12 @@ public class UserService {
 	public List<User> findAll() {
 		return this.userRepositoy.findAll();
 	}
+	
+	public List<User> findAllOrderByCalculateValueTop100() {
+		Pageable pageable = new PageRequest(0, 100, Direction.DESC, "calculateValue");
+		return this.userRepositoy.findAllOrderByCalculateValueTop100(pageable);
+	}
+
 
 	@Transactional
 	public User getUserById(Long id) {
