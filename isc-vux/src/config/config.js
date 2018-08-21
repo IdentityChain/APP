@@ -1,5 +1,5 @@
 module.exports = {
-  // apiServer: 'http://isc.mythvip.top/api',
-  apiServer: 'http://localhost:8088',
-  useAuth: false
+  apiServer: 'http://60.205.183.3:9088',
+  // apiServer: 'http://localhost:8088',
+  useAuth: true
 }

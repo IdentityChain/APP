@@ -20,6 +20,7 @@ Vue.http.options.timeout = 5000
 
 Vue.http.options.emulateJSON = true
 Vue.http.interceptors.push((request, next) => {
+  request.credentials = true
   console.log('进入拦截器拦截方法')
   Vue.$vux.loading.hide()
   Vue.$vux.loading.show({

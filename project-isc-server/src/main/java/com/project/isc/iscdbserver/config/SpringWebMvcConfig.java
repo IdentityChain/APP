@@ -31,7 +31,7 @@ public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		if(userLoginSetting.isUseInterceptor()) {
-			registry.addInterceptor(loginFilterHandler()).addPathPatterns("/**").excludePathPatterns("/user/login");
+			registry.addInterceptor(loginFilterHandler()).addPathPatterns("/**").excludePathPatterns("/user/login","/user/firstsave","/sms/getCodeByPhone/*");
 		}
 		
 		super.addInterceptors(registry);
