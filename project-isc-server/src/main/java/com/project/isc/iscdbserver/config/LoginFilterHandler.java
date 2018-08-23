@@ -16,6 +16,8 @@ import com.project.isc.iscdbserver.util.MD5Util;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 import com.project.isc.iscdbserver.entity.User;
 
+import java.util.Enumeration;
+
 @Component
 @CrossOrigin
 public class LoginFilterHandler implements HandlerInterceptor {
@@ -82,9 +84,9 @@ public class LoginFilterHandler implements HandlerInterceptor {
 		}
 
 		response.setHeader("loginStatus", "false");
-		response.setHeader( "Access-Control-Allow-Origin","*");
+		response.setHeader( "Access-Control-Allow-Origin","http://localhost:8080");
 		response.setHeader( "Access-Control-Allow-Methods","POST,GET" );
-//		response.setHeader("Access-Control-Allow-Credentials", "true");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader( "Access-Control-Expose-Headers", "loginStatus");
 		return false;
 	}

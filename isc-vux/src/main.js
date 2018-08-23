@@ -22,6 +22,10 @@ Vue.http.options.emulateJSON = true
 Vue.http.options.xhr = {withCredentials: true}
 Vue.http.interceptors.push((request, next) => {
   request.credentials = true
+  // if (request.url === AppConfig.apiServer + '/user/login') {
+  //
+  // }
+  // request.headers.set('Token', '111')
   console.log('进入拦截器拦截方法')
   Vue.$vux.loading.hide()
   Vue.$vux.loading.show({

@@ -47,6 +47,7 @@
             text: result.message
           })
         } else {
+          console.log('请求失败:' + result)
           this.$vux.toast.show({
             type: 'warn',
             text: '请求失败'

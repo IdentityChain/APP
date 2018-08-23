@@ -275,7 +275,8 @@ public class UserController {
 		cookie.setPath("/");
 		cookie.setMaxAge((int) (this.userLoginSetting.getExpireTime() * 60));
 		response.addCookie(cookie);
-		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader("Access-Control-Allow-Methods", "POST,GET");
 	}
 
