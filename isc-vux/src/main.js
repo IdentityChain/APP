@@ -19,6 +19,7 @@ Vue.prototype.AppConfig = AppConfig
 Vue.http.options.timeout = 5000
 
 Vue.http.options.emulateJSON = true
+Vue.http.options.xhr = {withCredentials: true}
 Vue.http.interceptors.push((request, next) => {
   request.credentials = true
   console.log('进入拦截器拦截方法')
@@ -63,6 +64,19 @@ Vue.http.interceptors.push((request, next) => {
       console.log(response.body)
     }
   })
+})
+
+router.beforeEach(function (to, from, next) {
+  console.log('跳转至' + to.name)
+  if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
+    console.log(to.name + '不需要登陆')
+  } else {
+    console.log(to.name + '需要检测是否登陆')
+    if (window.localStorage.getItem('User') == null) {
+      router.push({name: 'login'})
+    }
+  }
+  next()
 })
 
 FastClick.attach(document.body)

@@ -36,6 +36,24 @@
 
   export default {
     name: 'Home',
+    mounted: function () {
+      const urlstr = this.AppConfig.apiServer + '/user/findByAccount?account=13520580169'
+      this.doGet({
+        url: urlstr
+      }).then(result => {
+        if (result.success) {
+          this.$vux.toast.show({
+            type: 'success',
+            text: result.message
+          })
+        } else {
+          this.$vux.toast.show({
+            type: 'warn',
+            text: '请求失败'
+          })
+        }
+      })
+    },
     components: {
       Group,
       Cell,

@@ -13,7 +13,6 @@
           <x-input title="手机号码" mask="999 9999 9999" required v-model="telNum" :max="13" ref="input1" is-type="china-mobile">
             <!--<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"-->
             <!--width="24" height="24">-->
-
           </x-input>
 
           <x-input title="密码" type="password"  required v-model="password" :min="6" :max="13" ref="input2">

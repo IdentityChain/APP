@@ -52,7 +52,7 @@ public class SmsController {
 					retMsg.setCode(200);
 					retMsg.setMessage("发送成功");
 					// 保存到redis
-					redisService.setObj(phoneNumber, code);
+					redisService.setObj(phoneNumber, code, 300);
 				}
 			}
 		} catch (Exception e) {

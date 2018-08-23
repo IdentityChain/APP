@@ -77,13 +77,23 @@ public class RedisService {
      * @return
      */
     public Long getFreeTime(String key) { return  redisTemplate.getExpire(key);}
+
     /**
      * 设置obj缓存
      * @param key
      * @param o2
      */
-    public void setObj(String key, Object o2){
-        valOpsObj.set(key, o2, 300, TimeUnit.SECONDS);
+    public void setObj(String key, Object o2, long expireSecond){
+        valOpsObj.set(key, o2, expireSecond, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 设置Key的过期时间,单位:秒
+     * @param key
+     * @param expireSecond
+     */
+    public void setKeyExpireSecond(String key, long expireSecond){
+        redisTemplate.expire(key, expireSecond, TimeUnit.SECONDS);
     }
 
     /**
