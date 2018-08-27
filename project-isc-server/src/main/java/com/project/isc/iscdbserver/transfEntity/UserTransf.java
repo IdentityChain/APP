@@ -6,6 +6,7 @@ import com.project.isc.iscdbserver.viewentity.UserVO;
 public class UserTransf{
 	public static UserVO transfToVO(User u) {
 		UserVO uvo = new UserVO();
+		uvo.setUserId(u.getUserId());
 		uvo.setAccount(u.getAccount());
 		uvo.setCreateTime(u.getCreateTime());
 		uvo.setNickName(u.getNickName());
