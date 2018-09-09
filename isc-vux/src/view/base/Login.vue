@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img style="height: 100%;width: 100%;z-index: -10;position: absolute;top: 0px; left: 0px;" src="../../assets/bg.png"/>
+    <div id="bgdiv" ref="img1" style="height: 100%;width: 100%;z-index: -10;position: absolute;top: 0px; left: 0px;">
     <!--<div style="text-align: center;margin-top: 15%">-->
       <!--<img class="logo" src="../../assets/logo.jpeg" style="width: 40%;height: 40%">-->
       <!--<h1> </h1>-->
@@ -33,12 +33,12 @@
         <a href="#" @click="resetPasswd">忘记密码</a>
       </div>
     </box>
+    </div>
   </div>
 </template>
 
 <script>
 import { Group, XInput, XButton, Box, Flexbox, FlexboxItem } from 'vux'
-
 export default {
   components: {
     Group,
@@ -47,6 +47,9 @@ export default {
     Box,
     Flexbox,
     FlexboxItem
+  },
+  mounted: function () {
+    alert(this.$refs.img1.src)
   },
   data () {
     return {
@@ -124,7 +127,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#bgdiv {
+  background: url('../../assets/bg.png') center center no-repeat;
+}
 .vux-demo {
   text-align: center;
 }

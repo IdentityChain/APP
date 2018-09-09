@@ -54,10 +54,11 @@ Vue.http.interceptors.push((request, next) => {
       console.log('获取登陆状态:' + response.headers.get('loginstatus'))
       if (!(response.headers.get('loginStatus') === 'true')) {
         window.localStorage.clear()
-        if (request.url === AppConfig.apiServer + '/user/login' || request.url === AppConfig.apiServer + '/user/firstsave') {
+        if (request.url === AppConfig.apiServer + '/user/login' || request.url === AppConfig.apiServer + '/user/firstsave' || request.url === AppConfig.apiServer + '/sms/getCodeByPhone/13520580169') {
           console.log('登陆注册页面,不进行刷新')
         } else {
-          window.location.href = 'http://localhost:8080' + '/login'
+          // window.location.href = 'http://localhost:8000/index.html'
+          router.push({name: 'login'})
         }
       } else {
         console.log('已登录状态')
@@ -71,6 +72,7 @@ Vue.http.interceptors.push((request, next) => {
 })
 
 router.beforeEach(function (to, from, next) {
+  // alert(window.location.href)
   console.log('跳转至' + to.name)
   if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
     console.log(to.name + '不需要登陆')
@@ -88,10 +90,10 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-// document.addEventListener('deviceready', function () {
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount('#app-box')
-//   window.navigator.splashscreen.hide()
-// }, false)
+document.addEventListener('deviceready', function () {
+  new Vue({
+    router,
+    render: h => h(App)
+  }).$mount('#app-box')
+  window.navigator.splashscreen.hide()
+}, false)

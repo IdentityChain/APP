@@ -50,12 +50,12 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../www/index.html'),
+    index: path.resolve(__dirname, '../../../APP/buildAPP/www/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../www'),
-    assetsSubDirectory: '',
-    assetsPublicPath: '',
+    assetsRoot: path.resolve(__dirname, '../../../APP/buildAPP/www'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: './',
 
     /**
      * Source Maps
@@ -65,8 +65,6 @@ module.exports = {
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
-    productionGzip: false,
-    productionGzipExtensions: ['js', 'css'],
     // Run the build command with an extra argument to
     // View the bundle analyzer report after build finishes:
     // `npm run build --report`

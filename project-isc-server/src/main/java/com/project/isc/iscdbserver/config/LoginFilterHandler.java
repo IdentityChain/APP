@@ -84,7 +84,7 @@ public class LoginFilterHandler implements HandlerInterceptor {
 		}
 
 		response.setHeader("loginStatus", "false");
-		response.setHeader( "Access-Control-Allow-Origin","http://localhost:8080");
+		response.setHeader( "Access-Control-Allow-Origin","http://localhost:8000");
 		response.setHeader( "Access-Control-Allow-Methods","POST,GET" );
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader( "Access-Control-Expose-Headers", "loginStatus");
@@ -100,7 +100,7 @@ public class LoginFilterHandler implements HandlerInterceptor {
 
 		Cookie cookie = new Cookie("autoLogin", cookieStr);
 		cookie.setComment("自动登录cookie!");
-		cookie.setDomain("localhost:8080");
+//		cookie.setDomain("localhost:8080");
 		cookie.setPath("/");
 		cookie.setMaxAge((int) (this.userLoginSetting.getExpireTime() * 60));
 		response.addCookie(cookie);

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <img style="height: 100%;width: 100%;z-index: -10;position: absolute;top: 0px; left: 0px;" src="../../assets/bg.png"/>
+  <div class="bg">
     <box gap="70% 40px" style="border-radius: 10px;background-color: #fbf9fe;padding-top: 20px">
       <!--<group title="" style="margin-top: 30px">-->
       <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">

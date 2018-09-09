@@ -8,7 +8,7 @@ import ResetPassword from '@/view/base/ResetPassword'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -29,6 +29,10 @@ export default new Router({
       path: '/resetPasswd',
       name: 'resetPasswd',
       component: ResetPassword
+    },
+    {
+      path: '*',
+      component: Login
     }
   ]
 })
