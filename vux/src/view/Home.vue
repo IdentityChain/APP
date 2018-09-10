@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%">
     <view-box body-padding-top="46px"  body-padding-bottom="55px">
-      <div slot="header" style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
+      <div v-if="showHeader" slot="header" style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
         <x-header :left-options="{showBack: true}" style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC</x-header>
       </div>
       <component :is="currentView" ref="nowView" style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
@@ -48,7 +48,7 @@
 
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
-  import Index1 from '../components/viewbox'
+  import WaKuang from '../components/home/WaKuang'
   export default {
     components: {
       ViewBox,
@@ -58,7 +58,7 @@
       XHeader,
       Tabbar,
       TabbarItem,
-      Index1
+      'wakuang': WaKuang
     },
     data () {
       return {
@@ -67,7 +67,8 @@
         // preserves its current state and we are modifying
         // its initial state.
         msg: 'Hello World!',
-        currentView: Index1
+        currentView: 'wakuang',
+        showHeader: false
       }
     },
     methods: {

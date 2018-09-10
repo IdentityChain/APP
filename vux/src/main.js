@@ -118,12 +118,14 @@ methods.forEach(key => {
 })
 
 router.beforeEach(function (to, from, next) {
-  if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
-    console.log(to.name + '不需要登陆')
-  } else {
-    console.log(to.name + '需要检测是否登陆')
-    if (window.localStorage.getItem('User') == null) {
-      router.push({name: 'login'})
+  if (AppConfig.useAuth) {
+    if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
+      console.log(to.name + '不需要登陆')
+    } else {
+      console.log(to.name + '需要检测是否登陆')
+      if (window.localStorage.getItem('User') == null) {
+        router.push({name: 'login'})
+      }
     }
   }
   const toIndex = history.getItem(to.path)
@@ -168,17 +170,19 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-// new Vue({
-//   store,
-//   router,
-//   render: h => h(App)
-// }).$mount('#app-box')
-
-document.addEventListener('deviceready', function () {
+if (AppConfig.deployAPP) {
+  document.addEventListener('deviceready', function () {
+    new Vue({
+      store,
+      router,
+      render: h => h(App)
+    }).$mount('#app-box')
+    window.navigator.splashscreen.hide()
+  }, false)
+} else {
   new Vue({
     store,
     router,
     render: h => h(App)
   }).$mount('#app-box')
-  window.navigator.splashscreen.hide()
-}, false)
+}
