@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Common from '@/components/common'
+// import Common from '@/components/common'
+// import Page2 from '@/components/HelloFromVux2'
+// import Page3 from '@/components/HelloFromVux3'
 import Home from '@/view/Home'
-import Page2 from '@/components/HelloFromVux2'
-import Page3 from '@/components/HelloFromVux3'
 import Login from '@/view/Login'
+import ResetPasswd from '@/view/ResetPassword'
+import Register from '@/view/Register'
 
 Vue.use(Router)
 
@@ -12,28 +14,27 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: Login
-    },
-    {
-      path: '/home',
       name: 'home',
       component: Home
     },
     {
-      path: '/page2',
-      name: 'page2',
-      component: Common
+      path: '/login',
+      name: 'login',
+      component: Login
     },
     {
-      path: '/page3',
-      name: 'page3',
-      component: Page3
+      path: '/resetPasswd',
+      name: 'resetPasswd',
+      component: ResetPasswd
     },
     {
-      path: '/page4',
-      name: 'page4',
-      component: Page2
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
+    {
+      path: '*',
+      component: Login
     }
   ]
 })

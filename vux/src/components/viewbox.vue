@@ -1,7 +1,9 @@
 <template>
   <div style="width: 100%; background-color: white">
-    <router-link to="/page1" >page1</router-link>
-    <router-link to="/page2" >page2</router-link>
+    <router-link to="/" >home</router-link>
+    <router-link to="/login" >login</router-link>
+    <router-link to="/resetPasswd" >ResetPassword</router-link>
+    <router-link to="/register" >Register</router-link>
     <p v-for="i in 100">{{i}}</p>
   </div>
 </template>

@@ -3,21 +3,21 @@
     <div style="border-radius: 10px;background-color: #fbf9fe;height: 200px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">
       <!--<group title="" style="margin-top: 30px">-->
       <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">
-        <x-input title="手机号码" mask="999 9999 9999" required  :max="13" ref="input1" is-type="china-mobile">
+        <x-input title="手机号码" mask="999 9999 9999" v-model="telNum" required  :max="13" ref="input1" is-type="china-mobile">
         </x-input>
-        <x-input title="密码" type="password"  required  :min="6" :max="13" ref="input2">
+        <x-input title="密码" type="password" v-model="password"  required  :min="6" :max="13" ref="input2">
         </x-input>
       </div>
       <flexbox>
         <flexbox-item>
-          <x-button plain type="default" @click.native="back">注册</x-button>
+          <x-button plain type="default" @click.native="register">注册</x-button>
         </flexbox-item>
         <flexbox-item>
-          <x-button plain type="default" @click.native="gotoHome">登陆</x-button>
+          <x-button plain type="default" @click.native="doLogin" :disabled="isDisableLogin">登陆</x-button>
         </flexbox-item>
       </flexbox>
       <div style="text-align: right;margin-right: 10px;margin-top: 5px">
-        <a href="#">忘记密码</a>
+        <a href="#" @click="resetPasswd">忘记密码</a>
       </div>
     </div>
 
@@ -38,33 +38,71 @@
     },
     data () {
       return {
-        // note: changing this line won't causes changes
-        // with hot-reload because the reloaded component
-        // preserves its current state and we are modifying
-        // its initial state.
-        msg: 'Hello World!'
+        telNum: '',
+        password: ''
       }
     },
     methods: {
-      back () {
-        // this.$store.commit('setTransition', 'turn-off')
-        this.$router.back(-1)
+      resetPasswd () {
+        this.$router.push({name: 'resetPasswd'})
       },
-      gotoHome () {
-        this.$router.push({name: 'home'})
-        // this.$store.commit('setTransition', 'turn-on')
+      register () {
+        console.log('goto register')
+        this.$router.push({name: 'register'})
       },
-      gotoPage1 () {
-        this.$router.push({name: 'page1'})
-        // this.$store.commit('setTransition', 'turn-on')
+      doLogin () {
+        if (this.$refs.input1.valid && this.$refs.input2.valid) {
+          let requestOption = {
+            url: this.AppConfig.apiServer + '/user/login',
+            params: {
+              account: this.telNum.replace(/[ ]/g, ''),
+              password: this.password
+            }
+          }
+          this.doPost(requestOption).then(result => {
+            if (result.success) {
+              console.log(result)
+              const userObj = result.data
+              window.localStorage.setItem('User', JSON.stringify(userObj))
+              this.$router.push({name: 'home'})
+              this.$vux.toast.show({
+                type: 'success',
+                text: result.message
+              })
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                text: result.message,
+                width: '10em'
+              })
+            }
+          })
+        }
       },
-      gotoPage2 () {
-        this.$router.push({name: 'page2'})
-        // this.$store.commit('setTransition', 'turn-on')
-      },
-      gotoPage3 () {
-        this.$router.push({name: 'page3'})
-        // this.$store.commit('setTransition', 'turn-on')
+      nextStep () {
+        if (this.$refs.input1.valid) {
+          const urlstr = this.AppConfig.apiServer + '/user/findByAccount?account=administrator'
+          this.doGet({
+            url: urlstr
+          }).then(result => {
+            if (result.success) {
+              console.log(result.data)
+            } else {
+              console.log('请求失败')
+            }
+          })
+        } else {
+          this.$vux.toast.show({
+            type: 'text',
+            text: '手机号码格式不正确',
+            width: '10em'
+          })
+        }
+      }
+    },
+    computed: {
+      isDisableLogin () {
+        return this.telNum.length === 0 || this.password.length === 0
       }
     }
   }

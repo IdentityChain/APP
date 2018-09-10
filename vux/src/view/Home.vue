@@ -4,7 +4,7 @@
       <div slot="header" style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
         <x-header :left-options="{showBack: true}" style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC</x-header>
       </div>
-      <component :is="currentView" @linkTo="changeView" ref="nowView" style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
+      <component :is="currentView" ref="nowView" style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
       <tabbar slot="bottom" class="toolbar-footer">
         <tabbar-item selected @click.native="changeView('index1')">
           <img slot="icon" src="../assets/icon/WK_hui.png">

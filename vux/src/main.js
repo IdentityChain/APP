@@ -7,38 +7,82 @@ import router from './router/index'
 import App from './App'
 import Vuex from 'vuex'
 import { sync } from 'vuex-router-sync'
-import { BusPlugin } from 'vux'
+import VueResource from 'vue-resource'
+import {ToastPlugin, LoadingPlugin, BusPlugin} from 'vux'
+import AppConfig from './config/config'
+import HttpRequest from './util/ajax'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
+Vue.use(VueResource)
+Vue.use(HttpRequest)
 Vue.use(BusPlugin)
+Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
+Vue.prototype.AppConfig = AppConfig
+Vue.http.options.timeout = 5000
+Vue.http.options.emulateJSON = true
+Vue.http.options.xhr = {withCredentials: true}
+
+Vue.http.interceptors.push((request, next) => {
+  request.credentials = true
+  Vue.$vux.loading.hide()
+  console.log('进入拦截器拦截方法')
+  Vue.$vux.loading.show({
+    text: '加载中',
+    delay: 500
+  })
+  console.log(request)
+  var timeout
+  if (request._timeout) {
+    timeout = setTimeout(() => {
+      console.log('进入拦截器超时方法')
+      Vue.$vux.toast.show({
+        type: 'cancel',
+        text: '请求超时'
+      })
+      Vue.$vux.loading.hide()
+      if (request.onTimeout) request.onTimeout(request)
+      request.abort()
+    }, request._timeout)
+  }
+  next((response) => {
+    Vue.$vux.loading.hide()
+    clearTimeout(timeout)
+    if (AppConfig.useAuth) {
+      console.log('进入拦截器响应方法,输出获取的相应数据,读取cookie和header')
+      console.log('获取登陆状态:' + response.headers.get('loginstatus'))
+      if (!(response.headers.get('loginStatus') === 'true')) {
+        window.localStorage.clear()
+        if (request.url === AppConfig.apiServer + '/user/login' || request.url === AppConfig.apiServer + '/user/firstsave' || request.url === AppConfig.apiServer + '/sms/getCodeByPhone/13520580169') {
+          console.log('登陆注册页面,不进行刷新')
+        } else {
+          // window.location.href = 'http://localhost:8000/index.html'
+          router.push({name: 'login'})
+        }
+      } else {
+        console.log('已登录状态')
+        Vue.$vux.loading.hide()
+        console.log(response.body)
+      }
+    } else {
+      console.log(response.body)
+    }
+  })
+})
 
 const shouldUseTransition = true
 
 let store = new Vuex.Store({
   state: {
-    // states: 'turn-on'
-    // direction: shouldUseTransition ? 'forward' : ''
-    fullPage: true
   },
   mutations: {
-    // setTransition (state, states) {
-    //   state.states = states
-    // }
-    // updateDirection (state, payload) {
-    //   if (!shouldUseTransition) {
-    //     return
-    //   }
-    //   state.direction = payload.direction
-    // }
   }
 })
 Vue.use(store)
 store.registerModule('vux', {
   state: {
-    direction: shouldUseTransition ? 'forward' : '',
-    showHeader: true,
-    showTabBar: true
+    direction: shouldUseTransition ? 'forward' : ''
   },
   mutations: {
     updateDirection (state, payload) {
@@ -46,12 +90,6 @@ store.registerModule('vux', {
         return
       }
       state.direction = payload.direction
-    },
-    updateShowHeaderStatus (state, status) {
-      state.showHeader = status
-    },
-    updateShowTabBarStatus (state, status) {
-      state.showTabBar = status
     }
   }
 })
@@ -80,16 +118,16 @@ methods.forEach(key => {
 })
 
 router.beforeEach(function (to, from, next) {
+  if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
+    console.log(to.name + '不需要登陆')
+  } else {
+    console.log(to.name + '需要检测是否登陆')
+    if (window.localStorage.getItem('User') == null) {
+      router.push({name: 'login'})
+    }
+  }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
-  if (to.path === '/') {
-    store.commit('updateShowHeaderStatus', true)
-    store.commit('updateShowTabBarStatus', true)
-  }
-  if (to.path === '/page1') {
-    store.commit('updateShowHeaderStatus', false)
-    store.commit('updateShowTabBarStatus', false)
-  }
   if (toIndex) {
     if (!fromIndex || parseInt(toIndex, 10) > parseInt(fromIndex, 10) || (toIndex === '0' && fromIndex === '0')) {
       store.commit('updateDirection', {direction: 'forward'})
