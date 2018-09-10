@@ -65,6 +65,7 @@ public class CalculateService {
 		iscLogRepository.save(isclogs);
 	}
 	
+
 	/**
 	 * 保存所有排名信息
 	 * @param ccss
@@ -72,6 +73,11 @@ public class CalculateService {
 	public void saveAllCalculateStatistics(List<CalculateStatistics> ccss) {
 		calculateStatisticsRepository.save(ccss);
 	}
+	
+	public void deleteAllCalculateStatistics() {
+		calculateStatisticsRepository.deleteAll();
+	}
+	
 	
 	public List<ISCLog> getAllCalculateLogByCreateTime(Date date,String status) {
 		//这里只出现新增的

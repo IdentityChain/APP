@@ -122,7 +122,9 @@ public class CalculateController {
 			calculateService.saveCalculateLog(isclog);
 			userService.save(user);
 			massage = "挖矿成功";
-		}		
+		}else {
+			massage = "挖矿已成功";
+		}
 		
 		retMsg = new RetMsg();
 		retMsg.setCode(200);

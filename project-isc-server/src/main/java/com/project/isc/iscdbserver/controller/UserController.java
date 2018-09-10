@@ -97,6 +97,7 @@ public class UserController {
 			User user = new User();
 			user.setUserPhone(phone);
 			user.setAccount(phone);
+			user.setNickName(phone);
 			user.setCreateTime(new Date());
 			user.setPinvitationCode(invitationCode);//设置邀请码
 			user.setPassword(MD5Util.encrypeByMd5(password));

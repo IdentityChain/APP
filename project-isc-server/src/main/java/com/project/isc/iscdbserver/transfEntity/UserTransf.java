@@ -1,6 +1,7 @@
 package com.project.isc.iscdbserver.transfEntity;
 
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.UserVO;
 
 public class UserTransf{
@@ -9,7 +10,7 @@ public class UserTransf{
 		uvo.setUserId(u.getUserId());
 		uvo.setAccount(u.getAccount());
 		uvo.setCreateTime(u.getCreateTime());
-		uvo.setNickName(u.getNickName());
+		uvo.setNickName(StringUtils.getStringHide(u.getNickName()));
 		uvo.setInvitationCode(u.getInvitationCode());
 		uvo.setIscCoin(u.getIscCoin());
 		return uvo;

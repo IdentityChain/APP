@@ -48,8 +48,12 @@ public class IscServerSchedul {
 				i++;
 				ccs.setUserId(user.getUserId());
 				ccss.add(ccs);
+				if(i>4) {
+					break;
+				}
 			}
 //			calculateService
+			calculateService.deleteAllCalculateStatistics();
 			calculateService.saveAllCalculateStatistics(ccss);
 		}
 	}
