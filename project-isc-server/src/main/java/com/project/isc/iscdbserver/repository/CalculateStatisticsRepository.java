@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 
 @Repository
-public interface CalculateStatisticsRepository extends JpaSpecificationExecutor<CalculateStatistics>, JpaRepository<CalculateStatistics, Long> {
+public interface CalculateStatisticsRepository extends JpaSpecificationExecutor<CalculateStatistics>, JpaRepository<CalculateStatistics, String> {
 
 }

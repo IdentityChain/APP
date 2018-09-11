@@ -22,7 +22,7 @@ public class InvitationService {
 	 * @param userid
 	 * @return
 	 */
-	public int getInvitationCountByUser(Long userid) {
+	public int getInvitationCountByUser(String userid) {
 		List<Invitation> list = this.invitationRepositoy.findBySourceUserId(userid);
 		if (list!=null && list.size()>0) {
 			return list.size();

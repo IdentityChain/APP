@@ -12,25 +12,29 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "tb_calculate_log")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CalculateLog implements Serializable{
 
 	private static final long serialVersionUId = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
 	// 成就日志ID
-	private long cclId;
+	private String cclId;
 	// 用户ID
 	@Column
-	private long userId;
+	private String userId;
 	// 成就ID
 	@Column
-	private long ccId;
+	private String ccId;
 	// 活动ID
 	@Column
-	private long activityId;
+	private String activityId;
 	// 成就值ID
 	@Column
 	private int calculateValue;
@@ -39,35 +43,35 @@ public class CalculateLog implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
-	public long getCclId() {
+	public String getCclId() {
 		return cclId;
 	}
 
-	public void setCclId(long cclId) {
+	public void setCclId(String cclId) {
 		this.cclId = cclId;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public long getCcId() {
+	public String getCcId() {
 		return ccId;
 	}
 
-	public void setCcId(long ccId) {
+	public void setCcId(String ccId) {
 		this.ccId = ccId;
 	}
 
-	public long getActivityId() {
+	public String getActivityId() {
 		return activityId;
 	}
 
-	public void setActivityId(long activityId) {
+	public void setActivityId(String activityId) {
 		this.activityId = activityId;
 	}
 

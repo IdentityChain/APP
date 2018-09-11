@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.project.isc.iscdbserver.statusType.UserLevel;
 import com.project.isc.iscdbserver.statusType.UserType;
 
@@ -21,14 +23,19 @@ import com.project.isc.iscdbserver.statusType.UserType;
  */
 @Entity
 @Table(name = "tb_user")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class User implements Serializable {
+	
+	private static final long serialVersionUId = 1L;
+	
 	@Column
 	private String salt;// 加密密码的盐
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
 	// 用户id
-	private long userId;
+	private String userId;
 
 	// 账号
 	@Column(nullable = false, unique = true, length = 100)
@@ -153,11 +160,11 @@ public class User implements Serializable {
 		this.city = city;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

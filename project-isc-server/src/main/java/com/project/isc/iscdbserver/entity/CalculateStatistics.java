@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 /**
  * 成就统计
@@ -20,15 +22,17 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "tb_calculate_statistics")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class CalculateStatistics implements Serializable{
 
 	private static final long serialVersionUId = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long ccsId;
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
+	private String ccsId;
 	@Column
-	private long userId;
+	private String userId;
 	@Column
 	private int ranking;
 	@Column
@@ -40,19 +44,19 @@ public class CalculateStatistics implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
-	public long getCcsId() {
+	public String getCcsId() {
 		return ccsId;
 	}
 
-	public void setCcsId(long ccsId) {
+	public void setCcsId(String ccsId) {
 		this.ccsId = ccsId;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

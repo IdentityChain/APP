@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.project.isc.iscdbserver.entity.Invitation;
 
 @Repository
-public interface InvitationRepository extends JpaSpecificationExecutor<Invitation>,JpaRepository<Invitation, Long> {
+public interface InvitationRepository extends JpaSpecificationExecutor<Invitation>,JpaRepository<Invitation, String> {
 
-	public List<Invitation> findBySourceUserId(Long userid);
+	public List<Invitation> findBySourceUserId(String userid);
 
 }

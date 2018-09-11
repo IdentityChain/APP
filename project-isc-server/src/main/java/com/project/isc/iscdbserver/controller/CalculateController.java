@@ -20,7 +20,9 @@ import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
+import com.project.isc.iscdbserver.viewentity.ISCLogVO;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 
 import io.swagger.annotations.Api;
@@ -81,18 +83,21 @@ public class CalculateController {
 	@ApiOperation(value="获得可挖的数据", notes="")
 	@GetMapping("/getCalculateLog/{userid}")
 	@Transactional
-	public RetMsg getCalculateLog(@PathVariable("userid") Long userid) {
+	public RetMsg getCalculateLog(@PathVariable("userid") String userid) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
 		
 //		User user = userService.getUserById(userid);
 		List<ISCLog> isclogs = calculateService.getCalculateLogByUserIdAndStatus(userid);
-		
-		
-		
+		List<ISCLogVO> isclogvos = new ArrayList<ISCLogVO>();
+		if (isclogs!=null && isclogs.size()>0) {
+			for (ISCLog isclog : isclogs) {
+				isclogvos.add(ISCLogTransf.transfToVO(isclog));
+			}
+		}		
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(isclogs);
+		retMsg.setData(isclogvos);
 		retMsg.setMessage("获得可挖的数据成功");
 		retMsg.setSuccess(true);
 
@@ -103,7 +108,7 @@ public class CalculateController {
 	@ApiOperation(value="用户点击挖矿数据", notes="")
 	@GetMapping("/checkCalculateLog/{logid}")
 	@Transactional
-	public RetMsg checkCalculateLog(@PathVariable("logid") Long logid) {
+	public RetMsg checkCalculateLog(@PathVariable("logid") String logid) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
 		
@@ -114,7 +119,7 @@ public class CalculateController {
 		if(isclog!=null && ISCConstant.ISC_LOG_NEW.equals(isclog.getStatus())) {
 			isclog.setConfirmTime(new Date());
 			
-			Long userid = isclog.getUserId();
+			String userid = isclog.getUserId();
 			User user = userService.getUserById(userid);
 			user.setIscCoin(user.getIscCoin()+isclog.getAddISC());
 			

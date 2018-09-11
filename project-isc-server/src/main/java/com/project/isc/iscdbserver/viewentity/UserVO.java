@@ -14,7 +14,7 @@ import com.project.isc.iscdbserver.statusType.UserType;
 
 public class UserVO {
 	// 用户id
-	private long userId;
+	private String userId;
 
 	// 账号
 	private String account;
@@ -66,11 +66,11 @@ public class UserVO {
 		this.passwordReset = passwordReset;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

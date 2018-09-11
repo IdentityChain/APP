@@ -10,12 +10,12 @@ import org.springframework.stereotype.Repository;
 import com.project.isc.iscdbserver.entity.ISCLog;
 
 @Repository
-public interface ISCLogRepository extends JpaRepository<ISCLog, Long>, JpaSpecificationExecutor<ISCLog> {
+public interface ISCLogRepository extends JpaRepository<ISCLog, String>, JpaSpecificationExecutor<ISCLog> {
 
-	List<ISCLog> findByUserId(Long userid);
+	List<ISCLog> findByUserId(String userid);
 
 	List<ISCLog> findByCreateTimeLessThanAndStatus(Date date,String status);
 
-	List<ISCLog> findByUserIdAndStatus(Long userid, String status);
+	List<ISCLog> findByUserIdAndStatus(String userid, String status);
 
 }

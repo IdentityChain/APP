@@ -12,21 +12,25 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "tb_isc_log")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class ISCLog implements Serializable{
 
 	private static final long serialVersionUId = 1L;
 	//id
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long isclId;
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
+	private String isclId;
 	//用户ID
 	@Column
-	private long userId;
+	private String userId;
 	//活动ID
 	@Column
-	private long activityId;;
+	private String activityId;;
 	//原始ISC
 	@Column
 	private double originalISC;
@@ -50,27 +54,27 @@ public class ISCLog implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date confirmTime;
 
-	public long getIsclId() {
+	public String getIsclId() {
 		return isclId;
 	}
 
-	public void setIsclId(long isclId) {
+	public void setIsclId(String isclId) {
 		this.isclId = isclId;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public long getActivityId() {
+	public String getActivityId() {
 		return activityId;
 	}
 
-	public void setActivityId(long activityId) {
+	public void setActivityId(String activityId) {
 		this.activityId = activityId;
 	}
 

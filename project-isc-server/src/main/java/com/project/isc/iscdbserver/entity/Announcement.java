@@ -17,6 +17,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "tb_announcement")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Announcement  implements Serializable{
+	
+	private static final long serialVersionUId = 1L;
+	
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
     @Column(name = "id",length = 32)

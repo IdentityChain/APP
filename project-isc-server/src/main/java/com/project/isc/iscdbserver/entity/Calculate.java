@@ -12,19 +12,23 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "tb_calculate")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Calculate implements Serializable{
 
 	private static final long serialVersionUId = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
 	// 成就id
-	private long ccId;
+	private String ccId;
 	// 用户id
 	@Column
-	private long userId;
+	private String userId;
 	
 	@Column
 	private int calculateValue;
@@ -35,19 +39,19 @@ public class Calculate implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
-	public long getCcId() {
+	public String getCcId() {
 		return ccId;
 	}
 
-	public void setCcId(long ccId) {
+	public void setCcId(String ccId) {
 		this.ccId = ccId;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

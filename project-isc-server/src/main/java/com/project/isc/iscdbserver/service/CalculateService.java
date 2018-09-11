@@ -35,19 +35,19 @@ public class CalculateService {
 	 * @param userid
 	 * @return
 	 */
-	public List<ISCLog> getCalculateLogByUserId(Long userid) {
+	public List<ISCLog> getCalculateLogByUserId(String userid) {
 		//这里只出现新增的
 		List<ISCLog> isclogs = iscLogRepository.findByUserId(userid);
 		return isclogs;
 	}
 	
-	public List<ISCLog> getCalculateLogByUserIdAndStatus(Long userid) {
+	public List<ISCLog> getCalculateLogByUserIdAndStatus(String userid) {
 		//这里只出现新增的
 		List<ISCLog> isclogs = iscLogRepository.findByUserIdAndStatus(userid,ISCConstant.ISC_LOG_NEW);
 		return isclogs;
 	}
 	
-	public ISCLog getCalculateLog(Long logid) {
+	public ISCLog getCalculateLog(String logid) {
 		ISCLog isclog = iscLogRepository.findOne(logid);
 		return isclog;
 	}

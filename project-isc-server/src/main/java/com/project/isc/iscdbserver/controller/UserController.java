@@ -104,7 +104,7 @@ public class UserController {
 			user.setCalculateValue(100);
 			userService.save(user);
 			//返回用户的邀请码
-			String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());
+			String myInvitationCode = ShareCodeUtil.getMyInvitationCode(user.getUserId());
 			user.setInvitationCode(myInvitationCode);
 			userService.save(user);
 			// 返回新增用户信息
@@ -167,7 +167,7 @@ public class UserController {
 				user.setPinvitationCode(invitationCode);
 				userService.save(user);
 				//返回用户的邀请码
-				String myInvitationCode = ShareCodeUtil.toSerialCode(user.getUserId());
+				String myInvitationCode = ShareCodeUtil.getMyInvitationCode(user.getUserId());
 				user.setInvitationCode(myInvitationCode);
 				userService.save(user);
 			}

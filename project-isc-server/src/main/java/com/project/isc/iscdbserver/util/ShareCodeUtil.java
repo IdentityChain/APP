@@ -83,6 +83,26 @@ public class ShareCodeUtil {
         return res;
     }
     
+    /**
+     * 根据UUID得到邀请码
+     * @param uuid
+     * @return
+     */
+    public static String getMyInvitationCode(String uuid) {
+    	    long lo = ShareCodeUtil.codeToId(uuid);
+		System.out.println(uuid+":"+lo);
+		//取绝对值 有可能值为：-3179312123619150658
+		String lostr = ShareCodeUtil.toSerialCode(Math.abs(lo));
+		System.out.println(uuid+":"+lostr);
+		//位数
+		long lon = ShareCodeUtil.codeToId(lostr.substring(lostr.length()-6, lostr.length()));
+		System.out.println(uuid+":"+lon);
+		String lostrn = ShareCodeUtil.toSerialCode(lon);
+		System.out.println(uuid+":"+lostrn);
+		lostrn = lostrn.toUpperCase();
+		return lostrn;
+    }
+    
     public static void main(String[] args) throws InterruptedException {
 //    		Map<String,String> map = new HashMap<String,String>();
 //    		for (int i = 0; i < 10000000; i++) {
@@ -93,7 +113,13 @@ public class ShareCodeUtil {
 //    			System.out.println(i+":"+code);
 //		}
 ////    		System.out.println("10000000:"+map.size());
-    		
+    		String[] strs = {"ff80808165c7c9e70165c7d29e650001"
+    				,"ff80808165c777160165c78dd049000e","ff80808165c777160165c78dd11d000f"
+    				,"ff80808165c777160165c78dd1d10010","ff80808165c777160165c78dcbc50008","12afs"};
+    		for (String string : strs) {
+        		String lostr = ShareCodeUtil.getMyInvitationCode(string);
+        		System.out.println(string+":"+lostr);
+		}
 
 
 	}

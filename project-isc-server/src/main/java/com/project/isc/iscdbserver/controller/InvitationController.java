@@ -47,7 +47,7 @@ public class InvitationController {
 	@ApiOperation(value="获得用户邀请码", notes="")
 	@GetMapping("/getUserInvitaCode/{userid}")
 	@Transactional
-	public RetMsg getUserInvitaCode(@PathVariable("userid") Long userid) {
+	public RetMsg getUserInvitaCode(@PathVariable("userid") String userid) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
 		
@@ -69,7 +69,7 @@ public class InvitationController {
 	 */
 	@ApiOperation(value="获得本用户邀请的人数和总共获得的ISC数量", notes="")
 	@GetMapping("/getUserInvitaInfo/{userid}")
-	public RetMsg getUserInvitaInfo(@PathVariable("userid") Long userid) {
+	public RetMsg getUserInvitaInfo(@PathVariable("userid") String userid) {
 		int size = invitationService.getInvitationCountByUser(userid);
 		InvitaInfoVo ivo = new InvitaInfoVo(size);
 		RetMsg retMsg = new RetMsg();
@@ -85,8 +85,8 @@ public class InvitationController {
 	@GetMapping("/test")
 	public RetMsg testaddInvita() {
 		Invitation iv = new Invitation();
-		iv.setSourceUserId(3);
-		iv.setToUserId(15);
+		iv.setSourceUserId("123123sdsad");
+		iv.setToUserId("q2321312");
 		iv.setCreateTime(new Date());
 		
 		this.invitationService.save(iv);

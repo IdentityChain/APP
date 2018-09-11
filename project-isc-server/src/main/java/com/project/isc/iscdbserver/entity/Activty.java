@@ -12,16 +12,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 @Table(name = "tb_activty")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Activty implements Serializable{
 
 	private static final long serialVersionUId = 1L;
 	
 	// 活动ID
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long activityId;
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
+	private String activityId;
 	@Column
 	private String name;
 	@Column
@@ -36,10 +40,10 @@ public class Activty implements Serializable{
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endTime;
-	public long getActivityId() {
+	public String getActivityId() {
 		return activityId;
 	}
-	public void setActivityId(long activityId) {
+	public void setActivityId(String activityId) {
 		this.activityId = activityId;
 	}
 	public String getName() {

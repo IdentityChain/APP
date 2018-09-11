@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 import com.project.isc.iscdbserver.entity.User;
 
 @Repository
-public interface UserRepository extends JpaSpecificationExecutor<User>,JpaRepository<User, Long> {
+public interface UserRepository extends JpaSpecificationExecutor<User>,JpaRepository<User, String> {
 	public User findByAccount(String account);
-	public User findByUserId(long userId);
+	public User findByUserId(String userId);
 	public User findByUserPhone(String phone);
 	public List<User> findByNickName(String nickName);
 	

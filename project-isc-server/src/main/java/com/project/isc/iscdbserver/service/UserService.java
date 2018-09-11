@@ -66,7 +66,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public void delete(Long id) {
+	public void delete(String id) {
 		userRepositoy.delete(id);
 	}
 
@@ -86,12 +86,12 @@ public class UserService {
 
 
 	@Transactional
-	public User getUserById(Long id) {
+	public User getUserById(String id) {
 		return userRepositoy.findOne(id);
 	}
 
 	// 基于userId，查询用户信息
-	public User findByUserId(long userId) {
+	public User findByUserId(String userId) {
 		return this.userRepositoy.findByUserId(userId);
 	}
 

@@ -12,52 +12,59 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 
  * 邀请表，保存用户生成的邀请码ID
  */
 @Entity
 @Table(name = "tb_invitation")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Invitation implements Serializable {
+	
+	private static final long serialVersionUId = 1L;
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "jpa-uuid")
+    @Column(length = 32)
 	// 唯一id
-	private long invitaId;
+	private String invitaId;
 	
 	//邀请人ID
 	@Column
-	private long sourceUserId;
+	private String sourceUserId;
 	
 	//被邀请人ID
 	@Column
-	private long toUserId;
+	private String toUserId;
 	
 	// 创建时间
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
-	public long getInvitaId() {
+	public String getInvitaId() {
 		return invitaId;
 	}
 
-	public void setInvitaId(long invitaId) {
+	public void setInvitaId(String invitaId) {
 		this.invitaId = invitaId;
 	}
 
-	public long getSourceUserId() {
+	public String getSourceUserId() {
 		return sourceUserId;
 	}
 
-	public void setSourceUserId(long sourceUserId) {
+	public void setSourceUserId(String sourceUserId) {
 		this.sourceUserId = sourceUserId;
 	}
 
-	public long getToUserId() {
+	public String getToUserId() {
 		return toUserId;
 	}
 
-	public void setToUserId(long toUserId) {
+	public void setToUserId(String toUserId) {
 		this.toUserId = toUserId;
 	}
 

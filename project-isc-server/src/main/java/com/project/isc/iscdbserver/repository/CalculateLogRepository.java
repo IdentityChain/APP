@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.project.isc.iscdbserver.entity.CalculateLog;
 @Repository
-public interface CalculateLogRepository  extends JpaSpecificationExecutor<CalculateLog>,JpaRepository<CalculateLog, Long> {
+public interface CalculateLogRepository  extends JpaSpecificationExecutor<CalculateLog>,JpaRepository<CalculateLog, String> {
 
 }
