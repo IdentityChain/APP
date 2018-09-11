@@ -5,30 +5,39 @@
     <div class="topbg">
       <!--我的算力-->
       <div class="wodesuanli">
-        <div style="float: left;padding-left: 4px">算力</div>
+        <div style="float: left;padding-left: 4px">成就点</div>
         <div style="padding-right: 3px">
-          10000
+          {{chengjiudian}}
         </div>
       </div>
 
       <!--邀请-->
-      <div class="yaoqing">
-        <button>邀请</button>
+      <div class="yaoqing anniu">
+        <img class="yaoqingimg" src="../../assets/wakuang/yaoqing.png"/>
       </div>
 
       <!--钱包-->
-      <div class="qianbao">
-        <button>钱包</button>
+      <div class="qianbao anniu">
+        <img src="../../assets/wakuang/wallet.png" style="height: 50px;width: 50px;"/>
       </div>
 
       <!--任务-->
-      <div class="renwu">
-        <button>任务</button>
+      <div class="renwu anniu">
+        <img src="../../assets/wakuang/renwu.png" style="height: 50px;width: 50px;"/>
       </div>
 
       <!--待拾取的ISC币-->
       <div class="coins">
-
+        <!--<coin class="coin" style="top:40px;left: 150px"></coin>-->
+        <!--<coin class="coin" style="top:40px;left: 150px"></coin>-->
+        <!--<coin class="coin" style="top:20px;left: 80px"></coin>-->
+        <!--<coin class="coin" style="top:50px;left: 110px"></coin>-->
+        <!--<coin class="coin" style="top:70px;left: 200px"></coin>-->
+        <coin class="coin" :style="{'top': (Math.random() * 100 - 50) + 'px', 'left': (Math.random() * 100 + 20) + 'px'}"></coin>
+        <coin class="coin" :style="{'top': (Math.random() * 100 - 50) + 'px', 'left': (Math.random() * 100 + 20) + 'px'}"></coin>
+        <coin class="coin" :style="{'top': (Math.random() * 100 - 50) + 'px', 'left': (Math.random() * 100 + 20) + 'px'}"></coin>
+        <coin class="coin" :style="{'top': (Math.random() * 100 - 50) + 'px', 'left': (Math.random() * 100 + 20) + 'px'}"></coin>
+        <coin class="coin" :style="{'top': (Math.random() * 100 - 50) + 'px', 'left': (Math.random() * 100 + 20) + 'px'}"></coin>
       </div>
 
     </div>
@@ -45,10 +54,16 @@
 </template>
 
 <script>
+  import Coin from '../../components/home/GetCoin'
   export default {
     name: 'wakuang',
+    components: {
+      Coin
+    },
     data () {
-      return {}
+      return {
+        chengjiudian: 1000
+      }
     },
     methods: {
     }
@@ -72,7 +87,7 @@
     border-radius: 15px;
     background-color: mediumslateblue;
     position: absolute;
-    top: calc(30px + env(safe-area-inset-top));
+    top: calc(40px + env(safe-area-inset-top));
     right: 15px;
     height: 25px;
     width: 110px;
@@ -81,31 +96,25 @@
     color: white;
   }
   .yaoqing {
-    position: absolute;
     top: calc(390px);
     right: 20px;
+  }
+  .yaoqingimg {
     height: 50px;
-    border-radius: 30px;
     width: 50px;
-    background-color: #ec8b89;
+  }
+  .anniu {
+    height: 50px;
+    width: 50px;
+    position: absolute;
   }
   .qianbao {
-    position: absolute;
     top: calc(390px);
     left: 20px;
-    height: 50px;
-    border-radius: 30px;
-    width: 50px;
-    background-color: #ec8b89;
   }
   .renwu {
-    position: absolute;
     top: calc(390px);
     left: 100px;
-    height: 50px;
-    border-radius: 30px;
-    width: 50px;
-    background-color: #ec8b89;
   }
   .gonggao {
     background-image:url(../../assets/wakuang/gonggao.png);
@@ -120,5 +129,8 @@
     left: 10%;
     height: 250px;
     width: 80%;
+  }
+  .coin {
+    position: absolute;
   }
 </style>

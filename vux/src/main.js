@@ -164,9 +164,7 @@ router.afterEach(function (to) {
   //   ga && ga('send', 'pageview')
   // }
 })
-
 FastClick.attach(document.body)
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
