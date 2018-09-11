@@ -30,9 +30,20 @@ public class CalculateService {
 	@Autowired
 	private ISCLogRepository iscLogRepository;
 	
+	/**
+	 * 这个用户的所有数据
+	 * @param userid
+	 * @return
+	 */
 	public List<ISCLog> getCalculateLogByUserId(Long userid) {
 		//这里只出现新增的
 		List<ISCLog> isclogs = iscLogRepository.findByUserId(userid);
+		return isclogs;
+	}
+	
+	public List<ISCLog> getCalculateLogByUserIdAndStatus(Long userid) {
+		//这里只出现新增的
+		List<ISCLog> isclogs = iscLogRepository.findByUserIdAndStatus(userid,ISCConstant.ISC_LOG_NEW);
 		return isclogs;
 	}
 	

@@ -16,6 +16,7 @@ import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.util.AppYml;
 import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 
@@ -63,18 +64,24 @@ public class IscServerSchedul {
 	 */
 	@Transactional
 	public void mainISCcoin() {
-		double addisc =1.23;
+		double addisc =AppYml.getAddisc();
 		Iterable<User> users = userService.getAll();
 		List<ISCLog> isclogs = new ArrayList<ISCLog>();
 		for (User user : users) {
-			ISCLog isclog = new ISCLog();
-			isclog.setCreateTime(new Date());
-			isclog.setStatus(ISCConstant.ISC_LOG_NEW);
-			isclog.setOriginalISC(user.getIscCoin());
-			isclog.setAddISC(addisc);
-			isclog.setFinallyISC(user.getIscCoin()+addisc);
-			isclog.setUserId(user.getUserId());
-			isclogs.add(isclog);
+			List<ISCLog> isculogs = calculateService.getCalculateLogByUserIdAndStatus(user.getUserId());
+			//最多出现30个
+			if(isculogs!=null && isculogs.size()<AppYml.getIscMaxNumber()) {
+				ISCLog isclog = new ISCLog();
+				isclog.setCreateTime(new Date());
+				isclog.setStatus(ISCConstant.ISC_LOG_NEW);
+				isclog.setOriginalISC(user.getIscCoin());
+				isclog.setAddISC(addisc);
+				isclog.setFinallyISC(user.getIscCoin()+addisc);
+				isclog.setUserId(user.getUserId());
+				isclogs.add(isclog);
+			}else {
+				//等于空或者大于30个不做处理
+			}
 		}
 		calculateService.savaAllCalculateLog(isclogs);
 	}

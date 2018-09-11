@@ -16,4 +16,6 @@ public interface ISCLogRepository extends JpaRepository<ISCLog, Long>, JpaSpecif
 
 	List<ISCLog> findByCreateTimeLessThanAndStatus(Date date,String status);
 
+	List<ISCLog> findByUserIdAndStatus(Long userid, String status);
+
 }

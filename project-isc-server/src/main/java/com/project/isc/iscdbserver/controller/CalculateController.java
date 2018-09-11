@@ -87,7 +87,7 @@ public class CalculateController {
 		RetMsg retMsg = new RetMsg();
 		
 //		User user = userService.getUserById(userid);
-		List<ISCLog> isclogs = calculateService.getCalculateLogByUserId(userid);
+		List<ISCLog> isclogs = calculateService.getCalculateLogByUserIdAndStatus(userid);
 		
 		
 		
