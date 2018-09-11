@@ -15,7 +15,7 @@ import com.project.isc.iscdbserver.repository.ISCLogRepository;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 
 /**
- * 算力服务
+ * 成就服务
  * @author ISC
  *
  */

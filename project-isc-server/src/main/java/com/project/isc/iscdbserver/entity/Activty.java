@@ -27,7 +27,7 @@ public class Activty implements Serializable{
 	@Column
 	private String description;
 	@Column
-	private String type;  //类型  ISC  算力等
+	private String type;  //类型  ISC  成就等
 	@Column
 	private String rate;  //1次 1周一次 1月一次等
 	@Column

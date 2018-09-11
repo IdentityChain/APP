@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
  * @author ISC
  *
  */
-@Api(value = "算力管理", tags = "算力管理")
+@Api(value = "成就管理", tags = "成就管理")
 @RestController
 @RequestMapping("/calculate")
 @CrossOrigin
@@ -43,7 +43,7 @@ public class CalculateController {
 	@Autowired
 	private ActivtyService activtyService;
 	
-	@ApiOperation(value="获得算力排行100", notes="")
+	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
 	public RetMsg getCalculateStatistic100() {
 		// 如果数据校验有误，则直接返回校验错误信息
@@ -69,10 +69,9 @@ public class CalculateController {
 			ccsvos.add(vo);
 		}
 		
-		retMsg = new RetMsg();
 		retMsg.setCode(200);
 		retMsg.setData(ccsvos);
-		retMsg.setMessage("获得算力排行100");
+		retMsg.setMessage("获得成就排行100");
 		retMsg.setSuccess(true);
 
 		return retMsg;

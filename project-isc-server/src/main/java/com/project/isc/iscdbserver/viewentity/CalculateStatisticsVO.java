@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 /**
- * 算力统计
+ * 成就统计
  * @author isc
  *
  */

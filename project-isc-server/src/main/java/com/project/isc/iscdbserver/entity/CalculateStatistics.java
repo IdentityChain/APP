@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 
 /**
- * 算力统计
+ * 成就统计
  * @author isc
  *
  */

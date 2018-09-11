@@ -20,18 +20,18 @@ public class CalculateLog implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// 算力日志ID
+	// 成就日志ID
 	private long cclId;
 	// 用户ID
 	@Column
 	private long userId;
-	// 算力ID
+	// 成就ID
 	@Column
 	private long ccId;
 	// 活动ID
 	@Column
 	private long activityId;
-	// 算力值ID
+	// 成就值ID
 	@Column
 	private int calculateValue;
 	

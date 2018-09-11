@@ -20,7 +20,7 @@ public class Calculate implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	// 算力id
+	// 成就id
 	private long ccId;
 	// 用户id
 	@Column
