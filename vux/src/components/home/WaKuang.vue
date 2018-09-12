@@ -13,7 +13,9 @@
 
       <!--邀请-->
       <div class="yaoqing anniu">
-        <img class="yaoqingimg" src="../../assets/wakuang/yaoqing.png"/>
+        <router-link to="/login" >
+          <img class="yaoqingimg" src="../../assets/wakuang/yaoqing.png"/>
+        </router-link>
       </div>
 
       <!--钱包-->
@@ -30,8 +32,9 @@
       <div class="coins">
         <coin v-for="(coinItem,index) in coins"
               :key="index"
+              v-if="coinItem.status === '可采集'"
               :addISC="coinItem.addISC"
-              :isclID="coinItem.isclID"
+              :isclID="coinItem.isclId"
               @getCoin="doGetCoin"
               class="coin"
               :style="{'top': (Math.random() * 100 * 2) + 'px', 'left': (Math.random() * 100 * 2) + 'px'}">
@@ -56,7 +59,7 @@
     </div>
 
     <!--排行榜-->
-    <div style="height: 2000px;width:100%;position: absolute;top:503px;background-color: white">
+    <div style="height: auto;width:100%;position: absolute;top:503px;background-color: white">
       <div class="paihangbang">
         <div class="phb-title">
           ▍封神榜
@@ -80,26 +83,15 @@
           <tbody>
           <tr v-for="listItem in paihangList">
             <td>
-              <div class="mingci" :class="mingciCSS(listItem.no)">
-                {{listItem.no}}
+              <div class="mingci" :class="mingciCSS(listItem.ranking)">
+                {{listItem.ranking}}
               </div>
             </td>
             <td>{{listItem.name}}</td>
-            <td style="color: mediumslateblue">{{listItem.chengjiu}}</td>
+            <td style="color: mediumslateblue">{{listItem.calculateValue}}</td>
           </tr>
           </tbody>
         </x-table>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-        1<br>
-
       </div>
     </div>
   </div>
@@ -111,11 +103,8 @@
   export default {
     mounted: function () {
       this.gundong()
-      if (window.indexedDB) {
-        console.log("I'm in WKWebView!")
-      } else {
-        console.log("I'm in UIWebView")
-      }
+      this.init()
+      console.log('load ...')
     },
     name: 'wakuang',
     components: {
@@ -125,39 +114,20 @@
     },
     data () {
       return {
-        chengjiudian: 1000,
+        chengjiudian: 0,
         gonggao: '',
         totalPeople: 10000,
-        coins: [
-          {
-            isclID: 1,
-            addISC: 1.235
-          }],
-        paihangList: [
-          {
-            no: 1,
-            name: 'xxxx',
-            chengjiu: 1000
-          },
-          {
-            no: 2,
-            name: 'xxxx',
-            chengjiu: 1000
-          },
-          {
-            no: 3,
-            name: 'xxxx',
-            chengjiu: 1000
-          },
-          {
-            no: 4,
-            name: 'xxxx',
-            chengjiu: 1000
-          }
-        ]
+        coins: [],
+        paihangList: []
       }
     },
     methods: {
+      init () {
+        let user = JSON.parse(window.localStorage.getItem('User'))
+        this.chengjiudian = user.calculateValue
+        this.getCoinRequest(user.userId)
+        this.getPaihangBang()
+      },
       doGetCoin (iscLID) {
         console.log('获取币ID: ' + iscLID)
       },
@@ -171,6 +141,30 @@
         } else {
           return 'other'
         }
+      },
+      getCoinRequest (userId) {
+        const urlstr = this.AppConfig.apiServer + '/calculate/getCalculateLog/' + userId
+        this.doGet({
+          url: urlstr
+        }).then(result => {
+          if (result.success) {
+            this.coins = result.data
+          } else {
+            console.log('请求失败')
+          }
+        })
+      },
+      getPaihangBang () {
+        const urlstr = this.AppConfig.apiServer + '/calculate/getCalculateStatistic100'
+        this.doGet({
+          url: urlstr
+        }).then(result => {
+          if (result.success) {
+            this.paihangList = result.data
+          } else {
+            console.log('请求失败')
+          }
+        })
       }
     },
     computed: {}
@@ -182,7 +176,7 @@
     -webkit-backface-visibility: hidden;
   }
   .topbg {
-    background-image: url(../../assets/wakuang/bg_panel.png);
+    /*background-image: url(../../assets/wakuang/bg_panel.png);*/
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;

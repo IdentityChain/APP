@@ -110,7 +110,8 @@ let store = new Vuex.Store({
 Vue.use(store)
 store.registerModule('vux', {
   state: {
-    direction: shouldUseTransition ? 'forward' : ''
+    direction: shouldUseTransition ? 'forward' : '',
+    homeView: 'wakuang'
   },
   mutations: {
     updateDirection (state, payload) {
@@ -118,6 +119,9 @@ store.registerModule('vux', {
         return
       }
       state.direction = payload.direction
+    },
+    updateHomeView (state, nowView) {
+      state.homeView = nowView
     }
   }
 })
@@ -155,6 +159,11 @@ router.beforeEach(function (to, from, next) {
         router.push({name: 'login'})
       }
     }
+  }
+  // 判断是否从home跳转到login,清空历史记录
+  if (from.path === '/' && to.path === '/login') {
+    console.log('登陆跳转')
+    history.clear()
   }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)

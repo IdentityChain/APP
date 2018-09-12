@@ -58,8 +58,8 @@
     mounted: function () {
       const userOjb = JSON.parse(window.localStorage.getItem('User'))
       this.user = userOjb
-      this.owner[0].title = this.user.account
-      this.owner[0].desc = '第' + (this.user.userId + 1) + '位用户'
+      this.owner[0].title = this.user.nickName
+      // this.owner[0].desc = '第' + (this.user.userId + 1) + '位用户'
     },
     data () {
       return {

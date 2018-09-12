@@ -2,7 +2,7 @@
   <div style="height: 100%">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: false}"
                   style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC
         </x-header>
@@ -34,9 +34,10 @@
 
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
+  import {mapState} from 'vuex'
   import WaKuang from '../components/home/WaKuang'
   import My from '../components/home/My'
-  //活动页面
+  //  活动页面
   import Activity from '../components/home/Activity'
 
   export default {
@@ -59,9 +60,14 @@
         // preserves its current state and we are modifying
         // its initial state.
         msg: 'Hello World!',
-        currentView: 'wakuang',
+        // currentView: 'wakuang',
         showHeader: false
       }
+    },
+    computed: {
+      ...mapState({
+        currentView: state => state.vux.homeView
+      })
     },
     methods: {
       changeView (view) {
@@ -71,6 +77,7 @@
           this.showHeader = true
         }
         this.currentView = view
+        this.$store.commit('updateHomeView', view)
       },
       back () {
         // this.$store.commit('setTransition', 'turn-off')
