@@ -7,7 +7,11 @@ import Home from '@/view/Home'
 import Login from '@/view/Login'
 import ResetPasswd from '@/view/ResetPassword'
 import Register from '@/view/Register'
-import ConvertConsumeCoin from '@/components/Template'
+import convertConsumeCoin from '@/view/myinfo/convertConsumeCoin'
+import orderView from '@/view/myinfo/orderView'
+import reConsume from '@/view/myinfo/reConsume'
+import resetSetting from '@/view/myinfo/resetSetting'
+import transferConsumeCoin from '@/view/myinfo/transferConsumeCoin'
 
 Vue.use(Router)
 
@@ -36,8 +40,29 @@ export default new Router({
     {
       path: '/my/convertConsumeCoin',
       name: 'convertConsumeCoin',
-      component: ConvertConsumeCoin
+      component: convertConsumeCoin
     },
+    {
+      path: '/my/orderView',
+      name: 'orderView',
+      component: orderView
+    },
+    {
+      path: '/my/reConsume',
+      name: 'reConsume',
+      component: reConsume
+    },
+    {
+      path: '/my/resetSetting',
+      name: 'resetSetting',
+      component: resetSetting
+    },
+    {
+      path: '/my/transferConsumeCoin',
+      name: 'transferConsumeCoin',
+      component: transferConsumeCoin
+    },
+
     {
       path: '*',
       component: Login
