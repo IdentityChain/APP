@@ -23,10 +23,10 @@ public class UserVO {
 	private String nickName;
 
 	// 用户级别
-	private String userLevel = UserLevel.CONSUMER;
+	private String userLevel;
 
 	// 用户类型
-	private String userType = UserType.COMMON;
+	private String userType;
 	
 	//邀请码
 	private String invitationCode;
@@ -56,7 +56,7 @@ public class UserVO {
 	private String userPhone;
 
 	// 密码重置标识
-	private boolean passwordReset = false;
+	private boolean passwordReset;
 
 
 

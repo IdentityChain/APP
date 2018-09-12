@@ -68,6 +68,7 @@ public class CalculateController {
 			vo.setCreateTime(ccs.getCreateTime());
 			vo.setCalculateValue(ccs.getCalculateValue());
 			vo.setRanking(ccs.getRanking());
+			vo.setName(ccs.getName());
 			ccsvos.add(vo);
 		}
 		
