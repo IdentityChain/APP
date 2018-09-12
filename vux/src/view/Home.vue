@@ -2,11 +2,11 @@
   <div style="height: 100%">
     <view-box body-padding-top="46px"  body-padding-bottom="55px">
       <div v-if="showHeader" slot="header" style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
-        <x-header :left-options="{showBack: true}" style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC</x-header>
+        <x-header :left-options="{showBack: false}" style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC</x-header>
       </div>
       <component :is="currentView" ref="nowView" style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
       <tabbar slot="bottom" class="toolbar-footer">
-        <tabbar-item selected @click.native="changeView('index1')">
+        <tabbar-item selected @click.native="changeView('wakuang')">
           <img slot="icon" src="../assets/icon/WK_hui.png">
           <img slot="icon-active" src="../assets/icon/WK.png">
           <span slot="label">挖宝</span>
@@ -29,6 +29,7 @@
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
   import WaKuang from '../components/home/WaKuang'
+  import My from '../components/home/My'
   export default {
     components: {
       ViewBox,
@@ -38,7 +39,8 @@
       XHeader,
       Tabbar,
       TabbarItem,
-      'wakuang': WaKuang
+      'wakuang': WaKuang,
+      'my': My
     },
     data () {
       return {
@@ -52,6 +54,14 @@
       }
     },
     methods: {
+      changeView (view) {
+        if (view === 'wakuang') {
+          this.showHeader = false
+        } else {
+          this.showHeader = true
+        }
+        this.currentView = view
+      },
       back () {
         // this.$store.commit('setTransition', 'turn-off')
         this.$router.back(-1)

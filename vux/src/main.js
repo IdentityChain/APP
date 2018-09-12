@@ -24,6 +24,34 @@ Vue.http.options.timeout = 5000
 Vue.http.options.emulateJSON = true
 Vue.http.options.xhr = {withCredentials: true}
 
+var rightJS = {
+  init: function () {
+    rightJS.Tags = document.querySelectorAll('.rightJS')
+    for (var i = 0; i < rightJS.Tags.length; i++) {
+      rightJS.Tags[i].style.overflow = 'hidden'
+    }
+    rightJS.Tags = document.querySelectorAll('.rightJS div')
+    for (var l = 0; l < rightJS.Tags.length; l++) {
+      rightJS.Tags[l].style.position = 'relative'
+      rightJS.Tags[l].style.right = '-' + rightJS.Tags[l].parentElement.offsetWidth + 'px'
+    }
+    rightJS.loop()
+  },
+  loop: function () {
+    for (var i = 0; i < rightJS.Tags.length; i++) {
+      var x = parseFloat(rightJS.Tags[i].style.right)
+      x++
+      var W = rightJS.Tags[i].parentElement.offsetWidth
+      var w = rightJS.Tags[i].offsetWidth
+      if ((x / 100) * W > w) x = -W
+      rightJS.Tags[i].style.right = x + 'px'
+    }
+    requestAnimationFrame(this.loop.bind(this))
+  }
+}
+
+Vue.prototype.gundong = rightJS.init
+
 Vue.http.interceptors.push((request, next) => {
   request.credentials = true
   Vue.$vux.loading.hide()
