@@ -17,22 +17,22 @@
     </group>
     <!--</Box>-->
     <group>
-      <cell title='联系人' is-link @click.native="goTo('convertConsumeCoin')">
+      <cell title='联系人' is-link link="/my/convertConsumeCoin">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
-      <cell title='加入社群' is-link @click.native="goTo('transferConsumeCoin')">
+      <cell title='加入社群' is-link link="/my/transferConsumeCoin">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
-      <cell title='帮助中心' is-link @click.native="goTo('reConsume')">
+      <cell title='帮助中心' is-link link="/my/reConsume">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;"-->
              <!--src="../../assets/icon/tel.png">-->
       </cell>
     </group>
     <group>
-      <cell title='关于我们' is-link @click.native="goTo('orderView')">
+      <cell title='关于我们' is-link link="/my/orderView">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
-      <cell title='系统设置' is-link @click.native="goTo('resetPassword')">
+      <cell title='系统设置' is-link link="/my/resetSetting">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
     </group>
