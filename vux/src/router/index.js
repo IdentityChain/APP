@@ -7,6 +7,7 @@ import Home from '@/view/Home'
 import Login from '@/view/Login'
 import ResetPasswd from '@/view/ResetPassword'
 import Register from '@/view/Register'
+import ConvertConsumeCoin from '@/components/Template'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/my/convertConsumeCoin',
+      name: 'convertConsumeCoin',
+      component: ConvertConsumeCoin
     },
     {
       path: '*',

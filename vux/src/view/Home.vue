@@ -1,10 +1,16 @@
 <template>
   <div style="height: 100%">
-    <view-box body-padding-top="46px"  body-padding-bottom="55px">
-      <div v-if="showHeader" slot="header" style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
-        <x-header :left-options="{showBack: false}" style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC</x-header>
+    <view-box body-padding-top="46px" body-padding-bottom="55px">
+      <div v-if="showHeader" slot="header"
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">
+        <x-header :left-options="{showBack: false}"
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC
+        </x-header>
       </div>
-      <component :is="currentView" ref="nowView" style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
+      <keep-alive>
+        <component :is="currentView" ref="nowView"
+                   style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
+      </keep-alive>
       <tabbar slot="bottom" class="toolbar-footer">
         <tabbar-item selected @click.native="changeView('wakuang')">
           <img slot="icon" src="../assets/icon/WK_hui.png">
@@ -30,6 +36,7 @@
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
   import WaKuang from '../components/home/WaKuang'
   import My from '../components/home/My'
+
   export default {
     components: {
       ViewBox,
@@ -80,14 +87,15 @@
     width: 100%;
     overflow-x: hidden;
   }
+
   /*.main {*/
-    /*height: 100%;*/
-    /*width: 100%;*/
-    /*position: fixed;*/
-    /*background-color: black;*/
-    /*padding-top: env(safe-area-inset-top);*/
-    /*!*padding-bottom: env(safe-area-inset-bottom);*!*/
-    /*!*padding-bottom: env(safe-area-inset-bottom);*!*/
+  /*height: 100%;*/
+  /*width: 100%;*/
+  /*position: fixed;*/
+  /*background-color: black;*/
+  /*padding-top: env(safe-area-inset-top);*/
+  /*!*padding-bottom: env(safe-area-inset-bottom);*!*/
+  /*!*padding-bottom: env(safe-area-inset-bottom);*!*/
   /*}*/
   .toolbar-footer {
     position: fixed;

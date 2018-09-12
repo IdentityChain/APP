@@ -4,7 +4,7 @@
     <!--主显示面板-->
     <div class="topbg">
       <!--我的算力-->
-      <div class="wodesuanli coin" >
+      <div class="wodesuanli" >
         <div style="float: left;padding-left: 4px">成就点</div>
         <div style="padding-right: 3px">
           {{chengjiudian}}
@@ -182,7 +182,7 @@
     -webkit-backface-visibility: hidden;
   }
   .topbg {
-    /*background-image: url(../../assets/wakuang/bg_panel.png);*/
+    background-image: url(../../assets/wakuang/bg_panel.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
@@ -325,30 +325,5 @@
   }
   .other {
     background-color: #888888;
-  }
-  .coin {
-    -webkit-animation: heart 1.3s ease-in-out 0.7s infinite alternate;
-  }
-  @-webkit-keyframes heart{
-    from{
-      /*transform: scale(1);*/
-      /*transform:translate(0,0);*/
-      /*top:0;*/
-      /*left: 0;*/
-      /*height: 50px;*/
-      /*width: 50px;*/
-      /*transform: scale(1);*/
-      -webkit-transform: scale(1);
-    }
-    to{
-      /*top:-10px;*/
-      /*left: -10px;*/
-      /*height: 70px;*/
-      /*width: 70px;*/
-      /*transform: scale(1);*/
-      /*transform: scale(1.2);*/
-      -webkit-transform: scale(1.2);
-      /*transform:translate(0,8px);*/
-    }
   }
 </style>
