@@ -17,10 +17,10 @@
           <img slot="icon-active" src="../assets/icon/WK.png">
           <span slot="label">挖宝</span>
         </tabbar-item>
-        <tabbar-item @click.native="changeView('index2')">
+        <tabbar-item @click.native="changeView('activity')">
           <img slot="icon" src="../assets/icon/yingyong_hui.png">
           <img slot="icon-active" src="../assets/icon/YINGYONG.png">
-          <span slot="label">应用</span>
+          <span slot="label">活动</span>
         </tabbar-item>
         <tabbar-item @click.native="changeView('my')">
           <img slot="icon" src="../assets/icon/my_hui.png">
@@ -36,6 +36,8 @@
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
   import WaKuang from '../components/home/WaKuang'
   import My from '../components/home/My'
+  //活动页面
+  import Activity from '../components/home/Activity'
 
   export default {
     components: {
@@ -47,7 +49,8 @@
       Tabbar,
       TabbarItem,
       'wakuang': WaKuang,
-      'my': My
+      'my': My,
+      'activity': Activity
     },
     data () {
       return {
