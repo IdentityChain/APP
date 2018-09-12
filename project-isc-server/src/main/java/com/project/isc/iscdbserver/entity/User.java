@@ -57,6 +57,7 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	private String userType = UserType.COMMON;
 	
+	//成就点
 	@Column
 	private int calculateValue;
 

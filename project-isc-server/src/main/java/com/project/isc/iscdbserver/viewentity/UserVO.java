@@ -42,6 +42,9 @@ public class UserVO {
 
 	// isc数目
 	private double iscCoin;
+	
+	//成就点
+	private int calculateValue;
 
 	// 用户积分
 	private double productCoin;
@@ -171,4 +174,13 @@ public class UserVO {
 	public void setPinvitationCode(String pinvitationCode) {
 		this.pinvitationCode = pinvitationCode;
 	}
+
+	public int getCalculateValue() {
+		return calculateValue;
+	}
+
+	public void setCalculateValue(int calculateValue) {
+		this.calculateValue = calculateValue;
+	}
+	
 }

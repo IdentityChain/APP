@@ -13,6 +13,7 @@ public class UserTransf{
 		uvo.setNickName(StringUtils.getStringHide(u.getNickName()));
 		uvo.setInvitationCode(u.getInvitationCode());
 		uvo.setIscCoin(u.getIscCoin());
+		uvo.setCalculateValue(u.getCalculateValue());
 		return uvo;
 	}
 	
