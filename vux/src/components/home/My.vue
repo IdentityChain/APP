@@ -8,9 +8,9 @@
     <group>
       <Cell title="身份标签"></Cell>
       <box gap="5px 10px">
-        <x-button mini type="primary" style="background-color: purple;margin-right: 20px">挖矿</x-button>
-        <x-button mini type="primary" style="background-color: blue;margin-right: 20px">挖矿</x-button>
-        <x-button mini type="primary" style="margin-right: 20px">挖矿</x-button>
+        <x-button mini type="primary" style="background-color: purple;margin-right: 20px">ISC居民</x-button>
+        <x-button mini type="primary" style="background-color: blue;margin-right: 20px">区块链爱好者</x-button>
+        <!-- <x-button mini type="primary" style="margin-right: 20px"></x-button> -->
         <br>
         &nbsp;
       </box>
@@ -67,7 +67,7 @@
         owner: [{
           src: require('../../assets/my/people.png'),
           title: '昵称',
-          desc: '第xxxxx位用户'
+          desc: ''
         }]
       }
     }
