@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%">
+  <div style="height: 100%">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: black;z-index: 100">

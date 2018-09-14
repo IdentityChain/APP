@@ -62,7 +62,7 @@
     height: 50px;
     /*iphone上悬浮效果会影响定位,建议关闭*/
     /*background-color: #9ed99d;*/
-    -webkit-animation: heart 1.3s ease-in-out 0.7s infinite alternate;
+    /*-webkit-animation: heart 1.3s ease-in-out 0.7s infinite alternate;*/
     -webkit-backface-visibility: hidden;
   }
   @-webkit-keyframes heart{

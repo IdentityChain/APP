@@ -99,7 +99,7 @@
 
 <script>
   import {MarqueeItem, XTable} from 'vux'
-  import Coin from '../../components/home/GetCoin'
+  import Coin from './GetCoin'
   export default {
     mounted: function () {
       this.gundong()
@@ -130,6 +130,18 @@
       },
       doGetCoin (iscLID) {
         console.log('获取币ID: ' + iscLID)
+        const urlstr = this.AppConfig.apiServer + '/calculate/checkCalculateLog/' + iscLID
+        this.doGet({
+          url: urlstr
+        }).then(result => {
+          if (result.success) {
+            console.log('获取成功')
+          } else {
+            this.$vux.toast.show({
+              text: result.message
+            })
+          }
+        })
       },
       mingciCSS: function (item) {
         if (item === 1) {
@@ -150,7 +162,9 @@
           if (result.success) {
             this.coins = result.data
           } else {
-            console.log('请求失败')
+            this.$vux.toast.show({
+              text: result.message
+            })
           }
         })
       },
@@ -162,7 +176,9 @@
           if (result.success) {
             this.paihangList = result.data
           } else {
-            console.log('请求失败')
+            this.$vux.toast.show({
+              text: result.message
+            })
           }
         })
       }
@@ -176,7 +192,7 @@
     -webkit-backface-visibility: hidden;
   }
   .topbg {
-    /*background-image: url(../../assets/wakuang/bg_panel.png);*/
+    background-image: url(../../assets/wakuang/bg_panel.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;

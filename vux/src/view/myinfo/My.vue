@@ -67,7 +67,8 @@
         owner: [{
           src: require('../../assets/my/people.png'),
           title: '昵称',
-          desc: ''
+          desc: '',
+          url: '/my/resetSetting'
         }]
       }
     },

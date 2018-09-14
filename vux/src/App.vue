@@ -22,9 +22,7 @@
     },
     computed: {
       ...mapState({
-        direction: state => state.vux.direction,
-        showHeader: state => state.vux.showHeader,
-        showTabBar: state => state.vux.showTabBar
+        direction: state => state.vux.direction
       }),
       viewTransition () {
         if (!this.direction) return ''

@@ -35,10 +35,10 @@
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
   import {mapState} from 'vuex'
-  import WaKuang from '../components/home/WaKuang'
-  import My from '../components/home/My'
+  import WaKuang from './wakuang/WaKuang'
+  import My from './myinfo/My'
   //  活动页面
-  import Activity from '../components/home/Activity'
+  import Activity from './wakuang/Activity'
 
   export default {
     components: {
@@ -60,7 +60,7 @@
         // preserves its current state and we are modifying
         // its initial state.
         msg: 'Hello World!',
-        // currentView: 'wakuang',
+        // currentView: this.$store.homeView,
         showHeader: false
       }
     },
@@ -97,7 +97,6 @@
     width: 100%;
     overflow-x: hidden;
   }
-
   /*.main {*/
   /*height: 100%;*/
   /*width: 100%;*/

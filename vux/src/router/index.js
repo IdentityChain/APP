@@ -62,7 +62,6 @@ export default new Router({
       name: 'transferConsumeCoin',
       component: transferConsumeCoin
     },
-
     {
       path: '*',
       component: Login
