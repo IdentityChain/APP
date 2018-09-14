@@ -12,6 +12,9 @@ private static String uuid;
 private static double addisc;
 private static int iscMaxNumber;
 
+private static String tradingurlHost;
+private static String tradingurlPort;
+
     public static String getUuid() {
         return uuid;
     }
@@ -49,5 +52,22 @@ private static int iscMaxNumber;
 	public void setIscMaxNumber(int iscMaxNumber) {
 		AppYml.iscMaxNumber = iscMaxNumber;
 	}
+	//@Value("${app.tradingurl.getIscNumber}")
+	public static String getTradingurlHost() {
+		return tradingurlHost;
+	}
+	@Value("${app.tradingurl.host}")
+	public static void setTradingurlHost(String tradingurlHost) {
+		AppYml.tradingurlHost = tradingurlHost;
+	}
+	public static String getTradingurlPort() {
+		return tradingurlPort;
+	}
+	@Value("${app.tradingurl.port}")
+	public static void setTradingurlPort(String tradingurlPort) {
+		AppYml.tradingurlPort = tradingurlPort;
+	}
+	
     
+	
 }

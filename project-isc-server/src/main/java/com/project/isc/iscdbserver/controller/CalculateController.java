@@ -123,6 +123,7 @@ public class CalculateController {
 			String userid = isclog.getUserId();
 			User user = userService.getUserById(userid);
 			user.setIscCoin(user.getIscCoin()+isclog.getAddISC());
+			isclog.setStatus(ISCConstant.ISC_LOG_CHECK);
 			
 			calculateService.saveCalculateLog(isclog);
 			userService.save(user);
