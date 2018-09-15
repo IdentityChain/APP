@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%">
+  <div style="height: 100%;background-color: #EDEAF3">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
@@ -11,18 +11,18 @@
         <component :is="currentView" ref="nowView"
                    style="padding-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom)"></component>
       </keep-alive>
-      <tabbar slot="bottom" class="toolbar-footer">
-        <tabbar-item selected @click.native="changeView('wakuang')">
+      <tabbar slot="bottom"  class="toolbar-footer">
+        <tabbar-item :selected="currentView === 'wakuang'" @click.native="changeView('wakuang')">
           <img slot="icon" src="../assets/icon/WK_hui.png">
           <img slot="icon-active" src="../assets/icon/WK.png">
           <span slot="label">挖宝</span>
         </tabbar-item>
-        <tabbar-item @click.native="changeView('activity')">
+        <tabbar-item :selected="currentView === 'activity'" @click.native="changeView('activity')">
           <img slot="icon" src="../assets/icon/yingyong_hui.png">
           <img slot="icon-active" src="../assets/icon/YINGYONG.png">
           <span slot="label">活动</span>
         </tabbar-item>
-        <tabbar-item @click.native="changeView('my')">
+        <tabbar-item :selected="currentView === 'my'" @click.native="changeView('my')">
           <img slot="icon" src="../assets/icon/my_hui.png">
           <img slot="icon-active" src="../assets/icon/MY.png">
           <span slot="label">我的</span>
@@ -60,21 +60,24 @@
         // preserves its current state and we are modifying
         // its initial state.
         msg: 'Hello World!',
+        tabIndex: 2
         // currentView: this.$store.homeView,
-        showHeader: false
+        // showHeader: false
       }
     },
     computed: {
       ...mapState({
-        currentView: state => state.vux.homeView
+        currentView: state => state.vux.homeView,
+        showHeader: state => state.vux.showHeader
       })
     },
     methods: {
       changeView (view) {
         if (view === 'wakuang') {
           this.showHeader = false
+          this.$store.commit('updateHeaderStatus', false)
         } else {
-          this.showHeader = true
+          this.$store.commit('updateHeaderStatus', true)
         }
         this.currentView = view
         this.$store.commit('updateHomeView', view)

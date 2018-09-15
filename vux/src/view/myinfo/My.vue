@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="background-color: #ECECEC">
     <group>
       <panel :list="owner" type="1">
       </panel>

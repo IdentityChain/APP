@@ -20,7 +20,7 @@ Vue.use(BusPlugin)
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
 Vue.prototype.AppConfig = AppConfig
-Vue.http.options.timeout = 5000
+Vue.http.options.timeout = 10000
 Vue.http.options.emulateJSON = true
 Vue.http.options.xhr = {withCredentials: true}
 
@@ -58,7 +58,7 @@ Vue.http.interceptors.push((request, next) => {
   console.log('进入拦截器拦截方法')
   Vue.$vux.loading.show({
     text: '加载中',
-    delay: 500
+    delay: 1000
   })
   console.log(request)
   var timeout
@@ -111,7 +111,8 @@ Vue.use(store)
 store.registerModule('vux', {
   state: {
     direction: shouldUseTransition ? 'forward' : '',
-    homeView: 'wakuang'
+    homeView: 'wakuang',
+    showHeader: false
   },
   mutations: {
     updateDirection (state, payload) {
@@ -122,6 +123,9 @@ store.registerModule('vux', {
     },
     updateHomeView (state, nowView) {
       state.homeView = nowView
+    },
+    updateHeaderStatus (state, status) {
+      state.showHeader = status
     }
   }
 })
@@ -156,15 +160,16 @@ router.beforeEach(function (to, from, next) {
     } else {
       console.log(to.name + '需要检测是否登陆')
       if (window.localStorage.getItem('User') == null) {
+        history.clear()
         router.push({name: 'login'})
       }
     }
   }
   // 判断是否从home跳转到login,清空历史记录
-  if (from.path === '/' && to.path === '/login') {
-    console.log('登陆跳转')
-    history.clear()
-  }
+  // if (from.path === '/' && to.path === '/login') {
+  //   console.log('登陆跳转')
+  //   history.clear()
+  // }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
   if (toIndex) {
