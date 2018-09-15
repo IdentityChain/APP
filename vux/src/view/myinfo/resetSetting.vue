@@ -37,7 +37,7 @@
             style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
           <group >
             <!--修改昵称-->
-            <x-input v-if="editModel.currentEdit === 'nickName'" v-model="nickName"></x-input>
+            <x-input v-if="editModel.currentEdit === 'nickName'" v-model="currentUser.nickName"></x-input>
           </group>
         </popup>
       </div>
@@ -65,11 +65,18 @@
       PopupHeader,
       Popup
     },
+    mounted: function () {
+      let userObj = JSON.parse(window.localStorage.getItem('User'))
+      this.currentUser.nickName = userObj.nickName
+    },
     data () {
       return {
         msg: 'resetSetting page',
         showEdit: false,
         nickName: '李晓明',
+        currentUser: {
+          nickName: ''
+        },
         editModel: {
           title: '设置昵称',
           currentEdit: 'nickName'

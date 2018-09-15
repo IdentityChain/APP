@@ -42,7 +42,7 @@
   .img {
     height: 50px;
     width: 50px;
-    position: fixed;
+    position: absolute;
   }
   .number {
     color: white;
