@@ -71,7 +71,7 @@ public class User implements Serializable {
 
 	// 用户状态(false:未激活(初始化默认值),true:激活)
 	@Column(nullable = false)
-	private boolean userStatus = true;
+	private boolean userStatus = false;
 
 	// 创建时间
 	@Column
