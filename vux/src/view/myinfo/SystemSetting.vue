@@ -4,21 +4,20 @@
       <div v-if="true" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: true}"
-                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">完善信息
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">系统设置
         </x-header>
       </div>
       <group style="padding-top: 46px">
-        <cell title="头像"><img src="../../assets/my/people.png" style="height: 50px;width: 50px"/></cell>
-        <cell title="昵称" is-link @click.native="openEdit"> {{currentUser.nickName}}</cell>
+        <cell title="账号与安全" is-link></cell>
       </group>
 
       <group>
-        <cell title="真实姓名" is-link>{{ typeof currentUser.realName === 'undefined' ? '未设置' : currentUser.realName}}</cell>
-        <cell title="身份证号码" is-link>{{ typeof currentUser.SFZ === 'undefined' ? '未设置' : currentUser.SFZ}}</cell>
+        <cell title="帮助与反馈" is-link></cell>
+        <cell title="关于IZone" is-link>版本1.0</cell>
       </group>
 
       <group>
-        <cell title="地区" is-link>北京 海淀</cell>
+        <cell title="退出登陆" style="text-align: center"></cell>
       </group>
 
 
@@ -47,7 +46,7 @@
   import {XButton, Box, Divider, XHeader, Group, Cell, CellBox, PopupHeader, TransferDom, Popup, XInput, ViewBox} from 'vux'
 
   export default {
-    name: 'resetSetting',
+    name: 'systemSetting',
     directives: {
       TransferDom
     },

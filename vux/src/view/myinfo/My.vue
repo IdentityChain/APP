@@ -32,7 +32,7 @@
       <cell title='关于我们' is-link link="/my/orderView">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
-      <cell title='系统设置' is-link link="/my/resetSetting">
+      <cell title='系统设置' is-link link="/my/systemSetting">
         <!--<img slot="icon" width="20" style="display:block;margin-right:10px;" src="../../assets/icon/tel.png">-->
       </cell>
     </group>

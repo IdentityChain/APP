@@ -4,7 +4,7 @@
       <div v-if="showHeader" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: false}"
-                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">ISC
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">IZone
         </x-header>
       </div>
       <keep-alive>
@@ -34,11 +34,7 @@
 
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
-  import {mapState} from 'vuex'
-  import WaKuang from './wakuang/WaKuang'
-  import My from './myinfo/My'
-  //  活动页面
-  import Activity from './wakuang/Activity'
+  import {WaKuang, My, Activity} from './homeIndex'
 
   export default {
     components: {
@@ -55,32 +51,39 @@
     },
     data () {
       return {
-        // note: changing this line won't causes changes
-        // with hot-reload because the reloaded component
-        // preserves its current state and we are modifying
-        // its initial state.
-        msg: 'Hello World!',
-        tabIndex: 2
-        // currentView: this.$store.homeView,
-        // showHeader: false
+        msg: 'Hello World!'
       }
     },
     computed: {
-      ...mapState({
-        currentView: state => state.vux.homeView,
-        showHeader: state => state.vux.showHeader
-      })
+      currentView: {
+        get: function () {
+          return this.$store.state.vux.homeObj.homeView
+        },
+        set: function () {
+        }
+      },
+      showHeader: {
+        get: function () {
+          return this.$store.state.vux.homeObj.headerStatus
+        },
+        set: function () {
+        }
+      }
     },
     methods: {
       changeView (view) {
-        if (view === 'wakuang') {
-          this.showHeader = false
-          this.$store.commit('updateHeaderStatus', false)
-        } else {
-          this.$store.commit('updateHeaderStatus', true)
+        let homeObj1 = {
+          headerStatus: false,
+          nowView: 'wakuang'
         }
-        this.currentView = view
-        this.$store.commit('updateHomeView', view)
+        if (view === 'wakuang') {
+          homeObj1.headerStatus = false
+        } else {
+          homeObj1.headerStatus = true
+        }
+        this.$store.commit('updateHeaderStatus', homeObj1)
+        homeObj1.nowView = view
+        this.$store.commit('updateHomeView', homeObj1)
       },
       back () {
         // this.$store.commit('setTransition', 'turn-off')

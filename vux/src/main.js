@@ -111,8 +111,10 @@ Vue.use(store)
 store.registerModule('vux', {
   state: {
     direction: shouldUseTransition ? 'forward' : '',
-    homeView: 'wakuang',
-    showHeader: false
+    homeObj: {
+      homeView: 'wakuang',
+      headerStatus: false
+    }
   },
   mutations: {
     updateDirection (state, payload) {
@@ -121,11 +123,11 @@ store.registerModule('vux', {
       }
       state.direction = payload.direction
     },
-    updateHomeView (state, nowView) {
-      state.homeView = nowView
+    updateHomeView (state, payload) {
+      state.homeObj.homeView = payload.nowView
     },
-    updateHeaderStatus (state, status) {
-      state.showHeader = status
+    updateHeaderStatus (state, payload) {
+      state.homeObj.headerStatus = payload.headerStatus
     }
   }
 })

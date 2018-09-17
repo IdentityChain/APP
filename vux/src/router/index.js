@@ -11,6 +11,7 @@ import convertConsumeCoin from '@/view/myinfo/convertConsumeCoin'
 import orderView from '@/view/myinfo/orderView'
 import reConsume from '@/view/myinfo/reConsume'
 import resetSetting from '@/view/myinfo/resetSetting'
+import SystemSetting from '@/view/myinfo/SystemSetting'
 import transferConsumeCoin from '@/view/myinfo/transferConsumeCoin'
 
 Vue.use(Router)
@@ -56,6 +57,11 @@ export default new Router({
       path: '/my/resetSetting',
       name: 'resetSetting',
       component: resetSetting
+    },
+    {
+      path: '/my/systemSetting',
+      name: 'systemSetting',
+      component: SystemSetting
     },
     {
       path: '/my/transferConsumeCoin',

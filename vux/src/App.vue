@@ -29,6 +29,7 @@
         return 'vux-pop-' + (this.direction === 'forward' ? 'in' : 'out')
       }
     },
+    methods: {},
     data () {
       return {
       }
