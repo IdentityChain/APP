@@ -30,9 +30,9 @@ import com.project.isc.iscdbserver.util.ShareCodeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 import com.project.isc.iscdbserver.viewentity.UpdatePaymentPasswordRequest;
+import com.project.isc.iscdbserver.viewentity.UserInitSettingRequest;
 import com.project.isc.iscdbserver.viewentity.UserLoginPasswordUpdateRequest;
 import com.project.isc.iscdbserver.viewentity.UserLoginRequest;
-import com.project.isc.iscdbserver.viewentity.UserLoginSettingRequest;
 import com.project.isc.iscdbserver.viewentity.UserSaveRequest;
 
 import io.swagger.annotations.Api;
@@ -282,18 +282,21 @@ public class UserController {
 	}
 
 	/**
-	 * @Description：重置登录密码，设置支付密码和用户电话号码
+	 * @Description：完善信息
 	 * @return：RetMsg
 	 */
 	@PostMapping("/initUserInfo")
 	@Transactional
-	public RetMsg initUserInfo(@Validated UserLoginSettingRequest userLoginSettingRequest, BindingResult bindingResult,
+	public RetMsg initUserInfo(@Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
-		String account = userLoginSettingRequest.getAccount();
-		String newPassword = userLoginSettingRequest.getNewPassword();
-		String paymentPassword = userLoginSettingRequest.getPaymentPassword();
-		String userPhone = userLoginSettingRequest.getUserPhone();
-		String nickName = userLoginSettingRequest.getNickName();
+		String account = userInitSettingRequest.getAccount();
+		String paymentPassword = userInitSettingRequest.getPaymentPassword();
+		String nickName = userInitSettingRequest.getNickName();
+		String realName = userInitSettingRequest.getRealName();
+		String identityNo = userInitSettingRequest.getIdentityNo();
+		String province = userInitSettingRequest.getProvince();
+		String city = userInitSettingRequest.getCity();
+		String address = userInitSettingRequest.getAddress();
 
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -306,11 +309,16 @@ public class UserController {
 			throw new RuntimeException("用户账号不存在");
 
 		// 设置用户登录新密码、支付密码和手机号码
-		user.setPassword(MD5Util.encrypeByMd5(newPassword));
 		user.setPaymentPassword(MD5Util.encrypeByMd5(paymentPassword));
-		user.setUserPhone(userPhone);
 		user.setPasswordReset(true);
 		user.setNickName(nickName);
+		user.setRealName(realName);
+		user.setIdentityNo(identityNo);
+		user.setProvince(province);
+		user.setCity(city);
+		user.setAddress(address);
+		//用户已完善资料
+		user.setUserStatus(true);
 
 		// 更新用户信息
 		this.userService.save(user);
@@ -323,7 +331,7 @@ public class UserController {
 		retMsg.setCode(200);
 		retMsg.setData(UserTransf.transfToVO(user));
 		retMsg.setSuccess(true);
-		retMsg.setMessage("用户设置成功");
+		retMsg.setMessage("用户资料完善成功成功");
 
 		return retMsg;
 	}
@@ -361,6 +369,25 @@ public class UserController {
 
 		try {
 			User u = this.userService.findByAccount(account);
+			RetMsg retMsg = new RetMsg();
+			retMsg.setCode(200);
+			retMsg.setData(UserTransf.transfToVO(u));
+			retMsg.setMessage("用户查询成功");
+			retMsg.setSuccess(true);
+			return retMsg;
+		} catch (Exception e) {
+			throw new RuntimeException("用户账户不存在！");
+		}
+	}
+	
+	// 根据用户ID查找用户信息
+	@GetMapping("/findByUserId")
+	public RetMsg findByUserId(@RequestParam("userid") String userid) {
+		if (null == userid)
+			throw new RuntimeException("用户账户名不能为null");
+
+		try {
+			User u = this.userService.findByUserId(userid);
 			RetMsg retMsg = new RetMsg();
 			retMsg.setCode(200);
 			retMsg.setData(UserTransf.transfToVO(u));

@@ -128,8 +128,8 @@ public class UserService {
 	
 	// 基于用户名或昵称，分页模糊查询
 	public Page<User> findUsersByNickNameOrAccountLike(UserTypeQueryRequest userTypeQueryRequest, Pageable pageable) {
-		String type = userTypeQueryRequest.getType();
-		String value = userTypeQueryRequest.getValue();
+		final String type = userTypeQueryRequest.getType();
+		final String value = userTypeQueryRequest.getValue();
 		
 		Specification<User> spec = new Specification<User>() {
 
