@@ -36,6 +36,7 @@ import com.project.isc.iscdbserver.viewentity.UserLoginRequest;
 import com.project.isc.iscdbserver.viewentity.UserSaveRequest;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Api(value = "用户管理", tags = "用户管理")
 @RestController
@@ -55,6 +56,7 @@ public class UserController {
 	/**
 	 * @Description：新增用户
 	 */
+	@ApiOperation(value="新增用户", notes="新增用户")
 	@PostMapping("/firstsave")
 	@Transactional
 	public RetMsg firstsave(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
@@ -101,6 +103,8 @@ public class UserController {
 			user.setCreateTime(new Date());
 			user.setPinvitationCode(invitationCode);//设置邀请码
 			user.setPassword(MD5Util.encrypeByMd5(password));
+			//默认支付密码和登录密码相同
+			user.setPaymentPassword(MD5Util.encrypeByMd5(password));
 			user.setCalculateValue(100);
 			userService.save(user);
 			//返回用户的邀请码
@@ -119,6 +123,7 @@ public class UserController {
 	/**
 	 * @Description：使用手机号登录
 	 */
+	@ApiOperation(value="使用手机号登录", notes="使用手机号登录")
 	@PostMapping("/loginbyphone")
 	@Transactional
 	public RetMsg loginByPhone(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
@@ -184,6 +189,7 @@ public class UserController {
 	 * @Description：更新用户登录密码
 	 * @return：RetMsg
 	 */
+	@ApiOperation(value="更新用户登录密码", notes="更新用户登录密码")
 	@PostMapping("/updateLoginPassword")
 	@Transactional
 	public RetMsg updatePassword(@Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
@@ -227,6 +233,7 @@ public class UserController {
 	 * @Description：用户登录,passwordReset：密码重置标识，true：密码已重置；false：密码未重置
 	 * @return：retMsg
 	 */
+	@ApiOperation(value="用户登录", notes="用户登录")
 	@PostMapping("/login")
 	public RetMsg login(@Validated UserLoginRequest userLoginRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -285,38 +292,29 @@ public class UserController {
 	 * @Description：完善信息
 	 * @return：RetMsg
 	 */
+	@ApiOperation(value="完善信息-身份证", notes="完善信息-身份证")
 	@PostMapping("/initUserInfo")
 	@Transactional
 	public RetMsg initUserInfo(@Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
-		String account = userInitSettingRequest.getAccount();
-		String paymentPassword = userInitSettingRequest.getPaymentPassword();
-		String nickName = userInitSettingRequest.getNickName();
+//		String account = userInitSettingRequest.getAccount();
+		String userId = userInitSettingRequest.getUserid();
 		String realName = userInitSettingRequest.getRealName();
 		String identityNo = userInitSettingRequest.getIdentityNo();
-		String province = userInitSettingRequest.getProvince();
-		String city = userInitSettingRequest.getCity();
-		String address = userInitSettingRequest.getAddress();
-
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
 		if (null != retMsg)
 			return retMsg;
 
 		// 验证用户是否存在
-		User user = this.userService.findByAccount(account);
+		User user = this.userService.findByUserId(userId);
 		if (null == user)
 			throw new RuntimeException("用户账号不存在");
 
 		// 设置用户登录新密码、支付密码和手机号码
-		user.setPaymentPassword(MD5Util.encrypeByMd5(paymentPassword));
-		user.setPasswordReset(true);
-		user.setNickName(nickName);
+		user.setUserStatus(true);
 		user.setRealName(realName);
 		user.setIdentityNo(identityNo);
-		user.setProvince(province);
-		user.setCity(city);
-		user.setAddress(address);
 		//用户已完善资料
 		user.setUserStatus(true);
 
@@ -338,6 +336,7 @@ public class UserController {
 
 
 	// 删除用户
+	@ApiOperation(value="删除用户", notes="删除用户")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@Transactional
 	private RetMsg deleteUser(User user) {
@@ -362,6 +361,7 @@ public class UserController {
 
 	/************************** 用户查询方法 *******************************/
 	// 根据用户名查找用户信息
+	@ApiOperation(value="用户名查找用户信息", notes="用户名查找用户信息")
 	@GetMapping("/findByAccount")
 	public RetMsg findUserByAccount(@RequestParam("account") String account) {
 		if (null == account)
@@ -381,6 +381,7 @@ public class UserController {
 	}
 	
 	// 根据用户ID查找用户信息
+	@ApiOperation(value="用户ID查找用户信息", notes="用户ID查找用户信息")
 	@GetMapping("/findByUserId")
 	public RetMsg findByUserId(@RequestParam("userid") String userid) {
 		if (null == userid)
@@ -400,6 +401,7 @@ public class UserController {
 	}
 
 	// 修改用户的交易密码
+	@ApiOperation(value="修改用户的交易密码", notes="修改用户的交易密码")
 	@PostMapping("/updatePaymentPassword")
 	public RetMsg updatePaymentPassword(@Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
 			BindingResult bindingResult) {
