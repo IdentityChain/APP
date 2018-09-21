@@ -135,10 +135,58 @@
 	</dependencies>
 
 	<build>
+		<!--打包的名字-->
+		<finalName>project-isc-server</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!--入口类路径-->
+					<mainClass>com.project.isc.iscdbserver.ProjectIscDbserverApplication</mainClass>
+					<includeSystemScope>true</includeSystemScope>
+					<excludes>
+						<exclude></exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<excludes>
+						<exclude>*.yml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<attach>true</attach>
+					<appendAssemblyId>false</appendAssemblyId>
+					<tarLongFileMode>gnu</tarLongFileMode>
+					<descriptors>
+						<descriptor>src/main/build/package.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-distribution</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
