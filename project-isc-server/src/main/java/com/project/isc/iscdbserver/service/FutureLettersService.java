@@ -23,13 +23,18 @@ public class FutureLettersService {
         futureLetters.setFlStatus(ISCConstant.ISC_FL_STATUS_NEW);
         futureLetters.setFlMessage(flMessage);
         futureLettersRepository.save(futureLetters);
-        //保存到区块链
-        getBlockChainID(futureLetters);
+//        //保存到区块链
+//        getBlockChainID(futureLetters.getFlId());
         return futureLetters.getFlId();
     }
 
-    public String getBlockChainID(FutureLetters futureLetters){
+    public String getBlockChainID(String flId){
         //保存到区块链
         return null;
+    }
+
+    public FutureLetters getFutureLetters(String flId){
+        FutureLetters futureLetters = futureLettersRepository.getOne(flId);
+        return futureLetters;
     }
 }
