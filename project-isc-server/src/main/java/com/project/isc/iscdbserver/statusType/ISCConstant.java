@@ -15,5 +15,10 @@ public class ISCConstant {
 	public static String ISC_LOG_CHECK="ISC_LOG_CHECK";
 	public static String ISC_LOG_CHECK_ZH="已采集";
 
-	
+
+	//给未来的一封信常量
+	public static String ISC_FL_STATUS_NEW="NEW";
+	public static String ISC_FL_STATUS_ONGOING="ONGOING";
+	public static String ISC_FL_STATUS_COMPLETE="COMPLETE";
+
 }
