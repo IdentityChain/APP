@@ -39,5 +39,8 @@ public class StringUtils {
 	}
 	
 	public static void main(String[] args) throws Exception{
+		double total =10.0;
+		int size =11;
+		System.out.println(total/size);
 	}
 }
