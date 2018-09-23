@@ -7,6 +7,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
@@ -16,7 +17,6 @@ import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
-import com.project.isc.iscdbserver.util.AppYml;
 import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 
@@ -58,19 +58,23 @@ public class IscServerSchedul {
 			calculateService.saveAllCalculateStatistics(ccss);
 		}
 	}
-	
+	//最多可剩余资源数目
+	@Value("${app.integral.iscMaxNumber}")
+	private int iscMaxNumber;
+	//每个资源的大小
+	@Value("${app.integral.addIsc}")
+	private double addisc;
 	/**
 	 * 生成矿数据
 	 */
 	@Transactional
 	public void mainISCcoin() {
-		double addisc =AppYml.getAddisc();
 		Iterable<User> users = userService.getAll();
 		List<ISCLog> isclogs = new ArrayList<ISCLog>();
 		for (User user : users) {
 			List<ISCLog> isculogs = calculateService.getCalculateLogByUserIdAndStatus(user.getUserId());
 			//最多出现30个
-			if(isculogs!=null && isculogs.size()<AppYml.getIscMaxNumber()) {
+			if(isculogs!=null && isculogs.size()<iscMaxNumber) {
 				ISCLog isclog = new ISCLog();
 				isclog.setCreateTime(new Date());
 				isclog.setStatus(ISCConstant.ISC_LOG_NEW);

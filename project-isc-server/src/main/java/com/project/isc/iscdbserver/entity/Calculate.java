@@ -23,7 +23,7 @@ public class Calculate implements Serializable{
 	
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	// 成就id
 	private String ccId;
 	// 用户id

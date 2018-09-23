@@ -27,7 +27,7 @@ public class Invitation implements Serializable {
 	
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	// 唯一id
 	private String invitaId;
 	

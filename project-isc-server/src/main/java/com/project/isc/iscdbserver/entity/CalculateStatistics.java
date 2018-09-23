@@ -29,7 +29,7 @@ public class CalculateStatistics implements Serializable{
 	
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	private String ccsId;
 	@Column
 	private String userId;

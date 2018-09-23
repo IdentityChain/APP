@@ -23,7 +23,7 @@ public class ISCLog implements Serializable{
 	//id
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	private String isclId;
 	//用户ID
 	@Column
