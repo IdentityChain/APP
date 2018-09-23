@@ -4,31 +4,48 @@
       <div v-if="true" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: true}"
-                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">系统设置
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">安全设置
         </x-header>
       </div>
+
       <group style="padding-top: env(safe-area-inset-top);">
-        <cell title="账号与安全" is-link link="/my/systemSetting/securitySetting"></cell>
+        <cell title="手机号码" is-link></cell>
       </group>
 
       <group>
-        <cell title="帮助与反馈" is-link></cell>
-        <cell title="关于IZone" is-link>版本1.0</cell>
+        <cell title="登陆密码" is-link></cell>
+        <cell title="交易密码" is-link></cell>
       </group>
 
-      <group>
-        <cell title="退出登陆" style="text-align: center" @click.native="logout"></cell>
-      </group>
-
+      <div v-transfer-dom>
+        <popup v-model="showEdit" height="100%">
+          <!-- group already has a top border, so we need to hide header's bottom border-->
+          <popup-header
+            left-text="取消"
+            right-text="完成"
+            :title="editModel.title"
+            :show-bottom-border="false"
+            @on-click-left="showEdit = false"
+            @on-click-right="showEdit = false"
+            style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
+          <group >
+            <!--修改昵称-->
+            <x-input @on-focus="nickNameInputFocus" v-if="editModel.currentEdit === 'nickName'" ref="nickNameInput" v-model="currentUser.nickName"></x-input>
+          </group>
+        </popup>
+      </div>
     </view-box>
   </div>
 </template>
 
 <script>
-  import {XButton, Box, Divider, XHeader, Group, Cell, CellBox, XInput, ViewBox} from 'vux'
+  import {XButton, Box, Divider, XHeader, Group, Cell, CellBox, PopupHeader, TransferDom, Popup, XInput, ViewBox} from 'vux'
 
   export default {
-    name: 'SecuritySetting',
+    name: 'systemSetting',
+    directives: {
+      TransferDom
+    },
     components: {
       XInput,
       ViewBox,
@@ -38,7 +55,9 @@
       Divider,
       Group,
       Cell,
-      CellBox
+      CellBox,
+      PopupHeader,
+      Popup
     },
     mounted: function () {
       console.log(this.currentUser.id)

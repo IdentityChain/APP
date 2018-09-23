@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import Common from '@/components/common'
 // import Page2 from '@/components/HelloFromVux2'
 // import Page3 from '@/components/HelloFromVux3'
+import Template from '@/components/Template'
 import Home from '@/view/Home'
 import Login from '@/view/Login'
 import ResetPasswd from '@/view/ResetPassword'
@@ -12,6 +13,7 @@ import orderView from '@/view/myinfo/orderView'
 import reConsume from '@/view/myinfo/reConsume'
 import resetSetting from '@/view/myinfo/resetSetting'
 import SystemSetting from '@/view/myinfo/SystemSetting'
+import SecuritySetting from '@/view/myinfo/system_config/SecuritySetting'
 import transferConsumeCoin from '@/view/myinfo/transferConsumeCoin'
 
 Vue.use(Router)
@@ -64,9 +66,19 @@ export default new Router({
       component: SystemSetting
     },
     {
+      path: '/my/systemSetting/securitySetting',
+      name: 'securitySetting',
+      component: SecuritySetting
+    },
+    {
       path: '/my/transferConsumeCoin',
       name: 'transferConsumeCoin',
       component: transferConsumeCoin
+    },
+    {
+      path: '/template',
+      name: 'template',
+      component: Template
     },
     {
       path: '*',
