@@ -18,6 +18,9 @@
     },
     "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "com.isc"
+    },
+    "cordova-plugin-wkwebview-engine": {
+      "PACKAGE_NAME": "com.isc"
     }
   },
   "dependent_plugins": {}

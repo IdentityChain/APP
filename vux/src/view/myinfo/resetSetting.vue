@@ -7,8 +7,9 @@
                   style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">完善信息
         </x-header>
       </div>
-      <group style="padding-top: 46px">
+      <group style="padding-top: env(safe-area-inset-top);">
         <cell title="头像"><img src="../../assets/my/people.png" style="height: 50px;width: 50px"/></cell>
+        <cell title="手机号码"> {{currentUser.userPhone}}</cell>
         <cell title="昵称" is-link @click.native="openEdit"> {{currentUser.nickName}}</cell>
       </group>
 
