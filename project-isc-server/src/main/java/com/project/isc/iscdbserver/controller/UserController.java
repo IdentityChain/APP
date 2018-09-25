@@ -339,7 +339,7 @@ public class UserController {
 	@ApiOperation(value="删除用户", notes="删除用户")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@Transactional
-	private RetMsg deleteUser(User user) {
+	public RetMsg deleteUser(User user) {
 		String account = user.getAccount();
 		// account值为空或者account用户不存在，抛出异常
 		if ((account == null) || (this.userService.findByAccount(account) == null)) {

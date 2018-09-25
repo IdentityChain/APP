@@ -25,7 +25,22 @@ public class StringUtils {
 		return str;
 	}
 
+	/**
+	 * 判断String对象是否为空
+	 * 默认为空，不为空是true
+	 * @param str
+	 * @return
+	 */
+	public static boolean getStringisNotNull(String str){
+		if(str!=null && !"".equals(str)&& !"NULL".equalsIgnoreCase(str)){
+			return true;
+		}
+		return false;
+	}
 	
 	public static void main(String[] args) throws Exception{
+		double total =10.0;
+		int size =11;
+		System.out.println(total/size);
 	}
 }

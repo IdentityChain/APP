@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import jdk.nashorn.internal.objects.annotations.Getter;
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -24,7 +26,7 @@ public class Activty implements Serializable{
 	// 活动ID
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	private String activityId;
 	@Column
 	private String name;

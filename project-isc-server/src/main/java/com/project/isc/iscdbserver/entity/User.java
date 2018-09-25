@@ -33,7 +33,7 @@ public class User implements Serializable {
 
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 32)
+    @Column(length = 64)
 	// 用户id
 	private String userId;
 

@@ -22,7 +22,7 @@ public class Announcement  implements Serializable{
 	
 	@Id
     @GeneratedValue(generator = "jpa-uuid")
-    @Column(name = "id",length = 32)
+    @Column(name = "id",length = 64)
 	private String id;
 	
 	@Column
