@@ -192,7 +192,7 @@ public class User implements Serializable {
 	public void setUserStatus(boolean userStatus) {
 		this.userStatus = userStatus;
 	}
-
+	public boolean getUserStatus() {return userStatus;}
 	public String getUserPhone() {
 		return userPhone;
 	}
@@ -201,7 +201,6 @@ public class User implements Serializable {
 		this.userPhone = userPhone;
 	}
 
-	
 	
 	public String getNickName() {
 		return nickName;

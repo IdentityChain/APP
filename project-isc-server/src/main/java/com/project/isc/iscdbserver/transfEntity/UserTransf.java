@@ -14,6 +14,9 @@ public class UserTransf{
 		uvo.setInvitationCode(u.getInvitationCode());
 		uvo.setIscCoin(u.getIscCoin());
 		uvo.setCalculateValue(u.getCalculateValue());
+		uvo.setUserPhone(u.getUserPhone());
+		//这个表示是不是已经身份证新认证了
+		uvo.setUserStatus(u.getUserStatus());
 		return uvo;
 	}
 	
