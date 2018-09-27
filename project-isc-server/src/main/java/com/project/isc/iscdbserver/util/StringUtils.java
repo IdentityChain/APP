@@ -8,18 +8,33 @@ public class StringUtils {
 		}
 		return false;
 	}
-	
+	//隐藏姓名
+	public final static String HIDE_NAME="HIDE_NAME";
+	//隐藏手机号
+	public final static String HIDE_PHONE="HIDE_PHONE";
+	//隐藏身份证
+	public final static String HIDE_IDENTITY="HIDE_IDENTITY";
+
 	/**
 	 * 隐藏部分文字
 	 * @param str
 	 * @return
 	 */
-	public static String getStringHide(String str) {
-		if(str!=null && str.length()>0) {
-			if(str.length()<5) {
-				return str;
-			}else {
+	public static String getStringHide(String str,String type) {
+		if(getStringisNotNull(str)) {
+			if(HIDE_NAME.equals(type)) {
+				if(str.length()==2){
+					str = str.substring(0, 1)+"*";
+				}else {
+					str = str.substring(0, 1)+"*"+str.substring(str.length()-1,str.length());
+				}
+
+			}else if(HIDE_PHONE.equals(type)){
 				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+			}else if(HIDE_IDENTITY.equals(type)){
+				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+			}else {
+				return str;
 			}
 		}
 		return str;
@@ -32,7 +47,7 @@ public class StringUtils {
 	 * @return
 	 */
 	public static boolean getStringisNotNull(String str){
-		if(str!=null && !"".equals(str)&& !"NULL".equalsIgnoreCase(str)){
+		if(str!=null && !"".equals(str)&& !"NULL".equalsIgnoreCase(str) && str.length()>0){
 			return true;
 		}
 		return false;

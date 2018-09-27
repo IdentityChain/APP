@@ -2,16 +2,6 @@ package com.project.isc.iscdbserver.viewentity;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import com.project.isc.iscdbserver.statusType.UserLevel;
-import com.project.isc.iscdbserver.statusType.UserType;
-
 public class UserVO {
 	// 用户id
 	private String userId;
@@ -58,8 +48,26 @@ public class UserVO {
 	// 密码重置标识
 	private boolean passwordReset;
 
+	//真实姓名
+	private String realName;
+	// 用户身份证号码
+	private String identityNo;
 
+	public String getRealName() {
+		return realName;
+	}
 
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getIdentityNo() {
+		return identityNo;
+	}
+
+	public void setIdentityNo(String identityNo) {
+		this.identityNo = identityNo;
+	}
 
 	public boolean isPasswordReset() {
 		return passwordReset;
