@@ -10,18 +10,17 @@
       <group style="padding-top: env(safe-area-inset-top);">
         <cell title="头像"><img src="../../assets/my/people.png" style="height: 50px;width: 50px"/></cell>
         <cell title="手机号码"> {{currentUser.userPhone}}</cell>
-        <cell title="昵称" is-link @click.native="openEdit"> {{currentUser.nickName}}</cell>
+        <cell title="昵称" is-link @click.native="nickNameReset"> {{currentUser.nickName}}</cell>
       </group>
 
       <group>
-        <cell title="真实姓名" is-link>{{ typeof currentUser.realName === 'undefined' ? '未设置' : currentUser.realName}}</cell>
-        <cell title="身份证号码" is-link>{{ typeof currentUser.SFZ === 'undefined' ? '未设置' : currentUser.SFZ}}</cell>
+        <cell title="真实身份" is-link @click.native="realNameReset">{{ currentUser.userStatus === false ? '未设置' : '已设置'}}
+        </cell>
       </group>
 
       <group>
-        <cell title="地区" is-link>北京 海淀</cell>
+        <cell title="收货地址" is-link></cell>
       </group>
-
 
       <div v-transfer-dom>
         <popup v-model="showEdit" height="100%">
@@ -32,11 +31,18 @@
             :title="editModel.title"
             :show-bottom-border="false"
             @on-click-left="showEdit = false"
-            @on-click-right="showEdit = false"
+            @on-click-right="doReset"
             style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
-          <group >
+          <group v-if="editModel.currentEdit === 'realName'">
+            <!--修改真实姓名-->
+            <!--修改身份证号码-->
+            <x-input title="真实姓名" ref="realNameInput" v-model="currentUser.realName"></x-input>
+
+            <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo"></x-input>
+          </group>
+          <group v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
-            <x-input @on-focus="nickNameInputFocus" v-if="editModel.currentEdit === 'nickName'" ref="nickNameInput" v-model="currentUser.nickName"></x-input>
+            <x-input ref="nickNameInput" v-model="currentUser.nickName"></x-input>
           </group>
         </popup>
       </div>
@@ -45,7 +51,20 @@
 </template>
 
 <script>
-  import {XButton, Box, Divider, XHeader, Group, Cell, CellBox, PopupHeader, TransferDom, Popup, XInput, ViewBox} from 'vux'
+  import {
+    XButton,
+    Box,
+    Divider,
+    XHeader,
+    Group,
+    Cell,
+    CellBox,
+    PopupHeader,
+    TransferDom,
+    Popup,
+    XInput,
+    ViewBox
+  } from 'vux'
 
   export default {
     name: 'resetSetting',
@@ -66,9 +85,7 @@
       Popup
     },
     mounted: function () {
-      console.log(this.currentUser.id)
-      let userObj = JSON.parse(window.localStorage.getItem('User'))
-      this.currentUser.nickName = userObj.nickName
+      this.currentUser = JSON.parse(window.localStorage.getItem('User'))
     },
     data () {
       return {
@@ -85,15 +102,29 @@
       }
     },
     methods: {
-      openEdit () {
+      nickNameReset () {
+        this.editModel.title = '设置昵称'
+        this.editModel.currentEdit = 'nickName'
         this.showEdit = true
-        let _that = this
-        this.$nextTick(function () {
-          _that.$refs.nickNameInput.focus()
-        })
+        // let _that = this
+        // this.$nextTick(function () {
+        //   _that.$refs.nickNameInput.focus()
+        // })
       },
-      nickNameInputFocus () {
-        console.log('nick name input focus!')
+      realNameReset () {
+        this.editModel.title = '设置真实身份'
+        this.editModel.currentEdit = 'realName'
+        this.showEdit = true
+        // let _that = this
+        // this.this.$nextTick(function () {
+        //   _that.$refs.realNameInput.focus()
+        // })
+      },
+      doReset () {
+        this.showEdit = false
+        if (this.editModel.currentEdit === 'realName') {
+          console.log('修改真实身份信息')
+        }
       }
     }
   }
