@@ -13,7 +13,7 @@ public class UserInitSettingRequest {
 	 */
 	@NotNull
 	private String userid;
-	@NotNull
+//	@NotNull
 	private String account;
 	
 	//真实姓名

@@ -77,6 +77,7 @@ Vue.http.interceptors.push((request, next) => {
   next((response) => {
     Vue.$vux.loading.hide()
     clearTimeout(timeout)
+    console.log(response)
     if (AppConfig.useAuth) {
       console.log('进入拦截器响应方法,输出获取的相应数据,读取cookie和header')
       console.log('获取登陆状态:' + response.headers.get('loginstatus'))
@@ -128,6 +129,10 @@ store.registerModule('vux', {
     },
     updateHeaderStatus (state, payload) {
       state.homeObj.headerStatus = payload.headerStatus
+    },
+    updateHomeObj (state, payload) {
+      state.homeObj.homeView = payload.nowView
+      state.homeObj.headerStatus = payload.headerStatus
     }
   }
 })
@@ -168,10 +173,10 @@ router.beforeEach(function (to, from, next) {
     }
   }
   // 判断是否从home跳转到login,清空历史记录
-  // if (from.path === '/' && to.path === '/login') {
-  //   console.log('登陆跳转')
-  //   history.clear()
-  // }
+  if (from.path === '/' && to.path === '/login') {
+    console.log('登陆跳转')
+    history.clear()
+  }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
   if (toIndex) {

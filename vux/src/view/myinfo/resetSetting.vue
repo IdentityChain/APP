@@ -4,7 +4,7 @@
       <div v-if="true" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: true}"
-                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">完善信息
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">用户信息
         </x-header>
       </div>
       <group style="padding-top: env(safe-area-inset-top);">
@@ -33,12 +33,18 @@
             @on-click-left="showEdit = false"
             @on-click-right="doReset"
             style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
+
           <group v-if="editModel.currentEdit === 'realName'">
             <!--修改真实姓名-->
             <!--修改身份证号码-->
-            <x-input title="真实姓名" ref="realNameInput" v-model="currentUser.realName"></x-input>
+            <div style="margin-left: 15px;margin-top: 10px;" v-if="!currentUser.userStatus">
+            <h5>提示</h5>
+            <p style="color: #666666;font-size: small;margin-top: 5px;">该信息一经提交无法修改，请确保输入准确。</p>
+            </div>
+            <divider></divider>
+            <x-input title="真实姓名" ref="realNameInput" v-model="currentUser.realName" :disabled="currentUser.userStatus"></x-input>
 
-            <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo"></x-input>
+            <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo" :disabled="currentUser.userStatus"></x-input>
           </group>
           <group v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
@@ -63,7 +69,8 @@
     TransferDom,
     Popup,
     XInput,
-    ViewBox
+    ViewBox,
+    Msg
   } from 'vux'
 
   export default {
@@ -80,6 +87,7 @@
       Divider,
       Group,
       Cell,
+      Msg,
       CellBox,
       PopupHeader,
       Popup
@@ -91,7 +99,6 @@
       return {
         msg: 'resetSetting page',
         showEdit: false,
-        nickName: '李晓明',
         currentUser: {
           nickName: ''
         },
@@ -115,16 +122,51 @@
         this.editModel.title = '设置真实身份'
         this.editModel.currentEdit = 'realName'
         this.showEdit = true
-        // let _that = this
-        // this.this.$nextTick(function () {
-        //   _that.$refs.realNameInput.focus()
-        // })
       },
       doReset () {
-        this.showEdit = false
-        if (this.editModel.currentEdit === 'realName') {
-          console.log('修改真实身份信息')
+        if (this.editModel.currentEdit === 'realName' && this.currentUser.userStatus === true) {
+          this.showEdit = false
         }
+        if (this.editModel.currentEdit === 'realName' && this.currentUser.userStatus === false) {
+          console.log('修改真实身份信息')
+          let requestOptions = {
+            url: this.AppConfig.apiServer + '/user/initUserInfo',
+            params: {
+              userid: this.currentUser.userId,
+              realName: this.currentUser.realName,
+              identityNo: this.currentUser.identityNo
+            }
+          }
+          this.doRequest(requestOptions)
+        }
+      },
+      doRequest (requestOptions) {
+        this.doPost(requestOptions).then(result => {
+          if (result.success) {
+            this.updateUserInfo()
+            this.showEdit = false
+            this.$vux.toast.show({
+              type: 'success',
+              text: '完成'
+            })
+          } else {
+            this.$vux.toast.show({
+              type: 'text',
+              text: result.data[0],
+              width: '10em'
+            })
+          }
+        })
+      },
+      updateUserInfo () {
+        let requestOptions = {
+          url: this.AppConfig.apiServer + '/user/findByUserId?userid=' + this.currentUser.userId
+        }
+        this.doGet(requestOptions).then(result => {
+          if (result.success) {
+            this.currentUser = result.data
+          }
+        })
       }
     }
   }
