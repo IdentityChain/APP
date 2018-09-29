@@ -15,6 +15,8 @@ public class UserTransf{
 		uvo.setIscCoin(u.getIscCoin());
 		uvo.setCalculateValue(u.getCalculateValue());
 		uvo.setUserPhone(u.getUserPhone());
+		//是否需要重置密码
+		uvo.setPasswordReset(u.isPasswordReset());
 		//这个表示是不是已经身份证新认证了
 		uvo.setUserStatus(u.getUserStatus());
 		uvo.setRealName(StringUtils.getStringHide(u.getRealName(),StringUtils.HIDE_NAME));

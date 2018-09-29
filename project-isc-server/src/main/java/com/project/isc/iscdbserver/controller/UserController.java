@@ -2,11 +2,15 @@ package com.project.isc.iscdbserver.controller;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+
+import com.project.isc.iscdbserver.util.*;
+import com.project.isc.iscdbserver.viewentity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -24,16 +28,6 @@ import com.project.isc.iscdbserver.service.RedisService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.SmsType;
 import com.project.isc.iscdbserver.transfEntity.UserTransf;
-import com.project.isc.iscdbserver.util.ValidateErrorUtil;
-import com.project.isc.iscdbserver.util.MD5Util;
-import com.project.isc.iscdbserver.util.ShareCodeUtil;
-import com.project.isc.iscdbserver.util.UserLoginSetting;
-import com.project.isc.iscdbserver.viewentity.RetMsg;
-import com.project.isc.iscdbserver.viewentity.UpdatePaymentPasswordRequest;
-import com.project.isc.iscdbserver.viewentity.UserInitSettingRequest;
-import com.project.isc.iscdbserver.viewentity.UserLoginPasswordUpdateRequest;
-import com.project.isc.iscdbserver.viewentity.UserLoginRequest;
-import com.project.isc.iscdbserver.viewentity.UserSaveRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -223,6 +217,104 @@ public class UserController {
 		retMsg.setCode(200);
 		retMsg.setData(UserTransf.transfToVO(user));
 		retMsg.setMessage("用户登录密码更新成功");
+		retMsg.setSuccess(true);
+
+		return retMsg;
+
+	}
+
+	/**
+	 * @Description：更新用户账号
+	 * @return：RetMsg
+	 */
+	@ApiOperation(value="更新用户账号", notes="更新用户账号")
+	@PostMapping("/updateAccount")
+	@Transactional
+	public RetMsg updateAccount(@Validated UpdateAccountRequest updateAccountRequest,
+								 BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+		// 如果数据校验有误，则直接返回校验错误信息
+		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
+		if (null != retMsg)
+			return retMsg;
+
+
+		String userID = updateAccountRequest.getUserid();
+		String oldAccount = updateAccountRequest.getOldAccount();
+		String newAccount = updateAccountRequest.getNewAccount();
+
+		// 验证用户是否存在
+		User user = this.userService.findByUserId(userID);
+		if (null == user)
+			throw new RuntimeException("用户不存在");
+
+		// 判断原用户名是否正确
+		if (oldAccount.equals(user.getAccount())) {
+			throw new RuntimeException("不存在这个用户");
+		}
+		User user1 = this.userService.findByAccount(newAccount);
+		if(user1!=null){
+			throw new RuntimeException("用户名已存在");
+		}
+
+		user.setAccount(newAccount);
+		this.userService.save(user);
+
+		setUserLoginCookie(user, request, response);
+		response.setHeader("loginStatus", "true");
+
+		retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(UserTransf.transfToVO(user));
+		retMsg.setMessage("用户用户名更新成功");
+		retMsg.setSuccess(true);
+
+		return retMsg;
+
+	}
+
+	/**
+	 * @Description：更新昵称
+	 * @return：RetMsg
+	 */
+	@ApiOperation(value="更新昵称", notes="更新昵称")
+	@PostMapping("/updateNickName")
+	@Transactional
+	public RetMsg updateNickName(@Validated UpdateNickNameRequest updateNickNameRequest,
+								BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+		// 如果数据校验有误，则直接返回校验错误信息
+		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
+		if (null != retMsg)
+			return retMsg;
+
+
+		String userID = updateNickNameRequest.getUserid();
+		String oldNickName = updateNickNameRequest.getOldNickName();
+		String newNickName = updateNickNameRequest.getOldNickName();
+
+		// 验证用户是否存在
+		User user = this.userService.findByUserId(userID);
+		if (null == user)
+			throw new RuntimeException("用户不存在");
+
+		// 判断原用户名是否正确
+		if (oldNickName.equals(user.getAccount())) {
+			throw new RuntimeException("不存在这个昵称的用户");
+		}
+		List<User> userList = this.userService.findByNickName(newNickName);
+		if(userList!=null || userList.size()>0){
+			throw new RuntimeException("昵称已存在");
+		}
+
+		user.setNickName(newNickName);
+		this.userService.save(user);
+
+		setUserLoginCookie(user, request, response);
+		response.setHeader("loginStatus", "true");
+
+		retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(UserTransf.transfToVO(user));
+		retMsg.setMessage("用户昵称更新成功");
 		retMsg.setSuccess(true);
 
 		return retMsg;
