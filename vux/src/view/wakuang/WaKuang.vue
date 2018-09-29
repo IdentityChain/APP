@@ -138,6 +138,7 @@
             console.log('获取成功')
           } else {
             this.$vux.toast.show({
+              type: 'cancel',
               text: result.message
             })
           }
@@ -163,6 +164,7 @@
             this.coins = result.data
           } else {
             this.$vux.toast.show({
+              type: 'cancel',
               text: result.message
             })
           }
@@ -177,6 +179,7 @@
             this.paihangList = result.data
           } else {
             this.$vux.toast.show({
+              type: 'cancel',
               text: result.message
             })
           }

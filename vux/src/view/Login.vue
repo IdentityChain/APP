@@ -65,6 +65,7 @@
               const userObj = result.data
               window.localStorage.setItem('User', JSON.stringify(userObj))
               this.$router.push({name: 'home'})
+              window.sessionStorage.setItem('/', 0)
               this.$vux.toast.show({
                 type: 'success',
                 text: result.message

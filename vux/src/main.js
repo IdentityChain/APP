@@ -77,7 +77,6 @@ Vue.http.interceptors.push((request, next) => {
   next((response) => {
     Vue.$vux.loading.hide()
     clearTimeout(timeout)
-    console.log(response)
     if (AppConfig.useAuth) {
       console.log('进入拦截器响应方法,输出获取的相应数据,读取cookie和header')
       console.log('获取登陆状态:' + response.headers.get('loginstatus'))
@@ -167,7 +166,7 @@ router.beforeEach(function (to, from, next) {
     } else {
       console.log(to.name + '需要检测是否登陆')
       if (window.localStorage.getItem('User') == null) {
-        history.clear()
+        // history.clear()
         router.push({name: 'login'})
       }
     }
@@ -175,7 +174,7 @@ router.beforeEach(function (to, from, next) {
   // 判断是否从home跳转到login,清空历史记录
   if (from.path === '/' && to.path === '/login') {
     console.log('登陆跳转')
-    history.clear()
+    history.getItem('login')
   }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
