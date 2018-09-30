@@ -10,7 +10,7 @@
 
       <group style="padding-top: env(safe-area-inset-top);">
         <cell title="登陆密码" is-link @click.native="resetLoginPasswd"></cell>
-        <cell title="交易密码" is-link></cell>
+        <cell title="交易密码" is-link>{{currentUser.passwordReset === true ? '' : '未设置'}}</cell>
       </group>
 
       <div v-transfer-dom>

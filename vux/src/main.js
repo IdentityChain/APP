@@ -86,7 +86,11 @@ Vue.http.interceptors.push((request, next) => {
           console.log('登陆注册页面,不进行刷新')
         } else {
           // window.location.href = 'http://localhost:8000/index.html'
-          router.push({name: 'login'})
+          Vue.$vux.toast.show({
+            type: 'text',
+            text: '登录超时'
+          })
+          router.push({name: 'home'})
         }
       } else {
         console.log('已登录状态')

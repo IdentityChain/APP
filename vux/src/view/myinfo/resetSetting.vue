@@ -10,6 +10,7 @@
       <group style="padding-top: env(safe-area-inset-top);">
         <cell title="头像"><img src="../../assets/my/people.png" style="height: 50px;width: 50px"/></cell>
         <cell title="手机号码"> {{currentUser.userPhone}}</cell>
+        <cell title="账号" is-link> {{currentUser.account}}</cell>
         <cell title="昵称" is-link @click.native="nickNameReset"> {{currentUser.nickName}}</cell>
       </group>
 
@@ -42,13 +43,13 @@
             <p style="color: #666666;font-size: small;margin-top: 5px;">该信息一经提交无法修改，请确保输入准确。</p>
             </div>
             <divider></divider>
-            <x-input title="真实姓名" ref="realNameInput" v-model="currentUser.realName" :disabled="currentUser.userStatus"></x-input>
+            <x-input title="真实姓名" ref="realNameInput" v-model="newNickName" :disabled="currentUser.userStatus"></x-input>
 
             <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo" :disabled="currentUser.userStatus"></x-input>
           </group>
           <group v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
-            <x-input ref="nickNameInput" v-model="currentUser.nickName"></x-input>
+            <x-input ref="nickNameInput" v-model="newNickName"></x-input>
           </group>
         </popup>
       </div>
@@ -94,14 +95,14 @@
     },
     mounted: function () {
       this.currentUser = JSON.parse(window.localStorage.getItem('User'))
+      this.newNickName = this.currentUser.nickName
     },
     data () {
       return {
         msg: 'resetSetting page',
         showEdit: false,
-        currentUser: {
-          nickName: ''
-        },
+        newNickName: '',
+        currentUser: {},
         editModel: {
           title: '设置昵称',
           currentEdit: 'nickName'
@@ -124,6 +125,7 @@
         this.showEdit = true
       },
       doReset () {
+        // 修改真实姓名
         if (this.editModel.currentEdit === 'realName' && this.currentUser.userStatus === true) {
           this.showEdit = false
         }
@@ -135,6 +137,18 @@
               userid: this.currentUser.userId,
               realName: this.currentUser.realName,
               identityNo: this.currentUser.identityNo
+            }
+          }
+          this.doRequest(requestOptions)
+        }
+        // 修改昵称
+        if (this.editModel.currentEdit === 'nickName') {
+          let requestOptions = {
+            url: this.AppConfig.apiServer + '/user/updateNickName',
+            params: {
+              userid: this.currentUser.userId,
+              oldNickName: this.currentUser.nickName,
+              newNickName: this.newNickName
             }
           }
           this.doRequest(requestOptions)
@@ -152,7 +166,7 @@
           } else {
             this.$vux.toast.show({
               type: 'text',
-              text: result.data[0],
+              text: result.message,
               width: '10em'
             })
           }

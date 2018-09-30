@@ -289,7 +289,7 @@ public class UserController {
 
 		String userID = updateNickNameRequest.getUserid();
 		String oldNickName = updateNickNameRequest.getOldNickName();
-		String newNickName = updateNickNameRequest.getOldNickName();
+		String newNickName = updateNickNameRequest.getNewNickName();
 
 		// 验证用户是否存在
 		User user = this.userService.findByUserId(userID);
@@ -297,11 +297,11 @@ public class UserController {
 			throw new RuntimeException("用户不存在");
 
 		// 判断原用户名是否正确
-		if (oldNickName.equals(user.getAccount())) {
+		if (!oldNickName.equals(user.getAccount())) {
 			throw new RuntimeException("不存在这个昵称的用户");
 		}
 		List<User> userList = this.userService.findByNickName(newNickName);
-		if(userList!=null || userList.size()>0){
+		if(userList!=null && userList.size()>0){
 			throw new RuntimeException("昵称已存在");
 		}
 
