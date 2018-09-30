@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 public class UserLoginSetting {
 	private long expireTime;
 	private boolean useInterceptor;
+	private boolean visitSwagger;
 
 	public long getExpireTime() {
 		return expireTime;
@@ -25,5 +26,10 @@ public class UserLoginSetting {
 	public void setUseInterceptor(boolean useInterceptor) {
 		this.useInterceptor = useInterceptor;
 	}
+
+	@Value("${login.visitSwagger}")
+	public void setVisitSwagger(boolean visitSwagger) {this.visitSwagger = visitSwagger;}
+
+	public boolean isVisitSwagger() {return visitSwagger;}
 
 }
