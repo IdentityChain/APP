@@ -10,7 +10,7 @@ public class UserTransf{
 		uvo.setUserId(u.getUserId());
 		uvo.setAccount(u.getAccount());
 		uvo.setCreateTime(u.getCreateTime());
-		uvo.setNickName(StringUtils.getStringHide(u.getNickName(),StringUtils.HIDE_PHONE));
+		uvo.setNickName(u.getNickName());
 		uvo.setInvitationCode(u.getInvitationCode());
 		uvo.setIscCoin(u.getIscCoin());
 		uvo.setCalculateValue(u.getCalculateValue());

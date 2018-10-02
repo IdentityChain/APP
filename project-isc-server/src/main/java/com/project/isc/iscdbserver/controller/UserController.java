@@ -11,16 +11,11 @@ import javax.transaction.Transactional;
 
 import com.project.isc.iscdbserver.util.*;
 import com.project.isc.iscdbserver.viewentity.*;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.project.isc.iscdbserver.entity.SmsCode;
 import com.project.isc.iscdbserver.entity.User;
@@ -279,7 +274,7 @@ public class UserController {
 	@ApiOperation(value="更新昵称", notes="更新昵称")
 	@PostMapping("/updateNickName")
 	@Transactional
-	public RetMsg updateNickName(@Validated UpdateNickNameRequest updateNickNameRequest,
+	public RetMsg updateNickName(@ModelAttribute("updateNickNameParam") @Validated UpdateNickNameRequest updateNickNameRequest,
 								BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -297,7 +292,7 @@ public class UserController {
 			throw new RuntimeException("用户不存在");
 
 		// 判断原用户名是否正确
-		if (!oldNickName.equals(user.getAccount())) {
+		if (!oldNickName.equals(user.getNickName())) {
 			throw new RuntimeException("不存在这个昵称的用户");
 		}
 		List<User> userList = this.userService.findByNickName(newNickName);
@@ -319,6 +314,11 @@ public class UserController {
 
 		return retMsg;
 
+	}
+
+	@ModelAttribute("updateNickNameParam")
+	public UpdateNickNameRequest getUpdateNickNameRequest() {
+		return new UpdateNickNameRequest();
 	}
 
 	/**
