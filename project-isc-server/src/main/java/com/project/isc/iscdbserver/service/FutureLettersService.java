@@ -24,7 +24,7 @@ public class FutureLettersService {
      * @param flMessage
      * @return
      */
-    public String sendMessage(String userid,String flMessage,String flemail,Date sendTime,String flIsPublic,String flEncryption){
+    public FutureLetters sendMessage(String userid,String flMessage,String flemail,Date sendTime,String flIsPublic,String flEncryption){
         /**
          * 	private String userid;
          *
@@ -59,7 +59,7 @@ public class FutureLettersService {
         futureLettersRepository.save(futureLetters);
 //        //保存到区块链
 //        getBlockChainID(futureLetters.getFlId());
-        return futureLetters.getFlId();
+        return futureLetters;
     }
 
     /**
@@ -137,6 +137,16 @@ public class FutureLettersService {
      */
     public FutureLetters getFutureLetters(String flId){
         FutureLetters futureLetters = futureLettersRepository.getOne(flId);
+        return futureLetters;
+    }
+
+    /**
+     *
+     * @param blockId
+     * @return
+     */
+    public FutureLetters getFutureLettersByBlockId(String blockId){
+        FutureLetters futureLetters = futureLettersRepository.findByBlockChain(blockId);
         return futureLetters;
     }
 

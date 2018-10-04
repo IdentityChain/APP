@@ -16,8 +16,6 @@ import com.project.isc.iscdbserver.util.MD5Util;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 import com.project.isc.iscdbserver.entity.User;
 
-import java.util.Enumeration;
-
 @Component
 @CrossOrigin
 public class LoginFilterHandler implements HandlerInterceptor {

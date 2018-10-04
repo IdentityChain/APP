@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 
 import com.project.isc.iscdbserver.util.*;
 import com.project.isc.iscdbserver.viewentity.*;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -48,7 +47,7 @@ public class UserController {
 	@ApiOperation(value="新增用户", notes="新增用户")
 	@PostMapping("/firstsave")
 	@Transactional
-	public RetMsg firstsave(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+	public RetMsg firstsave(@RequestBody @Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
 		String invitationCode = userSavePostParams.getInvitationCode();
@@ -115,7 +114,7 @@ public class UserController {
 	@ApiOperation(value="使用手机号登录", notes="使用手机号登录")
 	@PostMapping("/loginbyphone")
 	@Transactional
-	public RetMsg loginByPhone(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+	public RetMsg loginByPhone(@RequestBody @Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
 		String invitationCode = userSavePostParams.getInvitationCode();
@@ -129,7 +128,9 @@ public class UserController {
 			
 			// 验证短信验证码是否正确
 			try {
-				SmsCode smsCode = (SmsCode) redisService.getObj(phone);
+				//使用手机号登录或注册验证码
+				String smsCodeType = phone+SmsType.SMS_CODE_TYPE_PHONELOGIN;
+				SmsCode smsCode = (SmsCode) redisService.getObj(smsCodeType);
 				if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
 					if (!smsCode.getCode().equals(smsCodeString)){
 						retMsg = new RetMsg();
@@ -173,6 +174,66 @@ public class UserController {
 			retMsg.setSuccess(true);
 			return retMsg;
 	}
+
+	/**
+	 * @Description：修改用户密码-短信
+	 */
+	@ApiOperation(value="修改用户密码-短信", notes="修改用户密码-短信")
+	@PostMapping("/updateLoginPasswordBySms")
+	@Transactional
+	public RetMsg updateLoginPasswordBySms(@RequestBody @Validated UpdateUserPasswordBySmsRequest updateUserPasswordBySmsRequest, BindingResult bindingResult) {
+		String phone = updateUserPasswordBySmsRequest.getPhone();
+		String smsCodeString = updateUserPasswordBySmsRequest.getSmsCode();
+		String password  = updateUserPasswordBySmsRequest.getPassword();
+
+
+		// 如果数据校验有误，则直接返回校验错误信息
+		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
+		if (null != retMsg)
+			return retMsg;
+
+
+
+		// 验证短信验证码是否正确
+//		try {
+//			//修改密码短信验证码
+//			String smsCodeType = phone+SmsType.SMS_CODE_TYPE_PHONECHANGEPWD;
+//			SmsCode smsCode = (SmsCode) redisService.getObj(smsCodeType);
+//			if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+//				if (!smsCode.getCode().equals(smsCodeString)){
+//					retMsg = new RetMsg();
+//					retMsg.setMessage("验证码不正确");
+//					retMsg.setCode(400);
+//					retMsg.setSuccess(false);
+//					return retMsg;
+//				}
+//			}else {
+//				retMsg = new RetMsg();
+//				retMsg.setMessage("请先获取验证码");
+//				retMsg.setCode(400);
+//				retMsg.setSuccess(false);
+//				return retMsg;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("系统异常");
+//		}
+		User user = this.userService.findByUserPhone(phone);
+		//如果得到用户信息允许登录否则直接注册登录
+		// phone不允许重复
+		if (null != user) {
+			user.setPassword(MD5Util.encrypeByMd5(password));
+		}else {
+			throw new RuntimeException("系统异常");
+		}
+		// 返回新增用户信息
+		retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(UserTransf.transfToVO(user));
+		retMsg.setMessage("用户登录成功");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
 	
 	/**
 	 * @Description：更新用户登录密码
@@ -181,7 +242,7 @@ public class UserController {
 	@ApiOperation(value="更新用户登录密码", notes="更新用户登录密码")
 	@PostMapping("/updateLoginPassword")
 	@Transactional
-	public RetMsg updatePassword(@Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
+	public RetMsg updatePassword(@RequestBody @Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
 			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -225,7 +286,7 @@ public class UserController {
 	@ApiOperation(value="更新用户账号", notes="更新用户账号")
 	@PostMapping("/updateAccount")
 	@Transactional
-	public RetMsg updateAccount(@Validated UpdateAccountRequest updateAccountRequest,
+	public RetMsg updateAccount(@RequestBody @Validated UpdateAccountRequest updateAccountRequest,
 								 BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -327,7 +388,7 @@ public class UserController {
 	 */
 	@ApiOperation(value="用户登录", notes="用户登录")
 	@PostMapping("/login")
-	public RetMsg login(@Validated UserLoginRequest userLoginRequest, BindingResult bindingResult,
+	public RetMsg login(@RequestBody @Validated UserLoginRequest userLoginRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
 		String account = userLoginRequest.getAccount();
 		String password = userLoginRequest.getPassword();
@@ -387,7 +448,7 @@ public class UserController {
 	@ApiOperation(value="完善信息-身份证", notes="完善信息-身份证")
 	@PostMapping("/initUserInfo")
 	@Transactional
-	public RetMsg initUserInfo(@Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
+	public RetMsg initUserInfo(@RequestBody @Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
 //		String account = userInitSettingRequest.getAccount();
 		String userId = userInitSettingRequest.getUserid();
@@ -424,31 +485,6 @@ public class UserController {
 		retMsg.setMessage("用户资料完善成功成功");
 
 		return retMsg;
-	}
-
-
-	// 删除用户
-	@ApiOperation(value="删除用户", notes="删除用户")
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	@Transactional
-	public RetMsg deleteUser(User user) {
-		String account = user.getAccount();
-		// account值为空或者account用户不存在，抛出异常
-		if ((account == null) || (this.userService.findByAccount(account) == null)) {
-			throw new RuntimeException("当前用户不存在");
-		}
-
-		try {
-			this.userService.delete(user);
-			RetMsg retMsg = new RetMsg();
-			retMsg.setCode(200);
-			retMsg.setData(account);
-			retMsg.setMessage("用户删除成功");
-			retMsg.setSuccess(true);
-			return retMsg;
-		} catch (Exception e) {
-			throw new RuntimeException("用户删除失败");
-		}
 	}
 
 	/************************** 用户查询方法 *******************************/
@@ -492,10 +528,71 @@ public class UserController {
 		}
 	}
 
+
+	/**
+	 * @Description：修改用户交易密码-短信
+	 */
+	@ApiOperation(value="修改用户交易密码-短信", notes="修改用户交易密码-短信")
+	@PostMapping("/updatePaymentPasswordBySms")
+	@Transactional
+	public RetMsg updatePaymentPasswordBySms(@RequestBody @Validated UpdateUserPayPasswordBySmsRequest updateUserPayPasswordBySmsRequest, BindingResult bindingResult) {
+		String phone = updateUserPayPasswordBySmsRequest.getPhone();
+		String smsCodeString = updateUserPayPasswordBySmsRequest.getSmsCode();
+		String payPassword  = updateUserPayPasswordBySmsRequest.getPayPassword();
+
+
+		// 如果数据校验有误，则直接返回校验错误信息
+		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
+		if (null != retMsg)
+			return retMsg;
+
+
+
+		// 验证短信验证码是否正确
+//		try {
+//			//修改密码短信验证码
+//			String smsCodeType = phone+SmsType.SMS_CODE_TYPE_PHONECHANGEPWD;
+//			SmsCode smsCode = (SmsCode) redisService.getObj(smsCodeType);
+//			if (null != smsCode && smsCode.getOperation().equals(SmsType.INIT_USER_INFO)){
+//				if (!smsCode.getCode().equals(smsCodeString)){
+//					retMsg = new RetMsg();
+//					retMsg.setMessage("验证码不正确");
+//					retMsg.setCode(400);
+//					retMsg.setSuccess(false);
+//					return retMsg;
+//				}
+//			}else {
+//				retMsg = new RetMsg();
+//				retMsg.setMessage("请先获取验证码");
+//				retMsg.setCode(400);
+//				retMsg.setSuccess(false);
+//				return retMsg;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			throw new RuntimeException("系统异常");
+//		}
+		User user = this.userService.findByUserPhone(phone);
+		//如果得到用户信息允许登录否则直接注册登录
+		// phone不允许重复
+		if (null != user) {
+			user.setPaymentPassword(MD5Util.encrypeByMd5(payPassword));
+		}else {
+			throw new RuntimeException("系统异常");
+		}
+		// 返回新增用户信息
+		retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(UserTransf.transfToVO(user));
+		retMsg.setMessage("用户登录成功");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
+
 	// 修改用户的交易密码
 	@ApiOperation(value="修改用户的交易密码", notes="修改用户的交易密码")
 	@PostMapping("/updatePaymentPassword")
-	public RetMsg updatePaymentPassword(@Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
+	public RetMsg updatePaymentPassword(@RequestBody @Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
 			BindingResult bindingResult) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);

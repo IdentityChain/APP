@@ -1,9 +1,5 @@
 package com.project.isc.iscdbserver.viewentity;
 
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.util.Date;
 public class FutureLettersVO {
 
     private String flId;

@@ -1,6 +1,5 @@
 package com.project.isc.iscdbserver.repository;
 
-import com.project.isc.iscdbserver.entity.Activty;
 import com.project.isc.iscdbserver.entity.FutureLetters;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +13,7 @@ import java.util.List;
 public interface FutureLettersRepository extends JpaSpecificationExecutor<FutureLetters>,JpaRepository<FutureLetters, String>{
 
     @Query("SELECT f FROM FutureLetters f where flIsPublic=?1")
-    public List<FutureLetters> findByFlIsPublicOrderByCreateTimeTop10(String flIsPubliec,Pageable pageable);
+    List<FutureLetters> findByFlIsPublicOrderByCreateTimeTop10(String flIsPubliec,Pageable pageable);
+
+    FutureLetters findByBlockChain(String blockId);
 }

@@ -26,8 +26,8 @@ public class SmsController {
 	@Autowired
 	private RedisService redisService;
 
-	@GetMapping("/getCodeByPhone/{phoneNumber}")
-	public RetMsg getSmsCodeByAccount(@PathVariable("phoneNumber") String phoneNumber) {
+	@GetMapping("/getCodeByPhone/{phoneNumber}/{codeType}")
+	public RetMsg getSmsCodeByAccount(@PathVariable("phoneNumber") String phoneNumber,@PathVariable("codeType") String codeType) {
 		RetMsg retMsg = new RetMsg();
 
 		// 创建验证码
@@ -37,9 +37,10 @@ public class SmsController {
 		String codeStr = SmsUtil.getSmsCode();
 		code.setCode(codeStr);
 
+		String smsCodeType = phoneNumber+codeType;
 		// 判断该用户是否在分钟内发送过验证码,如果没有就调用阿里短信服务,发送短信验证码
 		try {
-			if (redisService.getFreeTime(phoneNumber) > 180) {
+			if (redisService.getFreeTime(smsCodeType) > 180) {
 				retMsg.setCode(400);
 				retMsg.setSuccess(false);
 				retMsg.setMessage("已经发送验证码,请在2分钟之后再试");
@@ -52,7 +53,7 @@ public class SmsController {
 					retMsg.setCode(200);
 					retMsg.setMessage("发送成功");
 					// 保存到redis
-					redisService.setObj(phoneNumber, code, 300);
+					redisService.setObj(smsCodeType, code, 300);
 				}
 			}
 		} catch (Exception e) {

@@ -9,7 +9,6 @@ import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.transfEntity.FutureLettersTransf;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.FuturLettersRequest;
-import com.project.isc.iscdbserver.viewentity.FutureLettersVO;
 import com.project.isc.iscdbserver.viewentity.FutureLettersVOSimple;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
 import io.swagger.annotations.Api;
@@ -64,14 +63,30 @@ public class FutureLettersController {
                     futurLettersRequest.setFlEncryption(ISCConstant.ISC_FL_ENCRYPTION_NOT);
                 }
                 //写入到数据库
-                flId = futureLettersService.sendMessage(futurLettersRequest.getUserid(),
+                FutureLetters fl = futureLettersService.sendMessage(futurLettersRequest.getUserid(),
                         futurLettersRequest.getFlMessage(),
                         futurLettersRequest.getFlemail(),
                         futurLettersRequest.getSendTime(),
                         futurLettersRequest.getFlIsPublic(),
                         futurLettersRequest.getFlEncryption());
                 //如果是公开邮件，写入到区块链
-
+                if(ISCConstant.ISC_FL_IS_PUBLIC_FALSE.equals(futurLettersRequest.getFlIsPublic())){
+                    //发送信息到区块链上，并返回哈希值
+                    String blockId = sendToBlock(fl.getFlMessage());
+                    //如果哈希值没有问题
+                    if(StringUtils.getStringisNotNull(blockId)){
+                        //设置哈希值
+                        fl.setBlockChain(blockId);
+                        fl.setWriteTime(new Date());
+                        //设置写入区块链状态 完成写入
+                        fl.setFlStatus(ISCConstant.ISC_FL_STATUS_COMPLETE);
+                    }else{
+                        fl.setWriteTime(new Date());
+                        //设置写入区块链状态 写入失败
+                        fl.setFlStatus(ISCConstant.ISC_FL_STATUS_FAILURE);
+                    }
+                    futureLettersService.updateFutureLetters(fl);
+                }
             }
 
         }
@@ -80,6 +95,29 @@ public class FutureLettersController {
         retMsg.setMessage("您的未来邮件已寄出成功，等待写入到区块链");
         retMsg.setSuccess(true);
         return retMsg;
+    }
+
+    /**
+     * 发送信息到区块链上，并返回哈希值
+     * @param sendMassage
+     * @return
+     */
+    public String sendToBlock(String sendMassage){
+        try{
+            RetMsg retMsg = tradingService.sendMassage(sendMassage);
+            //如果有返回数据
+            if(retMsg!=null && retMsg.isSuccess()){
+                //如果返回数据不是空
+                if(retMsg.getData()!=null){
+                    //得到哈希值
+                    return retMsg.getData().toString();
+                }
+            }
+            return "";
+        }catch (Exception e){
+            return "";
+        }
+
     }
 
     //将已写入到数据库的信件写入到区块链
@@ -92,24 +130,25 @@ public class FutureLettersController {
         if(StringUtils.getStringisNotNull(userid)){
             User user = userService.getUserById(userid);
             if(user!=null){
-                FutureLetters futureLetters = futureLettersService.getFutureLetters(flid);
+                FutureLetters fl = futureLettersService.getFutureLetters(flid);
                 //如果有这封信而且这封信是属于这个用户的，基础这封信
                 //这里以后可以扩展很多功能的
-                if(futureLetters!=null && futureLetters.getFlId().equals(flid)){
-                    RetMsg retMsgBlock  = tradingService.getSendMassage(futureLetters.getFlMessage());
-                    if(retMsg.isSuccess()){
-                        futureLetters.setBlockChain(retMsgBlock.getMessage());
-                        futureLetters.setWriteTime(new Date());
-                        //这里表示已写入到区块链，带区块链确认
-                        futureLetters.setFlStatus(ISCConstant.ISC_FL_STATUS_ONGOING);
-                        futureLettersService.updateFutureLetters(futureLetters);
-                        flMessage = retMsgBlock.getMessage();
+                if(fl!=null && fl.getFlId().equals(flid)){
+                    //发送信息到区块链上，并返回哈希值
+                    String blockId = sendToBlock(fl.getFlMessage());
+                    //如果哈希值没有问题
+                    if(StringUtils.getStringisNotNull(blockId)){
+                        //设置哈希值
+                        fl.setBlockChain(blockId);
+                        fl.setWriteTime(new Date());
+                        //设置写入区块链状态 完成写入
+                        fl.setFlStatus(ISCConstant.ISC_FL_STATUS_COMPLETE);
                     }else{
-                        futureLetters.setWriteTime(new Date());
-                        //这里表示已执行写入到区块链接口，但是未写入成功
-                        futureLetters.setFlStatus(ISCConstant.ISC_FL_STATUS_FAILURE);
-                        futureLettersService.updateFutureLetters(futureLetters);
+                        fl.setWriteTime(new Date());
+                        //设置写入区块链状态 写入失败
+                        fl.setFlStatus(ISCConstant.ISC_FL_STATUS_FAILURE);
                     }
+                    futureLettersService.updateFutureLetters(fl);
                 }
             }
 
@@ -122,7 +161,7 @@ public class FutureLettersController {
     }
 
     //得到写入区块链的信息
-    @ApiOperation(value="得到写入区块链的信息", notes="")
+    @ApiOperation(value="得到写入区块链的信息-数据库", notes="")
     @GetMapping("/getmessage")
     @Transactional
     public RetMsg getmessage(@RequestParam String userid,@RequestParam  String flid) {
@@ -142,8 +181,53 @@ public class FutureLettersController {
         return retMsg;
     }
 
+    //得到写入区块链的信息
+    @ApiOperation(value="得到写入区块链的信息-哈希值", notes="")
+    @GetMapping("/getmessageByhash")
+    @Transactional
+    public RetMsg getmessageByhash(@RequestParam String userid,@RequestParam  String hashid) {
+        RetMsg retMsg = new RetMsg();
+        String flMessage = "没有读取到信息";
+        if(StringUtils.getStringisNotNull(userid)) {
+            User user = userService.getUserById(userid);
+            if (user != null) {
+                FutureLetters fl = futureLettersService.getFutureLettersByBlockId(hashid);
+                if(fl!=null && userid.equals(fl.getUserId())){
+                    flMessage = getSendMassageStr(hashid);
+                }
+            }
+        }
+        retMsg.setCode(200);
+        retMsg.setData(flMessage);
+        retMsg.setMessage("接口返回成功");
+        retMsg.setSuccess(true);
+        return retMsg;
+    }
+
+    /**
+     * 根据哈希值得到内容
+     * @param hashid
+     * @return
+     */
+    private String getSendMassageStr(String hashid){
+        try{
+            RetMsg retMsg = tradingService.getSendMassage(hashid);
+            //如果有返回数据
+            if(retMsg!=null && retMsg.isSuccess()){
+                //如果返回数据不是空
+                if(retMsg.getData()!=null){
+                    //得到哈希值
+                    return retMsg.getData().toString();
+                }
+            }
+            return "没有读取到信息";
+        }catch (Exception e){
+            return "没有读取到信息";
+        }
+    }
+
     //得到写入区块链的详细信息
-    @ApiOperation(value="得到写入区块链的详细信息", notes="")
+    @ApiOperation(value="得到写入区块链的详细信息-数据库", notes="")
     @GetMapping("/getmessagedetail")
     @Transactional
     public RetMsg getmessagedetail(@RequestParam String userid,@RequestParam  String flid) {

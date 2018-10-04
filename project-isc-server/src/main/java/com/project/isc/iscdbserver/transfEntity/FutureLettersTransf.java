@@ -1,12 +1,9 @@
 package com.project.isc.iscdbserver.transfEntity;
 
 import com.project.isc.iscdbserver.entity.FutureLetters;
-import com.project.isc.iscdbserver.entity.ISCLog;
-import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.viewentity.FutureLettersVO;
 import com.project.isc.iscdbserver.viewentity.FutureLettersVOSimple;
-import com.project.isc.iscdbserver.viewentity.ISCLogVO;
 
 public class FutureLettersTransf {
 	public static FutureLettersVO transfToVO(FutureLetters futureLetters) {
