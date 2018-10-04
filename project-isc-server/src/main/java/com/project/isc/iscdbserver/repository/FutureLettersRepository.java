@@ -15,5 +15,4 @@ public interface FutureLettersRepository extends JpaSpecificationExecutor<Future
 
     @Query("SELECT f FROM FutureLetters f where flIsPublic=?1")
     public List<FutureLetters> findByFlIsPublicOrderByCreateTimeTop10(String flIsPubliec,Pageable pageable);
-
 }

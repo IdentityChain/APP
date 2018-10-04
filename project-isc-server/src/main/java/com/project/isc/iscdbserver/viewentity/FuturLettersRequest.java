@@ -9,18 +9,20 @@ public class FuturLettersRequest {
 	private String userid;
 
 	// 用户内容
+	@NotBlank(message="内容不能为空")
 	private String flMessage;
 
 	// 寄送到的邮箱
+	@NotBlank(message="寄送邮箱不能为空")
 	private String flemail;
 
 	//寄送时间
 	private Date sendTime;
 
-	// 状态-是否公开
+	// 状态-是否公开   默认公开
 	private String flIsPublic;
 
-	// 是否加密或者加密方式
+	// 是否加密或者加密方式  默认不加密
 	private String flEncryption;
 
 	public String getUserid() {

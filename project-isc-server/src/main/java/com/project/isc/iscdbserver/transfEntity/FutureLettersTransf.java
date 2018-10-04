@@ -18,7 +18,7 @@ public class FutureLettersTransf {
 		futureLettersVO.setFlemail(futureLetters.getFlemail());
 		futureLettersVO.setBlockChain(futureLetters.getBlockChain());
 		futureLettersVO.setCreateTime(TimeUtil.getDateFormat(futureLetters.getCreateTime()));
-		
+
 
 		return futureLettersVO;
 	}

@@ -53,6 +53,16 @@ public class FutureLettersController {
         if(futurLettersRequest!=null && StringUtils.getStringisNotNull(futurLettersRequest.getUserid())){
             User user = userService.getUserById(futurLettersRequest.getUserid());
             if(user!=null){
+                if(StringUtils.getStringisNotNull(futurLettersRequest.getFlIsPublic())&& ISCConstant.ISC_FL_IS_PUBLIC_FALSE.equals(futurLettersRequest.getFlIsPublic())){
+                    //如果是不公开的就不公开，其他全部是公开
+                }else{
+                    futurLettersRequest.setFlIsPublic(ISCConstant.ISC_FL_IS_PUBLIC_TRUE);
+                }
+                if(StringUtils.getStringisNotNull(futurLettersRequest.getFlEncryption()) && ISCConstant.ISC_FL_ENCRYPTION_MD5.equals(futurLettersRequest.getFlEncryption())){
+                    //如果是MD5加密就加密，其他全部是不加密
+                }else {
+                    futurLettersRequest.setFlEncryption(ISCConstant.ISC_FL_ENCRYPTION_NOT);
+                }
                 //写入到数据库
                 flId = futureLettersService.sendMessage(futurLettersRequest.getUserid(),
                         futurLettersRequest.getFlMessage(),
@@ -185,6 +195,28 @@ public class FutureLettersController {
         retMsg.setCode(200);
         retMsg.setData(lvo);
         retMsg.setMessage("得到有多少封信成功");
+        retMsg.setSuccess(true);
+        return retMsg;
+    }
+
+    //分页查看公开信息
+    @ApiOperation(value="分页查看公开信息", notes="")
+    @GetMapping("/getPublicLetterList")
+    @Transactional
+    public RetMsg getPublicLetterList(@RequestParam int page,@RequestParam int pagesize){
+        RetMsg retMsg = new RetMsg();
+
+        List<FutureLetters>  lettersList= futureLettersService.getFutureLetterList(page,pagesize);
+        List<FutureLettersVOSimple> lvo = new ArrayList<FutureLettersVOSimple>();
+        if(lettersList!=null && lettersList.size()>0){
+            for (FutureLetters ll:lettersList
+                    ) {
+                lvo.add(FutureLettersTransf.transfToVOSimple(ll));
+            }
+        }
+        retMsg.setCode(200);
+        retMsg.setData(lvo);
+        retMsg.setMessage("分页查看公开信息");
         retMsg.setSuccess(true);
         return retMsg;
     }

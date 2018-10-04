@@ -156,4 +156,16 @@ public class FutureLettersService {
         List<FutureLetters> lettersList = futureLettersRepository.findByFlIsPublicOrderByCreateTimeTop10(ISCConstant.ISC_FL_IS_PUBLIC_TRUE,pageable);
         return lettersList;
     }
+
+    /**
+     * 分页查询公开信箱
+     * @param page
+     * @param pagesize
+     * @return
+     */
+    public List<FutureLetters> getFutureLetterList(int page,int pagesize){
+        Pageable pageable = new PageRequest(page, pagesize, Sort.Direction.DESC, "createTime");
+        List<FutureLetters> lettersList = futureLettersRepository.findByFlIsPublicOrderByCreateTimeTop10(ISCConstant.ISC_FL_IS_PUBLIC_TRUE,pageable);
+        return lettersList;
+    }
 }
