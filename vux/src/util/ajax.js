@@ -13,13 +13,7 @@ exports.install = function (Vue, params) {
           }
           return result
         } else {
-          let result = {
-            message: '系统错误',
-            code: 500,
-            data: null,
-            success: false
-          }
-          return result
+          // return result
         }
       })
   }
@@ -37,13 +31,13 @@ exports.install = function (Vue, params) {
           }
           return result
         } else {
-          let result = {
-            message: '系统错误',
-            code: 500,
-            data: null,
-            success: false
-          }
-          return result
+          // let result = {
+          //   message: '系统错误',
+          //   code: 500,
+          //   data: null,
+          //   success: false
+          // }
+          // return result
         }
       })
   }

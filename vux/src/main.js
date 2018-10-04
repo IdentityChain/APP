@@ -82,6 +82,7 @@ Vue.http.interceptors.push((request, next) => {
       console.log('获取登陆状态:' + response.headers.get('loginstatus'))
       if (!(response.headers.get('loginStatus') === 'true')) {
         window.localStorage.clear()
+        window.sessionStorage.clear()
         if (request.url === AppConfig.apiServer + '/user/login' || request.url === AppConfig.apiServer + '/user/firstsave' || request.url === AppConfig.apiServer + '/sms/getCodeByPhone/13520580169') {
           console.log('登陆注册页面,不进行刷新')
         } else {
@@ -90,7 +91,7 @@ Vue.http.interceptors.push((request, next) => {
             type: 'text',
             text: '登录超时'
           })
-          router.push({name: 'home'})
+          router.push({name: 'login'})
         }
       } else {
         console.log('已登录状态')

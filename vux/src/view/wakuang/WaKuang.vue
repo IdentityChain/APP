@@ -37,7 +37,7 @@
               :isclID="coinItem.isclId"
               @getCoin="doGetCoin"
               class="coin"
-              :style="{'top': (Math.random() * 100 * 2) + 'px', 'left': (Math.random() * 100 * 2) + 'px'}">
+              :style="{'top': (Math.random() * 100 * 2) + 'px', 'left': (Math.random() * 100 * 2.5) + 'px'}">
         </coin>
       </div>
 

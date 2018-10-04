@@ -15,6 +15,8 @@ import resetSetting from '@/view/myinfo/resetSetting'
 import SystemSetting from '@/view/myinfo/SystemSetting'
 import SecuritySetting from '@/view/myinfo/system_config/SecuritySetting'
 import transferConsumeCoin from '@/view/myinfo/transferConsumeCoin'
+import SendMailHome from '@/view/activity/sendMailToFuture/Home'
+import WriteMail from '@/view/activity/sendMailToFuture/WriteMail'
 
 Vue.use(Router)
 
@@ -79,6 +81,16 @@ export default new Router({
       path: '/template',
       name: 'template',
       component: Template
+    },
+    {
+      path: '/activity/sendMailHome',
+      name: 'sendMailHome',
+      component: SendMailHome
+    },
+    {
+      path: '/activity/wirteMail',
+      name: 'wirteMail',
+      component: WriteMail
     },
     {
       path: '*',
