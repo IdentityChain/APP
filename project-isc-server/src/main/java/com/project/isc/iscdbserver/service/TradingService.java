@@ -40,7 +40,7 @@ public class TradingService {
 		return retMsg;
 	}
 
-	public RetMsg getMassage(String blockid){
+	public RetMsg getSendMassage(String blockid){
 		String getCreatewallet ="http://"+tradingurlHost+":"+tradingurlPort+"/ethapi/createwallet";
 //    		String getCreatewallet ="";
 		RetMsg retMsg  = this.restTemplate.getForObject(getCreatewallet,RetMsg.class);

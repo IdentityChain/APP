@@ -17,8 +17,12 @@ public class ISCConstant {
 
 
 	//给未来的一封信常量
-	public static String ISC_FL_STATUS_NEW="NEW";
-	public static String ISC_FL_STATUS_ONGOING="ONGOING";
-	public static String ISC_FL_STATUS_COMPLETE="COMPLETE";
+	public static String ISC_FL_STATUS_NEW="NEW";				//新建
+	public static String ISC_FL_STATUS_ONGOING="ONGOING";		//写入到区块链中
+	public static String ISC_FL_STATUS_FAILURE="FAILURE";		//写入到区块链中
+	public static String ISC_FL_STATUS_COMPLETE="COMPLETE";		//写入到区块链完成
+	//是否公开信件
+	public static String ISC_FL_IS_PUBLIC_TRUE="PUBLIC";		//公开
+	public static String ISC_FL_IS_PUBLIC_FALSE="PRIVATE";		//私有的
 
 }

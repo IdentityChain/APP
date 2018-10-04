@@ -1,72 +1,45 @@
-package com.project.isc.iscdbserver.entity;
+package com.project.isc.iscdbserver.viewentity;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+public class FutureLettersVO {
 
-@Entity
-@Table(name = "tb_futureletters")
-@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class FutureLetters {
-    private static final long serialVersionUId = 1L;
-
-    // 信件ID
-    @Id
-    @GeneratedValue(generator = "jpa-uuid")
-    @Column(length = 64)
     private String flId;
 
     // 用户id
-    @Column
     private String userId;
 
     // 用户内容
-    @Column
     private String flMessage;
 
     //创建时间
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createTime;
+    private String createTime;
 
     //写入时间
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date writeTime;
+    private String writeTime;
 
     // 寄送到的邮箱
-    @Column
     private String flemail;
 
     //寄送时间
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date sendTime;
+    private String sendTime;
 
     // 状态-是否已写入区块链
-    @Column
     private String flStatus;
 
     // 状态-是否公开
-    @Column
     private String flIsPublic;
 
     // 状态-是否已寄送
-    @Column
     private String flIsSendStatus;
 
     // 写入区块链ID
-    @Column
     private String blockChain;
 
     // 是否加密或者加密方式
-    @Column
     private String flEncryption;
-
-    public static long getSerialVersionUId() {
-        return serialVersionUId;
-    }
 
     public String getFlId() {
         return flId;
@@ -92,44 +65,20 @@ public class FutureLetters {
         this.flMessage = flMessage;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getWriteTime() {
+    public String getWriteTime() {
         return writeTime;
     }
 
-    public void setWriteTime(Date writeTime) {
+    public void setWriteTime(String writeTime) {
         this.writeTime = writeTime;
-    }
-
-    public String getFlStatus() {
-        return flStatus;
-    }
-
-    public void setFlStatus(String flStatus) {
-        this.flStatus = flStatus;
-    }
-
-    public String getBlockChain() {
-        return blockChain;
-    }
-
-    public void setBlockChain(String blockChain) {
-        this.blockChain = blockChain;
-    }
-
-    public String getFlEncryption() {
-        return flEncryption;
-    }
-
-    public void setFlEncryption(String flEncryption) {
-        this.flEncryption = flEncryption;
     }
 
     public String getFlemail() {
@@ -140,12 +89,20 @@ public class FutureLetters {
         this.flemail = flemail;
     }
 
-    public Date getSendTime() {
+    public String getSendTime() {
         return sendTime;
     }
 
-    public void setSendTime(Date sendTime) {
+    public void setSendTime(String sendTime) {
         this.sendTime = sendTime;
+    }
+
+    public String getFlStatus() {
+        return flStatus;
+    }
+
+    public void setFlStatus(String flStatus) {
+        this.flStatus = flStatus;
     }
 
     public String getFlIsPublic() {
@@ -162,5 +119,21 @@ public class FutureLetters {
 
     public void setFlIsSendStatus(String flIsSendStatus) {
         this.flIsSendStatus = flIsSendStatus;
+    }
+
+    public String getBlockChain() {
+        return blockChain;
+    }
+
+    public void setBlockChain(String blockChain) {
+        this.blockChain = blockChain;
+    }
+
+    public String getFlEncryption() {
+        return flEncryption;
+    }
+
+    public void setFlEncryption(String flEncryption) {
+        this.flEncryption = flEncryption;
     }
 }

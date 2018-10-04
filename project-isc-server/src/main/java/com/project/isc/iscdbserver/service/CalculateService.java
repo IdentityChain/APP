@@ -51,7 +51,7 @@ public class CalculateService {
 		ISCLog isclog = iscLogRepository.findOne(logid);
 		return isclog;
 	}
-	
+
 	public List<CalculateStatistics> getTop100(){
 		List<CalculateStatistics> ccss = calculateStatisticsRepository.findAll();
 		return ccss;
