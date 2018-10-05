@@ -47,7 +47,7 @@ public class UserController {
 	@ApiOperation(value="新增用户", notes="新增用户")
 	@PostMapping("/firstsave")
 	@Transactional
-	public RetMsg firstsave(@RequestBody @Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+	public RetMsg firstsave(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
 		String invitationCode = userSavePostParams.getInvitationCode();
@@ -114,7 +114,7 @@ public class UserController {
 	@ApiOperation(value="使用手机号登录", notes="使用手机号登录")
 	@PostMapping("/loginbyphone")
 	@Transactional
-	public RetMsg loginByPhone(@RequestBody @Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
+	public RetMsg loginByPhone(@Validated UserSaveRequest userSavePostParams, BindingResult bindingResult) {
 		String phone = userSavePostParams.getPhone();
 		String smsCodeString = userSavePostParams.getSmsCode();
 		String invitationCode = userSavePostParams.getInvitationCode();
@@ -181,7 +181,7 @@ public class UserController {
 	@ApiOperation(value="修改用户密码-短信", notes="修改用户密码-短信")
 	@PostMapping("/updateLoginPasswordBySms")
 	@Transactional
-	public RetMsg updateLoginPasswordBySms(@RequestBody @Validated UpdateUserPasswordBySmsRequest updateUserPasswordBySmsRequest, BindingResult bindingResult) {
+	public RetMsg updateLoginPasswordBySms(@Validated UpdateUserPasswordBySmsRequest updateUserPasswordBySmsRequest, BindingResult bindingResult) {
 		String phone = updateUserPasswordBySmsRequest.getPhone();
 		String smsCodeString = updateUserPasswordBySmsRequest.getSmsCode();
 		String password  = updateUserPasswordBySmsRequest.getPassword();
@@ -242,7 +242,7 @@ public class UserController {
 	@ApiOperation(value="更新用户登录密码", notes="更新用户登录密码")
 	@PostMapping("/updateLoginPassword")
 	@Transactional
-	public RetMsg updatePassword(@RequestBody @Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
+	public RetMsg updatePassword(@Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
 			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -286,7 +286,7 @@ public class UserController {
 	@ApiOperation(value="更新用户账号", notes="更新用户账号")
 	@PostMapping("/updateAccount")
 	@Transactional
-	public RetMsg updateAccount(@RequestBody @Validated UpdateAccountRequest updateAccountRequest,
+	public RetMsg updateAccount(@Validated UpdateAccountRequest updateAccountRequest,
 								 BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);
@@ -388,7 +388,7 @@ public class UserController {
 	 */
 	@ApiOperation(value="用户登录", notes="用户登录")
 	@PostMapping("/login")
-	public RetMsg login(@RequestBody @Validated UserLoginRequest userLoginRequest, BindingResult bindingResult,
+	public RetMsg login(@Validated UserLoginRequest userLoginRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
 		String account = userLoginRequest.getAccount();
 		String password = userLoginRequest.getPassword();
@@ -448,7 +448,7 @@ public class UserController {
 	@ApiOperation(value="完善信息-身份证", notes="完善信息-身份证")
 	@PostMapping("/initUserInfo")
 	@Transactional
-	public RetMsg initUserInfo(@RequestBody @Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
+	public RetMsg initUserInfo(@Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
 //		String account = userInitSettingRequest.getAccount();
 		String userId = userInitSettingRequest.getUserid();
@@ -535,7 +535,7 @@ public class UserController {
 	@ApiOperation(value="修改用户交易密码-短信", notes="修改用户交易密码-短信")
 	@PostMapping("/updatePaymentPasswordBySms")
 	@Transactional
-	public RetMsg updatePaymentPasswordBySms(@RequestBody @Validated UpdateUserPayPasswordBySmsRequest updateUserPayPasswordBySmsRequest, BindingResult bindingResult) {
+	public RetMsg updatePaymentPasswordBySms(@ModelAttribute("UpdateUserPayPasswordBySmsRequest") @Validated UpdateUserPayPasswordBySmsRequest updateUserPayPasswordBySmsRequest, BindingResult bindingResult) {
 		String phone = updateUserPayPasswordBySmsRequest.getPhone();
 		String smsCodeString = updateUserPayPasswordBySmsRequest.getSmsCode();
 		String payPassword  = updateUserPayPasswordBySmsRequest.getPayPassword();
@@ -589,10 +589,16 @@ public class UserController {
 		return retMsg;
 	}
 
+
+	@ModelAttribute("UpdateUserPayPasswordBySmsRequest")
+	public UpdateUserPasswordBySmsRequest getUpdateUserPasswordBySmsRequest(){
+		return new UpdateUserPasswordBySmsRequest();
+	}
+
 	// 修改用户的交易密码
 	@ApiOperation(value="修改用户的交易密码", notes="修改用户的交易密码")
 	@PostMapping("/updatePaymentPassword")
-	public RetMsg updatePaymentPassword(@RequestBody @Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
+	public RetMsg updatePaymentPassword(@Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
 			BindingResult bindingResult) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = ValidateErrorUtil.getInstance().errorList(bindingResult);

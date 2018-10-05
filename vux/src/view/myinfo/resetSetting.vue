@@ -151,7 +151,11 @@
               newNickName: this.newNickName
             }
           }
-          this.doRequest(requestOptions)
+          if (this.newNickName === this.currentUser.nickName) {
+            this.showEdit = false
+          } else {
+            this.doRequest(requestOptions)
+          }
         }
       },
       doRequest (requestOptions) {
@@ -179,6 +183,7 @@
         this.doGet(requestOptions).then(result => {
           if (result.success) {
             this.currentUser = result.data
+            window.localStorage.setItem('User', JSON.stringify(result.data))
           }
         })
       }

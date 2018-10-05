@@ -114,6 +114,7 @@
   /*}*/
   .toolbar-footer {
     position: fixed;
+    z-index: 100;
     padding-bottom: env(safe-area-inset-bottom);
   }
 

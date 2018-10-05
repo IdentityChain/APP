@@ -50,23 +50,27 @@
       CellFormPreview
     },
     mounted: function () {
-      const userOjb = JSON.parse(window.localStorage.getItem('User'))
-      this.user = userOjb
-      this.owner[0].title = this.user.nickName
+      // const userOjb = JSON.parse(window.localStorage.getItem('User'))
+      // this.user = userOjb
+      // this.owner[0].title = this.user.nickName
       // this.owner[0].desc = '第' + (this.user.userId + 1) + '位用户'
     },
     data () {
       return {
-        user: '',
-        owner: [{
+        user: ''
+      }
+    },
+    methods: {
+    },
+    computed: {
+      owner: function () {
+        return [{
           src: require('../../assets/my/people.png'),
-          title: '昵称',
+          title: JSON.parse(window.localStorage.getItem('User')).nickName,
           desc: '',
           url: '/my/resetSetting'
         }]
       }
-    },
-    methods: {
     }
   }
 </script>

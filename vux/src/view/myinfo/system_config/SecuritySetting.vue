@@ -10,7 +10,7 @@
 
       <group style="padding-top: env(safe-area-inset-top);">
         <cell title="登陆密码" is-link @click.native="resetLoginPasswd"></cell>
-        <cell title="交易密码" is-link>{{currentUser.passwordReset === true ? '' : '未设置'}}</cell>
+        <cell title="交易密码" is-link @click.native="resetPayPasswd">{{currentUser.passwordReset === true ? '' : '未设置'}}</cell>
       </group>
 
       <div v-transfer-dom>
@@ -24,9 +24,9 @@
             @on-click-left="showEdit = false"
             @on-click-right="doReset"
             style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
-          <group >
+          <group  v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
-            <x-input  v-if="editModel.currentEdit === 'nickName'" ref="nickNameInput" v-model="currentUser.nickName"></x-input>
+            <x-input  ref="nickNameInput" v-model="currentUser.nickName"></x-input>
           </group>
           <!--修改登录密码-->
           <div v-if="editModel.currentEdit === 'loginPassword'">
@@ -97,6 +97,11 @@
       resetLoginPasswd () {
         this.editModel.title = '修改登录密码'
         this.editModel.currentEdit = 'loginPassword'
+        this.showEdit = true
+      },
+      resetPayPasswd () {
+        this.editModel.title = this.currentUser.passwordReset ? '修改交易密码' : '设置交易密码'
+        this.editModel.currentEdit = 'payPassword'
         this.showEdit = true
       },
       doReset () {

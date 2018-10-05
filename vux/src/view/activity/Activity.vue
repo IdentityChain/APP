@@ -3,12 +3,11 @@
     <panel :list="list" :type="type" @on-img-error="onImgError" @on-click-item="gotoProgram"></panel>
     <load-more :show-loading="false" :tip="msg" background-color="#fbf9fe"></load-more>
     <div v-transfer-dom>
-      <popup v-model="showProgram" height="100%">
+      <popup v-model="showProgram" height="100%" :popup-style="styleObj" :hide-on-blur=false :show-mask=false :should-rerender-on-show=true>
         <!-- group already has a top border, so we need to hide header's bottom border-->
         <!--<write-mail :name="programName" :program="currentProgram" @back-list="backList"></write-mail>-->
-        <Template @close-program="backList">
-          <component :is="currentProgram" slot="program"></component>
-        </Template>
+        <program @close-program="backList" :show-title=false :program-name="programName" :program="currentProgram">
+        </program>
       </popup>
     </div>
   </div>
@@ -18,9 +17,7 @@
   import {Panel, Group, LoadMore, TransferDom, Popup} from 'vux'
   import {WriteMail} from './index'
   import Send from './sendMailToFuture/WriteMail'
-  import ProgramButton from './components/ProgramHeader'
   import Program from './Program'
-  import Template from './Template'
   // import Template from "../../components/Template";
 
   export default {
@@ -28,14 +25,12 @@
       TransferDom
     },
     components: {
-      Template,
       Panel,
       'send': Send,
       Group,
       LoadMore,
       Program,
       Popup,
-      ProgramButton,
       'writeMail': WriteMail
     },
     methods: {
@@ -43,6 +38,7 @@
         console.log(item, $event)
       },
       gotoProgram (item) {
+        this.currentProgram = WriteMail
         this.showProgram = true
         this.programName = item.title
         console.log(item.program)
@@ -54,7 +50,10 @@
     data () {
       return {
         msg: '更多活动敬请期待',
-        currentProgram: 'send',
+        currentProgram: WriteMail,
+        styleObj: {
+          'zIndex': 601
+        },
         programName: '',
         showProgram: false,
         type: '1',
