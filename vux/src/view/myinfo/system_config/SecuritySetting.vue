@@ -40,6 +40,23 @@
               <a style="color: #586c94;margin-top: 5px" href="#" @click="resetPasswd">忘记旧密码</a>
             </div>
           </div>
+
+          <div v-if="editModel.currentEdit === 'payPassword'">
+            <group v-if="currentUser.passwordReset">
+              <x-input type="tel"  title="手机号码" ref="input1" v-model="oldPassword" placeholder="请填写手机号码"></x-input>
+              <x-input type="password"  title="登录密码" :min="6" :max="20" ref="input2" v-model="newPassword" placeholder="请输入登录密码"></x-input>
+              <x-input type="password"  title="旧交易密码" :min="6" :max="6" ref="input3" v-model="repeatPassword"  placeholder="请输入旧交易密码"></x-input>
+              <x-input type="password"  title="新交易密码" :min="6" :max="6" ref="input3" v-model="repeatPassword"  placeholder="请输入新交易密码"></x-input>
+              <x-input type="password"  title="确认交易密码" :min="6" :max="6" ref="input3" v-model="repeatPassword"  placeholder="请再次输入新交易密码"></x-input>
+            </group>
+            <group v-else>
+              <x-input type="tel" title="手机号码" is-type="china-mobile" v-model="phoneNumber"></x-input>
+              <x-input title="验证码" required class="weui-vcode" v-model="smsCode" :min="4" :max="4" :show-clear="false" ref="input2">
+                <x-button slot="right" type="primary" mini @click.native="getSmsCode" :disabled="waiting">获取验证码{{reget}}</x-button>
+              </x-input>
+              <x-input type="password"  title="交易密码" :min="6" :max="6" ref="input3" v-model="repeatPassword"  placeholder="请输入交易密码"></x-input>
+            </group>
+          </div>
         </popup>
       </div>
     </view-box>
@@ -77,6 +94,9 @@
         oldPassword: '',
         newPassword: '',
         repeatPassword: '',
+        phoneNumber: '',
+        newPayPassword: '',
+        smsCode: '',
         currentUser: {
           nickName: ''
         },
@@ -133,6 +153,9 @@
               }
             }
           }
+        }
+        if (this.editModel.currentEdit === 'payPassword') {
+          this.showEdit = false
         }
       },
       doRequest (requestOptions) {
