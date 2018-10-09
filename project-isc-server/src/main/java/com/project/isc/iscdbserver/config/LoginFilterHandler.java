@@ -40,7 +40,7 @@ public class LoginFilterHandler implements HandlerInterceptor {
 		Cookie[] cookies = request.getCookies();
 		if (null == cookies || 0 == cookies.length) {
 			response.setHeader("loginStatus", "false");
-			return false;
+			return true;
 		}
 
 		for (Cookie cookie : cookies) {
@@ -50,14 +50,14 @@ public class LoginFilterHandler implements HandlerInterceptor {
 
 				if (3 != tArr.length) {
 					response.setHeader("loginStatus", "false");
-					return false;
+					return true;
 				}
 
 				// 验证cookie是否过期
 				long expireTime = Long.parseLong(tArr[1]);
 				if (System.currentTimeMillis() > expireTime) {
 					response.setHeader("loginStatus", "false");
-					return false;
+					return true;
 				}
 
 				// 验证密码是否正确
@@ -65,13 +65,13 @@ public class LoginFilterHandler implements HandlerInterceptor {
 				User u = this.userService.findByAccount(account);
 				if (null == u) {
 					response.setHeader("loginStatus", "false");
-					return false;
+					return true;
 				}
 
 				String data = MD5Util.encrypeByMd5(tArr[0] + ":" + tArr[1] + ":" + u.getPassword());
 				if (!data.equals(tArr[2])) {
 					response.setHeader("loginStatus", "false");
-					return false;
+					return true;
 				}
 
 				// 设置cookie
@@ -82,11 +82,13 @@ public class LoginFilterHandler implements HandlerInterceptor {
 		}
 
 		response.setHeader("loginStatus", "false");
-		response.setHeader( "Access-Control-Allow-Origin","http://localhost:8000");
+//		response.setHeader( "Access-Control-Allow-Origin","http://localhost:8000");
+		response.setHeader( "Access-Control-Allow-Origin","*");
+
 		response.setHeader( "Access-Control-Allow-Methods","POST,GET" );
-		response.setHeader("Access-Control-Allow-Credentials", "true");
+//		response.setHeader("Access-Control-Allow-Credentials", "true");
 		response.setHeader( "Access-Control-Expose-Headers", "loginStatus");
-		return false;
+		return true;
 	}
 
 	private void setUserLoginCookie(User user, HttpServletRequest request, HttpServletResponse response) {

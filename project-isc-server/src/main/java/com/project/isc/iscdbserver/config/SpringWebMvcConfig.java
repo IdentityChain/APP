@@ -38,16 +38,18 @@ public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
 		return new LoginFilterHandler();
 	}
 
+	@Bean
+	public LoginInterceptor loginInterceptor() { return  new LoginInterceptor(); }
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		if(userLoginSetting.isUseInterceptor()) {
 			if(userLoginSetting.isVisitSwagger()){
-				registry.addInterceptor(loginFilterHandler()).addPathPatterns("/**").excludePathPatterns("/user/login","/user/firstsave","/sms/getCodeByPhone/*","/swagger-resources","/v2/api-docs");
+				registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/swagger-resources","/v2/api-docs");
 			}else{
-				registry.addInterceptor(loginFilterHandler()).addPathPatterns("/**").excludePathPatterns("/user/login","/user/firstsave","/sms/getCodeByPhone/*");
+				registry.addInterceptor(loginInterceptor()).addPathPatterns("/**");
 			}
 		}
-		
 		super.addInterceptors(registry);
 	}
 

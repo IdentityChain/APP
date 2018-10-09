@@ -21,8 +21,6 @@ public class RedisService {
     @Resource(name = "stringRedisTemplate")
     ValueOperations<String, String> valOpsStr;
 
-
-
     @Autowired
     RedisTemplate<Object, Object> redisTemplate;
 
@@ -45,6 +43,10 @@ public class RedisService {
      */
     public void setStr(String key, String val){
         valOpsStr.set(key,val);
+    }
+
+    public void setStrWithTime(String key, String val, Long expireSecond){
+        valOpsStr.set(key, val, expireSecond, TimeUnit.SECONDS);
     }
 
     /**
