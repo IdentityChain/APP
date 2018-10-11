@@ -6,7 +6,7 @@
           <div v-if="currentPage === 'home'">
             <div style="margin-left: 5px;color: white;">
               <h1>给未来写封信</h1>
-              <h3>已寄出 22343 封</h3>
+              <h3 v-on:click.stop="testAxios">已寄出 22343 封</h3>
               <div class="mailBox" v-on:click.stop="vieMail">
                 <img src="../../../assets/activity/sendMail/view.png"
                      style="height: 40px;width: 40px;margin-left: 6px;"/>
@@ -149,6 +149,9 @@
       })
     },
     methods: {
+      testAxios () {
+        this.$api.userApi.getUserInfoById('4028b2e4661b1b3501661b23418f0000')
+      },
       vieMail () {
         this.showPop = true
         this.currentPage = 'mailList'

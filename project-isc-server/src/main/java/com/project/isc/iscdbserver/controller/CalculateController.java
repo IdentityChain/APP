@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.project.isc.iscdbserver.annotation.Auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class CalculateController {
 	
 	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
+	@Auth
 	public RetMsg getCalculateStatistic100() {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
@@ -84,6 +86,7 @@ public class CalculateController {
 	@ApiOperation(value="获得可挖的数据", notes="")
 	@GetMapping("/getCalculateLog/{userid}")
 	@Transactional
+	@Auth
 	public RetMsg getCalculateLog(@PathVariable("userid") String userid) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
@@ -109,6 +112,7 @@ public class CalculateController {
 	@ApiOperation(value="用户点击挖矿数据", notes="")
 	@GetMapping("/checkCalculateLog/{logid}")
 	@Transactional
+	@Auth
 	public RetMsg checkCalculateLog(@PathVariable("logid") String logid) {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();

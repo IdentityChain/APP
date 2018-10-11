@@ -5,5 +5,5 @@ module.exports = {
   // apiServer: 'http://192.168.43.104:9088',
   deployAPP: false,
   // deployAPP: true,
-  useAuth: true
+  useAuth: false
 }

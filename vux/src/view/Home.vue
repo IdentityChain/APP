@@ -57,14 +57,14 @@
     computed: {
       currentView: {
         get: function () {
-          return this.$store.state.vux.homeObj.homeView
+          return this.$store.state.homeObj.homeView
         },
         set: function () {
         }
       },
       showHeader: {
         get: function () {
-          return this.$store.state.vux.homeObj.headerStatus
+          return this.$store.state.homeObj.headerStatus
         },
         set: function () {
         }

@@ -102,9 +102,7 @@
   import Coin from './GetCoin'
   export default {
     mounted: function () {
-      this.gundong()
       this.init()
-      console.log('load ...')
     },
     name: 'wakuang',
     components: {
@@ -124,6 +122,7 @@
     methods: {
       init () {
         let user = JSON.parse(window.localStorage.getItem('User'))
+        console.log(user)
         this.chengjiudian = user.calculateValue
         this.getCoinRequest(user.userId)
         this.getPaihangBang()

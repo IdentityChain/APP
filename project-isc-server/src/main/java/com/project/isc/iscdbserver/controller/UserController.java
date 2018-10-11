@@ -246,6 +246,7 @@ public class UserController {
 	@ApiOperation(value="更新用户登录密码", notes="更新用户登录密码")
 	@PostMapping("/updateLoginPassword")
 	@Transactional
+	@Auth
 	public RetMsg updatePassword(@RequestBody @Validated UserLoginPasswordUpdateRequest userPasswordUpdateRequest,
 			BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
@@ -290,6 +291,7 @@ public class UserController {
 	@ApiOperation(value="更新用户账号", notes="更新用户账号")
 	@PostMapping("/updateAccount")
 	@Transactional
+	@Auth
 	public RetMsg updateAccount(@RequestBody @Validated UpdateAccountRequest updateAccountRequest,
 								 BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
@@ -339,6 +341,7 @@ public class UserController {
 	@ApiOperation(value="更新昵称", notes="更新昵称")
 	@PostMapping("/updateNickName")
 	@Transactional
+	@Auth
 	public RetMsg updateNickName(@RequestBody @Validated UpdateNickNameRequest updateNickNameRequest,
 								BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
 		// 如果数据校验有误，则直接返回校验错误信息
@@ -452,9 +455,9 @@ public class UserController {
 	@ApiOperation(value="完善信息-身份证", notes="完善信息-身份证")
 	@PostMapping("/initUserInfo")
 	@Transactional
+	@Auth
 	public RetMsg initUserInfo(@RequestBody @Validated UserInitSettingRequest userInitSettingRequest, BindingResult bindingResult,
 			HttpServletRequest request, HttpServletResponse response) {
-//		String account = userInitSettingRequest.getAccount();
 		String userId = userInitSettingRequest.getUserid();
 		String realName = userInitSettingRequest.getRealName();
 		String identityNo = userInitSettingRequest.getIdentityNo();
@@ -495,6 +498,7 @@ public class UserController {
 	// 根据用户名查找用户信息
 	@ApiOperation(value="用户名查找用户信息", notes="用户名查找用户信息")
 	@GetMapping("/findByAccount")
+	@Auth
 	public RetMsg findUserByAccount(@RequestParam("account") String account) {
 		if (null == account)
 			throw new RuntimeException("用户账户名不能为null");
@@ -540,6 +544,7 @@ public class UserController {
 	@ApiOperation(value="修改用户交易密码-短信", notes="修改用户交易密码-短信")
 	@PostMapping("/updatePaymentPasswordBySms")
 	@Transactional
+	@Auth
 	public RetMsg updatePaymentPasswordBySms(@RequestBody @Validated UpdateUserPayPasswordBySmsRequest updateUserPayPasswordBySmsRequest, BindingResult bindingResult) {
 		String phone = updateUserPayPasswordBySmsRequest.getPhone();
 		String smsCodeString = updateUserPayPasswordBySmsRequest.getSmsCode();
@@ -597,6 +602,7 @@ public class UserController {
 	// 修改用户的交易密码
 	@ApiOperation(value="修改用户的交易密码", notes="修改用户的交易密码")
 	@PostMapping("/updatePaymentPassword")
+	@Auth
 	public RetMsg updatePaymentPassword(@RequestBody @Validated UpdatePaymentPasswordRequest updatePaymentPasswordRequest,
 			BindingResult bindingResult) {
 		// 如果数据校验有误，则直接返回校验错误信息

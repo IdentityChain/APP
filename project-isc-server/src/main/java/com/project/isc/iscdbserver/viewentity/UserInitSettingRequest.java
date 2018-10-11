@@ -13,9 +13,7 @@ public class UserInitSettingRequest {
 	 */
 	@NotNull
 	private String userid;
-//	@NotNull
-	private String account;
-	
+
 	//真实姓名
 	@NotBlank(message = "姓名不能为空")
 	@Size(min = 2,max = 10,message = "姓名的长度不合法!")
@@ -31,14 +29,6 @@ public class UserInitSettingRequest {
 
 	public void setUserid(String userid) {
 		this.userid = userid;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
 	}
 
 	public String getRealName() {

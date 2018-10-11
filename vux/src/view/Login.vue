@@ -52,32 +52,54 @@
       },
       doLogin () {
         if (this.$refs.input1.valid && this.$refs.input2.valid) {
-          let requestOption = {
-            url: this.AppConfig.apiServer + '/user/login',
-            params: {
-              account: this.telNum.replace(/[ ]/g, ''),
-              password: this.password
-            }
-          }
-          this.doPost(requestOption).then(result => {
-            if (result.success) {
+          this.$api.userApi.userLogin(this.telNum.replace(/[ ]/g, ''), this.password)
+            .then(result => {
               console.log(result)
-              const userObj = result.data
-              window.localStorage.setItem('User', JSON.stringify(userObj))
-              this.$router.push({name: 'home'})
-              window.sessionStorage.setItem('/', 0)
-              this.$vux.toast.show({
-                type: 'success',
-                text: result.message
-              })
-            } else {
-              this.$vux.toast.show({
-                type: 'text',
-                text: result.message,
-                width: '10em'
-              })
-            }
-          })
+              if (result.data.success) {
+                const token = result.headers.authorization
+                const userObj = result.data.data
+                window.localStorage.setItem('token', token)
+                window.localStorage.setItem('User', JSON.stringify(userObj))
+                this.$router.push({name: 'home'})
+                window.sessionStorage.setItem('/', 0)
+                this.$vux.toast.show({
+                  type: 'success',
+                  text: result.data.message
+                })
+              } else {
+                this.$vux.toast.show({
+                  type: 'text',
+                  text: result.data.message,
+                  width: '10em'
+                })
+              }
+            })
+          // let requestOption = {
+          //   url: this.AppConfig.apiServer + '/user/login',
+          //   params: {
+          //     account: this.telNum.replace(/[ ]/g, ''),
+          //     password: this.password
+          //   }
+          // }
+          // this.doPost(requestOption).then(result => {
+          //   if (result.success) {
+          //     console.log(result)
+          //     const userObj = result.data
+          //     window.localStorage.setItem('User', JSON.stringify(userObj))
+          //     this.$router.push({name: 'home'})
+          //     window.sessionStorage.setItem('/', 0)
+          //     this.$vux.toast.show({
+          //       type: 'success',
+          //       text: result.message
+          //     })
+          //   } else {
+          //     this.$vux.toast.show({
+          //       type: 'text',
+          //       text: result.message,
+          //       width: '10em'
+          //     })
+          //   }
+          // })
         }
       },
       nextStep () {

@@ -131,30 +131,32 @@
         }
         if (this.editModel.currentEdit === 'realName' && this.currentUser.userStatus === false) {
           console.log('修改真实身份信息')
-          let requestOptions = {
-            url: this.AppConfig.apiServer + '/user/initUserInfo',
-            params: {
-              userid: this.currentUser.userId,
-              realName: this.currentUser.realName,
-              identityNo: this.currentUser.identityNo
+          this.$api.userApi.initUserInfo(this.currentUser.userId, this.currentUser.realName, this.currentUser.identityNo).then(res => {
+            if (res.data.success) {
+              this.updateUserInfo()
+              this.showEdit = false
+              this.$vux.toast.show({
+                type: 'success',
+                text: '完成'
+              })
             }
-          }
-          this.doRequest(requestOptions)
+          })
         }
         // 修改昵称
         if (this.editModel.currentEdit === 'nickName') {
-          let requestOptions = {
-            url: this.AppConfig.apiServer + '/user/updateNickName',
-            params: {
-              userid: this.currentUser.userId,
-              oldNickName: this.currentUser.nickName,
-              newNickName: this.newNickName
-            }
-          }
           if (this.newNickName === this.currentUser.nickName) {
             this.showEdit = false
           } else {
-            this.doRequest(requestOptions)
+            this.$api.userApi.updateNickName(this.currentUser.userId, this.currentUser.nickName, this.newNickName).then(res => {
+              if (res.data.success) {
+                this.updateUserInfo()
+                this.showEdit = false
+                this.$vux.toast.show({
+                  type: 'success',
+                  text: '完成'
+                })
+              }
+            })
           }
         }
       },
@@ -177,13 +179,10 @@
         })
       },
       updateUserInfo () {
-        let requestOptions = {
-          url: this.AppConfig.apiServer + '/user/findByUserId?userid=' + this.currentUser.userId
-        }
-        this.doGet(requestOptions).then(result => {
-          if (result.success) {
-            this.currentUser = result.data
-            window.localStorage.setItem('User', JSON.stringify(result.data))
+        this.$api.userApi.getUserInfoById(this.currentUser.userId).then(res => {
+          if (res.data.success) {
+            this.currentUser = res.data.data
+            window.localStorage.setItem('User', JSON.stringify(res.data.data))
           }
         })
       }
