@@ -1,37 +1,18 @@
 import http from '../../http'
-const post = 'post'
 const get = 'get'
 
 const requestObj = {
-  updateNickName: {
-    method: post
-  },
-  getUserInfoById: {
+  getSmsCode: {
     method: get,
-    url: 'findByUserId',
-    params: {
-      userid: ''
-    }
-  },
-  userLogin: {
-    method: post,
-    url: 'login',
-    params: {
-      account: '',
-      password: ''
-    }
-  }
-}
-const userapi = {
-  getUserInfoById (userid) {
-    requestObj.getUserInfoById.params.userid = userid
-    return http.doRequest(requestObj.getUserInfoById)
-  },
-  userLogin (account, password) {
-    requestObj.userLogin.params.account = account
-    requestObj.userLogin.params.password = password
-    return http.doRequest(requestObj.userLogin)
+    url: '/sms/getCodeByPhone/'
   }
 }
 
-export default userapi
+const smsApi = {
+  getSmsCode (phoneNumber, codeType) {
+    requestObj.getSmsCode.url = '/sms/getCodeByPhone/' + phoneNumber + '/' + codeType
+    return http.doRequest(requestObj.getSmsCode)
+  }
+}
+
+export default smsApi

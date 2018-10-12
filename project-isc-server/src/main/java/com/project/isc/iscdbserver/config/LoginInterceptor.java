@@ -54,9 +54,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 account = (String)redisService.getObj(token);
                 //  如何token剩余时间小于10分钟,自动续期
                 if (account != null && !account.trim().equals("")) {
-                    if (aliveTime < 900) {
-                        redisService.setKeyExpireSecond(token, 1800);
-                    }
+                    redisService.setKeyExpireSecond(token, 1800);
                     request.setAttribute(CURRENT_USER, account);
                     return true;
                 } else {

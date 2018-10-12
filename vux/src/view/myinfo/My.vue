@@ -57,7 +57,6 @@
     },
     data () {
       return {
-        user: ''
       }
     },
     methods: {
@@ -66,7 +65,7 @@
       owner: function () {
         return [{
           src: require('../../assets/my/people.png'),
-          title: JSON.parse(window.localStorage.getItem('User')).nickName,
+          title: this.$store.state.currentUser.nickName,
           desc: '',
           url: '/my/resetSetting'
         }]

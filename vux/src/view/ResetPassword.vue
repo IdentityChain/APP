@@ -30,7 +30,6 @@
 
 <script>
   import { Group, XInput, XButton, Box, Flexbox, FlexboxItem } from 'vux'
-
   export default {
     components: {
       Group,

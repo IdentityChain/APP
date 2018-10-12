@@ -1,6 +1,7 @@
 import axios from 'axios'
 import router from '../router'
 import Vue from 'vue'
+import appConfig from '../config/config'
 import base from './api/base'
 
 // 错题提示方法
@@ -69,10 +70,14 @@ instance.interceptors.response.use(
   resonse => {
     console.log('进入响应')
     Vue.$vux.loading.hide()
-    if (resonse.status === 200) {
-      return Promise.resolve(resonse)
+    if (appConfig.useAuth) {
+      if (resonse.status === 200) {
+        return Promise.resolve(resonse)
+      } else {
+        return Promise.reject(resonse)
+      }
     } else {
-      return Promise.reject(resonse)
+      return Promise.resolve(resonse)
     }
   },
   err => {

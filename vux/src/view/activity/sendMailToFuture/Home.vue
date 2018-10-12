@@ -150,7 +150,9 @@
     },
     methods: {
       testAxios () {
-        this.$api.userApi.getUserInfoById('4028b2e4661b1b3501661b23418f0000')
+        this.$api.userApi.getUserInfoById('4028b2e4661b1b3501661b23418f0000').then(result => {
+          console.log(result)
+        })
       },
       vieMail () {
         this.showPop = true

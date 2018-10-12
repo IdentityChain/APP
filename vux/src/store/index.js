@@ -7,7 +7,8 @@ export default new Vuex.Store({
     homeObj: {
       homeView: 'wakuang',
       headerStatus: false
-    }
+    },
+    currentUser: {}
   },
   mutations: {
     updateHomeView (state, payload) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     updateHomeObj (state, payload) {
       state.homeObj.homeView = payload.nowView
       state.homeObj.headerStatus = payload.headerStatus
+    },
+    updateCurrentUser (state, payload) {
+      state.currentUser = payload
     }
   }
 })

@@ -84,6 +84,11 @@
         this.$store.commit('updateHeaderStatus', homeObj1)
         homeObj1.nowView = view
         this.$store.commit('updateHomeView', homeObj1)
+        this.$nextTick(function () {
+          if (view === 'wakuang') {
+            this.$refs.nowView.init()
+          }
+        })
       },
       back () {
         // this.$store.commit('setTransition', 'turn-off')

@@ -43,9 +43,14 @@
             <p style="color: #666666;font-size: small;margin-top: 5px;">该信息一经提交无法修改，请确保输入准确。</p>
             </div>
             <divider></divider>
-            <x-input title="真实姓名" ref="realNameInput" v-model="newNickName" :disabled="currentUser.userStatus"></x-input>
-
-            <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo" :disabled="currentUser.userStatus"></x-input>
+            <div v-if="currentUser.userStatus">
+              <x-input title="真实姓名" ref="realNameInput" v-model="currentUser.realName" :disabled=true></x-input>
+              <x-input title="身份证号码" ref="identityNoInput" v-model="currentUser.identityNo" :disabled=true></x-input>
+            </div>
+            <div v-else>
+              <x-input title="真实姓名" ref="realNameInput" v-model="setRealName"></x-input>
+              <x-input title="身份证号码" ref="identityNoInput" v-model="setIdentityNo"></x-input>
+            </div>
           </group>
           <group v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
@@ -73,6 +78,7 @@
     ViewBox,
     Msg
   } from 'vux'
+  import {mapState} from 'vuex'
 
   export default {
     name: 'resetSetting',
@@ -94,7 +100,6 @@
       Popup
     },
     mounted: function () {
-      this.currentUser = JSON.parse(window.localStorage.getItem('User'))
       this.newNickName = this.currentUser.nickName
     },
     data () {
@@ -102,12 +107,18 @@
         msg: 'resetSetting page',
         showEdit: false,
         newNickName: '',
-        currentUser: {},
+        setRealName: '',
+        setIdentityNo: '',
         editModel: {
           title: '设置昵称',
           currentEdit: 'nickName'
         }
       }
+    },
+    computed: {
+      ...mapState({
+        currentUser: state => state.currentUser
+      })
     },
     methods: {
       nickNameReset () {
@@ -131,7 +142,7 @@
         }
         if (this.editModel.currentEdit === 'realName' && this.currentUser.userStatus === false) {
           console.log('修改真实身份信息')
-          this.$api.userApi.initUserInfo(this.currentUser.userId, this.currentUser.realName, this.currentUser.identityNo).then(res => {
+          this.$api.userApi.initUserInfo(this.currentUser.userId, this.setRealName, this.setIdentityNo).then(res => {
             if (res.data.success) {
               this.updateUserInfo()
               this.showEdit = false
@@ -181,8 +192,7 @@
       updateUserInfo () {
         this.$api.userApi.getUserInfoById(this.currentUser.userId).then(res => {
           if (res.data.success) {
-            this.currentUser = res.data.data
-            window.localStorage.setItem('User', JSON.stringify(res.data.data))
+            this.$store.commit('updateCurrentUser', res.data.data)
           }
         })
       }

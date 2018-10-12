@@ -58,6 +58,7 @@
               if (result.data.success) {
                 const token = result.headers.authorization
                 const userObj = result.data.data
+                this.$store.commit('updateCurrentUser', result.data.data)
                 window.localStorage.setItem('token', token)
                 window.localStorage.setItem('User', JSON.stringify(userObj))
                 this.$router.push({name: 'home'})

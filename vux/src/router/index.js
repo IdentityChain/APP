@@ -25,7 +25,10 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -45,52 +48,82 @@ export default new Router({
     {
       path: '/my/convertConsumeCoin',
       name: 'convertConsumeCoin',
-      component: convertConsumeCoin
+      component: convertConsumeCoin,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/orderView',
       name: 'orderView',
-      component: orderView
+      component: orderView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/reConsume',
       name: 'reConsume',
-      component: reConsume
+      component: reConsume,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/resetSetting',
       name: 'resetSetting',
-      component: resetSetting
+      component: resetSetting,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/systemSetting',
       name: 'systemSetting',
-      component: SystemSetting
+      component: SystemSetting,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/systemSetting/securitySetting',
       name: 'securitySetting',
-      component: SecuritySetting
+      component: SecuritySetting,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/my/transferConsumeCoin',
       name: 'transferConsumeCoin',
-      component: transferConsumeCoin
+      component: transferConsumeCoin,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/template',
       name: 'template',
-      component: Template
+      component: Template,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/activity/sendMailHome',
       name: 'sendMailHome',
-      component: SendMailHome
+      component: SendMailHome,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/activity/wirteMail',
       name: 'wirteMail',
-      component: WriteMail
+      component: WriteMail,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '*',

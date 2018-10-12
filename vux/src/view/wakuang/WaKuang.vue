@@ -121,6 +121,7 @@
     },
     methods: {
       init () {
+        console.log('进入Init 方法')
         let user = JSON.parse(window.localStorage.getItem('User'))
         console.log(user)
         this.chengjiudian = user.calculateValue
@@ -129,16 +130,13 @@
       },
       doGetCoin (iscLID) {
         console.log('获取币ID: ' + iscLID)
-        const urlstr = this.AppConfig.apiServer + '/calculate/checkCalculateLog/' + iscLID
-        this.doGet({
-          url: urlstr
-        }).then(result => {
-          if (result.success) {
+        this.$api.calculateApi.checkCalculate(iscLID).then(result => {
+          if (result.data.success) {
             console.log('获取成功')
           } else {
             this.$vux.toast.show({
-              type: 'cancel',
-              text: result.message
+              type: 'text',
+              text: result.data.message
             })
           }
         })
@@ -155,12 +153,10 @@
         }
       },
       getCoinRequest (userId) {
-        const urlstr = this.AppConfig.apiServer + '/calculate/getCalculateLog/' + userId
-        this.doGet({
-          url: urlstr
-        }).then(result => {
-          if (result.success) {
-            this.coins = result.data
+        this.$api.calculateApi.getCalculateLog(userId).then(result => {
+          console.log(result)
+          if (result.data.success) {
+            this.coins = result.data.data
           } else {
             this.$vux.toast.show({
               type: 'cancel',
@@ -170,16 +166,13 @@
         })
       },
       getPaihangBang () {
-        const urlstr = this.AppConfig.apiServer + '/calculate/getCalculateStatistic100'
-        this.doGet({
-          url: urlstr
-        }).then(result => {
-          if (result.success) {
-            this.paihangList = result.data
+        this.$api.calculateApi.getCalculateTop100().then(result => {
+          if (result.data.success) {
+            this.paihangList = result.data.data
           } else {
             this.$vux.toast.show({
-              type: 'cancel',
-              text: result.message
+              type: 'text',
+              text: result.data.message
             })
           }
         })

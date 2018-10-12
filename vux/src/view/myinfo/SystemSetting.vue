@@ -68,7 +68,7 @@
         this.$store.commit('updateHomeObj', homeObj1)
         window.localStorage.clear()
         window.sessionStorage.clear()
-        this.$router.push({'name': 'home'})
+        this.$router.push({'name': 'login'})
       }
     }
   }
