@@ -587,6 +587,7 @@ public class UserController {
 		// phone不允许重复
 		if (null != user) {
 			user.setPaymentPassword(MD5Util.encrypeByMd5(payPassword));
+			this.userService.save(user);
 		}else {
 			throw new RuntimeException("系统异常");
 		}
@@ -612,7 +613,7 @@ public class UserController {
 
 		String account = updatePaymentPasswordRequest.getAccount();
 		String loginPassword = updatePaymentPasswordRequest.getLoginPassword();
-		String oldPaymentPassword = updatePaymentPasswordRequest.getOldPaymentpassword();
+		String oldPaymentPassword = updatePaymentPasswordRequest.getOldPaymentPassword();
 		String newPaymentPassword = updatePaymentPasswordRequest.getNewPaymentPassword();
 		String phone = updatePaymentPasswordRequest.getPhone();
 
@@ -631,6 +632,7 @@ public class UserController {
 
 		try {
 			user.setPaymentPassword(MD5Util.encrypeByMd5(newPaymentPassword));
+			this.userService.save(user);
 
 			retMsg = new RetMsg();
 			retMsg.setCode(200);

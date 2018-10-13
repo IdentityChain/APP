@@ -53,6 +53,17 @@ const requestObj = {
       'phone': '',
       'smsCode': ''
     }
+  },
+  resetPayPassword: {
+    method: post,
+    url: '/user/updatePaymentPassword',
+    params: {
+      'account': '',
+      'loginPassword': '',
+      'newPaymentPassword': '',
+      'oldPaymentPassword': '',
+      'phone': ''
+    }
   }
 }
 const userapi = {
@@ -94,6 +105,14 @@ const userapi = {
     requestObj.setPayPasswordBySmsCode.params.phone = phone
     requestObj.setPayPasswordBySmsCode.params.smsCode = smsCode
     return http.doRequest(requestObj.setPayPasswordBySmsCode)
+  },
+  resetPayPassword (phone, account, loginPassword, oldPayPassword, newPayPassword) {
+    requestObj.resetPayPassword.params.phone = phone
+    requestObj.resetPayPassword.params.account = account
+    requestObj.resetPayPassword.params.loginPassword = loginPassword
+    requestObj.resetPayPassword.params.oldPaymentPassword = oldPayPassword
+    requestObj.resetPayPassword.params.newPaymentPassword = newPayPassword
+    return http.doRequest(requestObj.resetPayPassword)
   }
 }
 
