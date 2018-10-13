@@ -125,18 +125,6 @@ router.beforeEach(function (to, from, next) {
   } else {
     console.log('访问未授权的网页')
   }
-  // if (AppConfig.useAuth) {
-  //   if (to.name === 'login' || to.name === 'register' || to.name === 'resetPasswd') {
-  //     console.log(to.name + '不需要登陆')
-  //   } else {
-  //     console.log(to.name + '需要检测是否登陆')
-  //     if (window.localStorage.getItem('token') === null) {
-  //       console.log('未找到token')
-  //       history.clear()
-  //       router.push({name: 'login'})
-  //     }
-  //   }
-  // }
   // 判断是否从home跳转到login,清空历史记录
   if (to.path === '/login') {
     history.clear()
