@@ -21,6 +21,9 @@
     },
     "cordova-plugin-wkwebview-engine": {
       "PACKAGE_NAME": "com.isc"
+    },
+    "cordova-plugin-crosswalk-webview": {
+      "PACKAGE_NAME": "com.isc"
     }
   },
   "dependent_plugins": {}
