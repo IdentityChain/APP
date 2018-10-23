@@ -144,10 +144,6 @@
       }
     },
     methods: {
-      logout () {
-        window.localStorage.clear()
-        this.$router.push({'name': 'login'})
-      },
       resetPasswd () {
         this.$router.push({name: 'resetPasswd'})
       },
@@ -155,11 +151,22 @@
         this.editModel.title = '修改登录密码'
         this.editModel.currentEdit = 'loginPassword'
         this.showEdit = true
+        this.$refs.input1.reset()
+        this.$refs.input2.reset()
+        this.$refs.input3.reset()
       },
       resetPayPasswd () {
         this.editModel.title = this.currentUser.passwordReset ? '修改交易密码' : '设置交易密码'
         this.editModel.currentEdit = 'payPassword'
         this.showEdit = true
+        this.$refs.spp1.reset()
+        this.$refs.spp2.reset()
+        this.$refs.spp3.reset()
+        this.$refs.spp4.reset()
+        this.$refs.spp5.reset()
+        this.$refs.setPayPasswordInput1.reset()
+        this.$refs.setPayPasswordInput2.reset()
+        this.$refs.setPayPasswordInput3.reset()
       },
       getSmsCode () {
         if (this.$refs.input1.valid) {
@@ -238,11 +245,13 @@
         if (this.editModel.currentEdit === 'payPassword') {
           if (this.currentUser.passwordReset) {
             // 重置交易密码
+            console.log('重设交易密码')
             if (this.$refs.spp1.valid && this.$refs.spp2.valid && this.$refs.spp3.valid && this.$refs.spp4.valid && this.$refs.spp5.valid) {
               // 重设交易密码
               // phone, account, loginPassword, oldPayPassword, newPayPassword
               this.$api.userApi.resetPayPassword(this.resetPayPassword.phone, this.currentUser.userPhone, this.resetPayPassword.loginPassword, this.resetPayPassword.oldPayPassword, this.resetPayPassword.newPayPassword).then(result => {
                 if (result.data.success) {
+                  this.$refs.spp1.reset()
                   this.showEdit = false
                   this.$vux.toast.show({
                     type: 'success',
@@ -255,39 +264,40 @@
                   })
                 }
               })
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                text: '请完整填写信息'
+              })
             }
           } else {
-            this.$vux.toast.show({
-              type: 'text',
-              text: '请完整填写信息'
-            })
-          }
-        } else {
-          // 第一次设置交易密码
-          if (this.$refs.setPayPasswordInput1.valid && this.$refs.setPayPasswordInput2.valid && this.$refs.setPayPasswordInput3.valid) {
-            // 表单验证通过,执行API调用
-            this.$api.userApi.setPayPasswordBySmsCode(this.setPayPassword.phone, this.setPayPassword.smsCode, this.setPayPassword.payPassword).then(result => {
-              if (result.data.success) {
-                this.showEdit = false
-                this.$vux.toast.show({
-                  type: 'success',
-                  text: '完成'
-                })
-                this.$api.userApi.getUserInfoById(this.currentUser.userId).then(result => {
-                  this.$store.commit('updateCurrentUser', result.data.data)
-                })
-              } else {
-                this.$vux.toast.show({
-                  type: 'text',
-                  text: result.data.message
-                })
-              }
-            })
-          } else {
-            this.$vux.toast.show({
-              type: 'text',
-              text: '请完整填写信息'
-            })
+            // 第一次设置交易密码
+            if (this.$refs.setPayPasswordInput1.valid && this.$refs.setPayPasswordInput2.valid && this.$refs.setPayPasswordInput3.valid) {
+              // 表单验证通过,执行API调用
+              console.log('第一次设置交易密码')
+              this.$api.userApi.setPayPasswordBySmsCode(this.setPayPassword.phone, this.setPayPassword.smsCode, this.setPayPassword.payPassword).then(result => {
+                if (result.data.success) {
+                  this.showEdit = false
+                  this.$vux.toast.show({
+                    type: 'success',
+                    text: '完成'
+                  })
+                  this.$api.userApi.getUserInfoById(this.currentUser.userId).then(result => {
+                    this.$store.commit('updateCurrentUser', result.data.data)
+                  })
+                } else {
+                  this.$vux.toast.show({
+                    type: 'text',
+                    text: result.data.message
+                  })
+                }
+              })
+            } else {
+              this.$vux.toast.show({
+                type: 'text',
+                text: '请完整填写信息'
+              })
+            }
           }
         }
       },

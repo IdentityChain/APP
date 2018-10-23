@@ -25,7 +25,7 @@ public class FutureLettersTransf {
 
 		fs.setFlId(futureLetters.getFlId());
 		fs.setContent(futureLetters.getFlMessage());
-		fs.setTotime(TimeUtil.getDateFormat(futureLetters.getSendTime()));
+		fs.setTotime(TimeUtil.getDateFormatYear(futureLetters.getSendTime()));
 		fs.setSender(futureLetters.getFlemail());
 
 		return fs;

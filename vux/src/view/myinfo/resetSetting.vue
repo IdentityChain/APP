@@ -78,7 +78,6 @@
     ViewBox,
     Msg
   } from 'vux'
-  import {mapState} from 'vuex'
 
   export default {
     name: 'resetSetting',
@@ -108,6 +107,7 @@
         showEdit: false,
         newNickName: '',
         setRealName: '',
+        currentUser: this.$db.get('User'),
         setIdentityNo: '',
         editModel: {
           title: '设置昵称',
@@ -116,9 +116,6 @@
       }
     },
     computed: {
-      ...mapState({
-        currentUser: state => state.currentUser
-      })
     },
     methods: {
       nickNameReset () {
@@ -192,7 +189,8 @@
       updateUserInfo () {
         this.$api.userApi.getUserInfoById(this.currentUser.userId).then(res => {
           if (res.data.success) {
-            this.$store.commit('updateCurrentUser', res.data.data)
+            this.$db.set('User', res.data.data)
+            this.currentUser = res.data.data
           }
         })
       }

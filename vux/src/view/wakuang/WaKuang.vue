@@ -122,7 +122,7 @@
     methods: {
       init () {
         console.log('进入Init 方法')
-        let user = JSON.parse(window.localStorage.getItem('User'))
+        let user = this.$db.get('User')
         console.log(user)
         this.chengjiudian = user.calculateValue
         this.getCoinRequest(user.userId)

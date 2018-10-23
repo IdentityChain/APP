@@ -42,7 +42,7 @@
     },
     mounted: function () {
       console.log(this.currentUser.id)
-      let userObj = JSON.parse(window.localStorage.getItem('User'))
+      let userObj = this.$db.get('User')
       this.currentUser.nickName = userObj.nickName
     },
     data () {
@@ -68,7 +68,7 @@
         this.$store.commit('updateHomeObj', homeObj1)
         window.localStorage.clear()
         window.sessionStorage.clear()
-        this.$router.push({'name': 'login'})
+        this.$router.replace({'name': 'login'})
       }
     }
   }

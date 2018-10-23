@@ -59,9 +59,9 @@
                 const token = result.headers.authorization
                 const userObj = result.data.data
                 this.$store.commit('updateCurrentUser', result.data.data)
-                window.localStorage.setItem('token', token)
-                window.localStorage.setItem('User', JSON.stringify(userObj))
-                this.$router.push({name: 'home'})
+                this.$db.set('token', token)
+                this.$db.set('User', userObj)
+                this.$router.replace({name: 'home'})
                 window.sessionStorage.setItem('/', 0)
                 this.$vux.toast.show({
                   type: 'success',
@@ -75,32 +75,6 @@
                 })
               }
             })
-          // let requestOption = {
-          //   url: this.AppConfig.apiServer + '/user/login',
-          //   params: {
-          //     account: this.telNum.replace(/[ ]/g, ''),
-          //     password: this.password
-          //   }
-          // }
-          // this.doPost(requestOption).then(result => {
-          //   if (result.success) {
-          //     console.log(result)
-          //     const userObj = result.data
-          //     window.localStorage.setItem('User', JSON.stringify(userObj))
-          //     this.$router.push({name: 'home'})
-          //     window.sessionStorage.setItem('/', 0)
-          //     this.$vux.toast.show({
-          //       type: 'success',
-          //       text: result.message
-          //     })
-          //   } else {
-          //     this.$vux.toast.show({
-          //       type: 'text',
-          //       text: result.message,
-          //       width: '10em'
-          //     })
-          //   }
-          // })
         }
       },
       nextStep () {

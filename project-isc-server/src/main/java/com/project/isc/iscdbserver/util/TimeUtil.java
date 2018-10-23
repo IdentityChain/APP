@@ -84,7 +84,17 @@ public class TimeUtil {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return df.format(date);
 	}
-	
+
+	/**
+	 * 格式化时间为年份
+	 * @param date
+	 * @return
+	 */
+	public static String getDateFormatYear(Date date) {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy");
+		return df.format(date);
+	}
+
 	public static String getDateFormatDay(Date date) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		return df.format(date);

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.project.isc.iscdbserver.annotation.Auth;
 import com.project.isc.iscdbserver.service.RedisService;
+import com.project.isc.iscdbserver.util.UserLoginSetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -25,13 +26,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private String unauthorizedErrorMessage = "401 unauthorized";
 
-    private String authExpiredErrorMessage = "10010 auth expired";
+    private String authExpiredErrorMessage = "403 auth expired";
 
     private static final String CURRENT_USER = "REQUEST_CURRENT_KEY";
 
     private int unauthorizedErrorCode = HttpServletResponse.SC_UNAUTHORIZED;
 
-    private int authExpiredErrorCode = 10010;
+    private int authExpiredErrorCode = 403;
+
+    @Autowired
+    private UserLoginSetting userLoginSetting;
 
     @Autowired
     private RedisService redisService;
@@ -47,14 +51,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 如果打上了@Auth注解,则进行登录验证
         if (method.getAnnotation(Auth.class) != null || handlerMethod.getBeanType().getAnnotation(Auth.class) != null) {
             String token = request.getHeader(httpHeaderName);
-            System.out.println("token:" + token);
-            Long aliveTime = redisService.getFreeTime(token);
             String account = "";
             if (token != null && token.length() != 0) {
+                System.out.println("token:" + token);
                 account = (String)redisService.getObj(token);
                 //  如何token剩余时间小于10分钟,自动续期
                 if (account != null && !account.trim().equals("")) {
-                    redisService.setKeyExpireSecond(token, 1800);
+                    redisService.setKeyExpireSecond(token, 60 * this.userLoginSetting.getExpireTime());
                     request.setAttribute(CURRENT_USER, account);
                     return true;
                 } else {
@@ -62,6 +65,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     return false;
                 }
             } else {
+                System.out.println("未携带token");
                 buildResponse(response, unauthorizedErrorCode, unauthorizedErrorMessage);
                 return  false;
             }

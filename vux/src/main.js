@@ -7,71 +7,23 @@ import router from './router/index'
 import App from './App'
 // import Vuex from 'vuex'
 import store from './store/index'
+import * as myUtil from './util/myUtils'
 import { sync } from 'vuex-router-sync'
 import {ToastPlugin, LoadingPlugin, BusPlugin} from 'vux'
-import AppConfig from './config/config'
+import * as config from './config/config'
 import HttpRequest from './util/ajax'
 import api from './request/api'
+var db = require('store')
 
 Vue.use(VueRouter)
 Vue.use(HttpRequest)
 Vue.use(BusPlugin)
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
-Vue.prototype.$appConfig = AppConfig
+Vue.prototype.$db = db
+Vue.prototype.$appConfig = config
 Vue.prototype.$api = api
-
-// Vue.http.interceptors.push((request, next) => {
-//   // request.credentials = true
-//   Vue.$vux.loading.hide()
-//   console.log('进入拦截器拦截方法')
-//   Vue.$vux.loading.show({
-//     text: '加载中',
-//     delay: 1000
-//   })
-//   console.log(request)
-//   var timeout
-//   if (request._timeout) {
-//     timeout = setTimeout(() => {
-//       console.log('进入拦截器超时方法')
-//       Vue.$vux.toast.show({
-//         type: 'cancel',
-//         text: '请求超时'
-//       })
-//       Vue.$vux.loading.hide()
-//       if (request.onTimeout) request.onTimeout(request)
-//       request.abort()
-//     }, request._timeout)
-//   }
-//   next((response) => {
-//     Vue.$vux.loading.hide()
-//     clearTimeout(timeout)
-//     if (AppConfig.useAuth) {
-//       console.log('进入拦截器响应方法,输出获取的相应数据,读取cookie和header')
-//       console.log('获取登陆状态:' + response.headers.get('loginstatus'))
-//       if (!(response.headers.get('loginStatus') === 'true')) {
-//         window.localStorage.clear()
-//         window.sessionStorage.clear()
-//         if (request.url === AppConfig.apiServer + '/user/login' || request.url === AppConfig.apiServer + '/user/firstsave' || request.url === AppConfig.apiServer + '/sms/getCodeByPhone/13520580169') {
-//           console.log('登陆注册页面,不进行刷新')
-//         } else {
-//           // window.location.href = 'http://localhost:8000/index.html'
-//           Vue.$vux.toast.show({
-//             type: 'text',
-//             text: '登录超时'
-//           })
-//           router.push({name: 'login'})
-//         }
-//       } else {
-//         console.log('已登录状态')
-//         Vue.$vux.loading.hide()
-//         console.log(response.body)
-//       }
-//     } else {
-//       console.log(response.body)
-//     }
-//   })
-// })
+Vue.prototype.$utils = myUtil
 
 const shouldUseTransition = true
 
@@ -117,10 +69,12 @@ router.beforeEach(function (to, from, next) {
   console.log('路由拦截')
   if (to.meta.requiresAuth) {
     console.log('访问需要授权的网页,判断是否存在token')
-    if (window.localStorage.getItem('token') === null) {
+    if (typeof (db.get('token')) === 'undefined') {
       console.log('未找到token')
       history.clear()
       router.push({name: 'login'})
+    } else {
+      console.log(db.get('token'))
     }
   } else {
     console.log('访问未授权的网页')
@@ -158,6 +112,13 @@ router.beforeEach(function (to, from, next) {
 })
 
 router.afterEach(function (to) {
+  if (config.deployAPP) {
+    if (to.path === '/' || to.path === '/login') {
+    } else {
+      console.log('开启滑动返回')
+      window.WkWebView.allowsBackForwardNavigationGestures(true)
+    }
+  }
   isPush = false
   // store.commit('updateLoadingStatus', {isLoading: false})
   // if (process.env.NODE_ENV === 'production') {
@@ -169,7 +130,7 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-if (AppConfig.deployAPP) {
+if (config.deployAPP) {
   document.addEventListener('deviceready', function () {
     new Vue({
       store,

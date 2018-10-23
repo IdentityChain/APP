@@ -52,7 +52,7 @@
         msg: '更多活动敬请期待',
         currentProgram: WriteMail,
         styleObj: {
-          'zIndex': 601
+          'zIndex': 101
         },
         programName: '',
         showProgram: false,

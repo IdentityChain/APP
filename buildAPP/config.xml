@@ -25,7 +25,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <preference name="orientation" value="portrait" />
-        <preference name="AllowBackForwardNavigationGestures" value="true" />
+        <preference name="AllowBackForwardNavigationGestures" value="false" />
         <splash src="res/screen/ios/Default@2x~iphone~anyany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comany.png" />
         <splash src="res/screen/ios/Default@2x~iphone~comcom.png" />
@@ -44,5 +44,4 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-wkwebview-engine" spec="^1.1.4" />
     <engine name="ios" spec="^4.5.5" />
-    <engine name="android" spec="^7.1.1" />
 </widget>

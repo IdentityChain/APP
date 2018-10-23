@@ -70,6 +70,14 @@
         }
       }
     },
+    activated: function () {
+      this.$nextTick(function () {
+        if (this.$appConfig.deployAPP) {
+          console.log('禁止滑动返回')
+          window.WkWebView.allowsBackForwardNavigationGestures(false)
+        }
+      })
+    },
     methods: {
       changeView (view) {
         let homeObj1 = {
@@ -130,5 +138,16 @@
   .logo {
     width: 100px;
     height: 100px
+  }
+  .program {
+    border-radius: 15px;
+    height: 28px;
+    width: 80px;
+    z-index: 1999;
+    background:rgba(2,2,2,0.1);
+    position: fixed;
+    top: calc(9px + env(safe-area-inset-top));
+    right: 10px;
+    border: #cccccc 1px solid;
   }
 </style>
