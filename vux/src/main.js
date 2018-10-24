@@ -114,6 +114,7 @@ router.beforeEach(function (to, from, next) {
 router.afterEach(function (to) {
   if (config.deployAPP) {
     if (to.path === '/' || to.path === '/login') {
+      window.WkWebView.allowsBackForwardNavigationGestures(false)
     } else {
       console.log('开启滑动返回')
       window.WkWebView.allowsBackForwardNavigationGestures(true)

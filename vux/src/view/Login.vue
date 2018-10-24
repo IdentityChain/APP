@@ -1,6 +1,21 @@
 <template>
   <div class="bg">
-    <div style="border-radius: 10px;background-color: #fbf9fe;height: 200px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">
+    <div class="touxiang">
+
+    </div>
+    <div class="login-form">
+      <x-input v-model="telNum"  :max="13" ref="input1" is-type="china-mobile" placeholder="请输入用户账号">
+        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/user.png" width="24px" height="24px">
+      </x-input>
+      <x-input type="password" v-model="password" :min="6" :max="13" ref="input2" placeholder="请输入密码">
+        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/password.png" width="24px" height="24px">
+      </x-input>
+      <x-button style="margin-top: 25px;background-color: rgb(49,110, 219);border-radius: 20px;color: white;">登录</x-button>
+      <div style="margin-top: 20px;">
+          <p></p>
+      </div>
+    </div>
+    <div v-show="false" style="border-radius: 10px;background-color: #fbf9fe;height: 200px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">
       <!--<group title="" style="margin-top: 30px">-->
       <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">
         <x-input title="手机号码" mask="999 9999 9999" v-model="telNum" required  :max="13" ref="input1" is-type="china-mobile">
@@ -111,14 +126,10 @@
     background-color: white;
   }
   .bg {
-    background-image:url(../assets/bg.jpg);
-    background-repeat:no-repeat;
-    background-size:100% 100%;
-    -moz-background-size:100% 100%;
+    background-color: rgb(245, 246,248);
     position: fixed;
     height: 100%;
     width: 100%;
-    background-attachment: fixed;
   }
   .vux-demo {
     text-align: center;
@@ -126,5 +137,23 @@
   .logo {
     width: 100px;
     height: 100px
+  }
+  .touxiang {
+    position: absolute;
+    top: 20%;
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    background-image: url("../assets/login/touxiang.png");
+    border-radius: 50px;
+  }
+  .login-form {
+    position: absolute;
+    top: calc(20% + 150px);
+    left: 12.5%;
+    width: 75%;
+    height: 100px;
+    border: 1px solid #c0bfc4;
+    border-radius: 15px;
   }
 </style>

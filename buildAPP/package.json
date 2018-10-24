@@ -11,7 +11,6 @@
     "license": "Apache-2.0",
     "dependencies": {
         "cordova-ios": "^4.5.5",
-        "cordova-plugin-crosswalk-webview": "^2.4.1",
         "cordova-plugin-device": "^2.0.2",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -24,8 +23,7 @@
             "cordova-plugin-device": {},
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
-            "cordova-plugin-wkwebview-engine": {},
-            "cordova-plugin-crosswalk-webview": {}
+            "cordova-plugin-wkwebview-engine": {}
         },
         "platforms": [
             "ios"
