@@ -647,4 +647,17 @@ public class UserController {
 		}
 	}
 
+	// 根据用户ID查找用户信息
+	@ApiOperation(value="获得用户数目", notes="获得用户数目")
+	@GetMapping("/findUserCount")
+	public RetMsg findUserCount() {
+		long userCount  = this.userService.findUserCount();
+		RetMsg retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(userCount);
+		retMsg.setMessage("获得用户数目");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
+
 }

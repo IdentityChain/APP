@@ -74,6 +74,10 @@ public class UserService {
 	public Iterable<User> getAll() {
 		return userRepositoy.findAll();
 	}
+
+	public long findUserCount(){
+		return userRepositoy.count();
+	}
 	
 	public List<User> findAll() {
 		return this.userRepositoy.findAll();
