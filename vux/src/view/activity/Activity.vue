@@ -1,21 +1,29 @@
 <template>
   <div style="height: 100%">
-    <panel :list="list" :type="type" @on-img-error="onImgError" @on-click-item="gotoProgram"></panel>
-    <load-more :show-loading="false" :tip="msg" background-color="#fbf9fe"></load-more>
-    <div v-transfer-dom>
-      <popup v-model="showProgram" height="100%" :popup-style="styleObj" :hide-on-blur=false :show-mask=false :should-rerender-on-show=true>
-        <!-- group already has a top border, so we need to hide header's bottom border-->
-        <!--<write-mail :name="programName" :program="currentProgram" @back-list="backList"></write-mail>-->
-        <program @close-program="backList" :show-title=false :program-name="programName" :program="currentProgram">
-        </program>
-      </popup>
-    </div>
+    <view-box body-padding-top="55px">
+      <div v-if="true" class="header-css" slot="header"
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
+        <x-header :left-options="{showBack: true, backText: ''}"
+                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">应用中心
+        </x-header>
+      </div>
+      <panel style="padding-top: env(safe-area-inset-top);" :list="list" :type="type" @on-img-error="onImgError" @on-click-item="gotoProgram"></panel>
+      <load-more :show-loading="false" :tip="msg" background-color="#fbf9fe"></load-more>
+      <div v-transfer-dom>
+        <popup v-model="showProgram" height="100%" :popup-style="styleObj" :hide-on-blur=false :show-mask=false :should-rerender-on-show=true>
+          <!-- group already has a top border, so we need to hide header's bottom border-->
+          <!--<write-mail :name="programName" :program="currentProgram" @back-list="backList"></write-mail>-->
+          <program @close-program="backList" :show-title=false :program-name="programName" :program="currentProgram">
+          </program>
+        </popup>
+      </div>
+    </view-box>
   </div>
 </template>
 
 <script>
-  import {Panel, Group, LoadMore, TransferDom, Popup} from 'vux'
-  import {WriteMail} from './index'
+  import {Panel, Group, LoadMore, TransferDom, Popup, ViewBox, XHeader} from 'vux'
+  import {WriteMail, DuoBao, Comming} from './index'
   import Send from './sendMailToFuture/WriteMail'
   import Program from './Program'
   // import Template from "../../components/Template";
@@ -29,16 +37,26 @@
       'send': Send,
       Group,
       LoadMore,
+      ViewBox,
+      XHeader,
       Program,
       Popup,
-      'writeMail': WriteMail
+      'writeMail': WriteMail,
+      'duobao': DuoBao
     },
     methods: {
       onImgError (item, $event) {
         console.log(item, $event)
       },
       gotoProgram (item) {
-        this.currentProgram = WriteMail
+        switch (item.program) {
+          case 'writeMail':
+            this.currentProgram = WriteMail
+            break
+          case 'duobao':
+            this.currentProgram = Comming
+            break
+        }
         this.showProgram = true
         this.programName = item.title
         console.log(item.program)
@@ -49,7 +67,7 @@
     },
     data () {
       return {
-        msg: '更多活动敬请期待',
+        msg: '更多应用敬请期待',
         currentProgram: WriteMail,
         styleObj: {
           'zIndex': 101
@@ -73,6 +91,15 @@
     }
   }
 </script>
-<style>
-
+<style scoped>
+  .header-css /deep/ .vux-header-title {
+    color: white;
+  }
+  .header-css /deep/ .vux-header .vux-header-left .left-arrow:before {
+    border: 1px solid white;
+    border-width: 1px 0 0 1px;
+  }
+  .header-css /deep/ .vux-header {
+    background-color: rgb(50,112,222);
+  }
 </style>

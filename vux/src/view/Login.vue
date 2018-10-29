@@ -4,51 +4,44 @@
 
     </div>
     <div class="login-form">
-      <x-input v-model="telNum"  :max="13" ref="input1" is-type="china-mobile" placeholder="请输入用户账号">
-        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/user.png" width="24px" height="24px">
+      <x-input mask="999 9999 9999" v-model="telNum" required :max="13" ref="input1"
+               is-type="china-mobile" placeholder="请输入手机号码">
+        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/user.png" width="24px"
+             height="24px">
       </x-input>
-      <x-input type="password" v-model="password" :min="6" :max="13" ref="input2" placeholder="请输入密码">
-        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/password.png" width="24px" height="24px">
+      <x-input type="password" v-model="password" required :min="6" :max="13" ref="input2" placeholder="请输入密码">
+        <img slot="label" style="padding-right:10px;display:block;" src="../assets/login/password.png" width="24px"
+             height="24px">
       </x-input>
-      <x-button style="margin-top: 25px;background-color: rgb(49,110, 219);border-radius: 20px;color: white;">登录</x-button>
-      <div style="margin-top: 20px;">
-          <p></p>
+      <x-button style="margin-top: 25px;background-color: rgb(49,110, 219);border-radius: 20px;color: white;" @click.native="doLogin" :disabled="isDisableLogin">登录
+      </x-button>
+      <div style="margin-top: 15px;color: grey;font-size: small;">
+        <p style="float: left;position: absolute;left: 5px;" @click="register">立即注册</p>
+        <p style="position:absolute;right: 5px;" @click="resetPasswd">忘记密码?</p>
       </div>
     </div>
-    <div v-show="false" style="border-radius: 10px;background-color: #fbf9fe;height: 200px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">
-      <!--<group title="" style="margin-top: 30px">-->
-      <div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">
-        <x-input title="手机号码" mask="999 9999 9999" v-model="telNum" required  :max="13" ref="input1" is-type="china-mobile">
-        </x-input>
-        <x-input title="密码" type="password" v-model="password"  required  :min="6" :max="13" ref="input2">
-        </x-input>
-      </div>
-      <flexbox>
-        <flexbox-item>
-          <x-button plain type="default" @click.native="register">注册</x-button>
-        </flexbox-item>
-        <flexbox-item>
-          <x-button plain type="default" @click.native="doLogin" :disabled="isDisableLogin">登陆</x-button>
-        </flexbox-item>
-      </flexbox>
-      <div style="text-align: right;margin-right: 10px;margin-top: 5px">
-        <a href="#" @click="resetPasswd">忘记密码</a>
+    <div class="third-login">
+      <divider>快速登录</divider>
+      <div style="position: absolute;top: 40px;width: 100%">
+        <img style="position: absolute;left: 0" src="../assets/login/weixin.png" width="40px" height="40px"/>
+        <img style="position: absolute;left: calc(50% - 22px)"src="../assets/login/weibo.png" width="40px" height="40px"/>
+        <img style="position: absolute;right: 0" src="../assets/login/QQ.png" width="40px" height="40px"/>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-  import { Group, XInput, XButton, Box, Flexbox, FlexboxItem } from 'vux'
+  import {Group, XInput, XButton, Box, Flexbox, FlexboxItem, Divider} from 'vux'
 
   export default {
     components: {
       Group,
       XInput,
       XButton,
-      Box,
       Flexbox,
+      Box,
+      Divider,
       FlexboxItem
     },
     data () {
@@ -125,35 +118,39 @@
   html, body {
     background-color: white;
   }
+
   .bg {
-    background-color: rgb(245, 246,248);
+    background-color: rgb(245, 246, 248);
     position: fixed;
     height: 100%;
     width: 100%;
   }
-  .vux-demo {
-    text-align: center;
-  }
-  .logo {
-    width: 100px;
-    height: 100px
-  }
+
   .touxiang {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: calc(50% - 50px);
     width: 100px;
     height: 100px;
     background-image: url("../assets/login/touxiang.png");
     border-radius: 50px;
   }
+
   .login-form {
     position: absolute;
-    top: calc(20% + 150px);
+    top: calc(20% + 100px);
     left: 12.5%;
     width: 75%;
     height: 100px;
     border: 1px solid #c0bfc4;
     border-radius: 15px;
+  }
+
+  .third-login {
+    position: absolute;
+    height: 20%;
+    width: 75%;
+    left: 12.5%;
+    bottom: env(safe-area-inset-bottom);
   }
 </style>

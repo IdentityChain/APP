@@ -12,7 +12,6 @@
         <x-button mini type="primary" style="background-color: blue;margin-right: 20px">区块链爱好者</x-button>
         <!-- <x-button mini type="primary" style="margin-right: 20px"></x-button> -->
         <br>
-        &nbsp;
       </box>
     </group>
     <!--</Box>-->

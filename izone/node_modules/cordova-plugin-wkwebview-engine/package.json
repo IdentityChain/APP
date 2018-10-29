@@ -1,0 +1,69 @@
+{
+  "_from": "cordova-plugin-wkwebview-engine@^1.1.4",
+  "_id": "cordova-plugin-wkwebview-engine@1.1.4",
+  "_inBundle": false,
+  "_integrity": "sha1-EbnPoRTsBSXFxj5nok6rQVcDQGA=",
+  "_location": "/cordova-plugin-wkwebview-engine",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "cordova-plugin-wkwebview-engine@^1.1.4",
+    "name": "cordova-plugin-wkwebview-engine",
+    "escapedName": "cordova-plugin-wkwebview-engine",
+    "rawSpec": "^1.1.4",
+    "saveSpec": null,
+    "fetchSpec": "^1.1.4"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-wkwebview-engine/download/cordova-plugin-wkwebview-engine-1.1.4.tgz",
+  "_shasum": "11b9cfa114ec0525c5c63e67a24eab4157034060",
+  "_spec": "cordova-plugin-wkwebview-engine@^1.1.4",
+  "_where": "/Users/lixiaoming/Documents/git/isc/APP/izone",
+  "author": {
+    "name": "Apache Cordova"
+  },
+  "bugs": {
+    "url": "https://issues.apache.org/jira/browse/CB"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "The official Apache Cordova WKWebView Engine Plugin",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-semistandard": "^11.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova": ">100"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-wkwebview-engine#readme",
+  "keywords": [
+    "cordova",
+    "wkwebview"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "cordova-plugin-wkwebview-engine",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-wkwebview-engine.git"
+  },
+  "scripts": {
+    "eslint": "eslint src",
+    "objc-tests": "cd tests/ios && npm test",
+    "preobjc-tests": "cd tests/ios && npm install",
+    "test": "npm run eslint && npm run objc-tests"
+  },
+  "version": "1.1.4"
+}

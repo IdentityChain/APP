@@ -1,4 +1,4 @@
-import WaKuang from './wakuang/WaKuang'
+import WaKuang from './main/WaKuang'
 import My from './myinfo/My'
 import Activity from './activity/Activity'
 export {

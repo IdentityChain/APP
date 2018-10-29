@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%;background-color: #EDEAF3">
-    <view-box body-padding-top="46px" body-padding-bottom="55px">
+    <view-box :body-padding-top="showHeader ? '46px' : '0px'" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
         <x-header :left-options="{showBack: false}"
@@ -35,6 +35,7 @@
 <script>
   import {Group, Cell, XButton, XHeader, Tabbar, TabbarItem, ViewBox} from 'vux'
   import {WaKuang, My, Activity} from './homeIndex'
+  import WKHome from './main/Home'
 
   export default {
     components: {
@@ -46,6 +47,7 @@
       Tabbar,
       TabbarItem,
       'wakuang': WaKuang,
+      'wkHome': WKHome,
       'my': My,
       'activity': Activity
     },

@@ -5,7 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     homeObj: {
-      homeView: 'wakuang',
+      homeView: 'wkHome',
       headerStatus: false
     },
     currentUser: {}

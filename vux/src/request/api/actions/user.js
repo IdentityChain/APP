@@ -64,9 +64,41 @@ const requestObj = {
       'oldPaymentPassword': '',
       'phone': ''
     }
+  },
+  registerUser: {
+    method: post,
+    url: '/user/firstsave',
+    params: {
+      'password': '',
+      'phone': '',
+      'smsCode': ''
+    }
+  },
+  resetLoginPasswordBySms: {
+    method: post,
+    url: '/user/updateLoginPasswordBySms',
+    params: {
+      'password': '',
+      'phone': '',
+      'smsCode': ''
+    }
   }
 }
 const userapi = {
+  // 根据短信重置密码
+  resetLoginPasswordBySms (phone, password, smsCode) {
+    requestObj.resetLoginPasswordBySms.params.phone = phone
+    requestObj.resetLoginPasswordBySms.params.password = password
+    requestObj.resetLoginPasswordBySms.params.smsCode = smsCode
+    return http.doRequest(requestObj.resetLoginPasswordBySms)
+  },
+  // 注册用户
+  registerUser (phone, smsCode, password) {
+    requestObj.registerUser.params.password = password
+    requestObj.registerUser.params.phone = phone
+    requestObj.registerUser.params.smsCode = smsCode
+    return http.doRequest(requestObj.registerUser)
+  },
   // 根据用户ID获取用户信息
   getUserInfoById (userid) {
     requestObj.getUserInfoById.params.userid = userid

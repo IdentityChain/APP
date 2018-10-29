@@ -227,6 +227,7 @@ public class UserController {
 		// phone不允许重复
 		if (null != user) {
 			user.setPassword(MD5Util.encrypeByMd5(password));
+			this.userService.save(user);
 		}else {
 			throw new RuntimeException("系统异常");
 		}

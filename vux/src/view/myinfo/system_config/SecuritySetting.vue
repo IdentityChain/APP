@@ -1,9 +1,9 @@
 <template>
   <div style="height: 100%;background-color: #ECECEC">
     <view-box body-padding-top="46px">
-      <div v-if="true" slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
-        <x-header :left-options="{showBack: true}"
+      <div v-if="true" slot="header" class="header-css"
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
+        <x-header :left-options="{showBack: true,backText: ''}"
                   style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">安全设置
         </x-header>
       </div>
@@ -324,6 +324,16 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .header-css /deep/ .vux-header-title {
+    color: white;
+  }
+  .header-css /deep/ .vux-header .vux-header-left .left-arrow:before {
+    border: 1px solid white;
+    border-width: 1px 0 0 1px;
+  }
+  .header-css /deep/ .vux-header {
+    background-color: rgb(50,112,222);
+  }
   .rel {
     position: relative;
   }

@@ -80,7 +80,7 @@ router.beforeEach(function (to, from, next) {
     console.log('访问未授权的网页')
   }
   // 判断是否从home跳转到login,清空历史记录
-  if (to.path === '/login') {
+  if (to.path === '/login' && from.path === '/') {
     history.clear()
   }
   const toIndex = history.getItem(to.path)
@@ -112,14 +112,14 @@ router.beforeEach(function (to, from, next) {
 })
 
 router.afterEach(function (to) {
-  if (config.deployAPP) {
-    if (to.path === '/' || to.path === '/login') {
-      window.WkWebView.allowsBackForwardNavigationGestures(false)
-    } else {
-      console.log('开启滑动返回')
-      window.WkWebView.allowsBackForwardNavigationGestures(true)
-    }
-  }
+  // if (config.deployAPP) {
+  //   if (to.path === '/' || to.path === '/login') {
+  //     window.WkWebView.allowsBackForwardNavigationGestures(false)
+  //   } else {
+  //     console.log('开启滑动返回')
+  //     window.WkWebView.allowsBackForwardNavigationGestures(true)
+  //   }
+  // }
   isPush = false
   // store.commit('updateLoadingStatus', {isLoading: false})
   // if (process.env.NODE_ENV === 'production') {

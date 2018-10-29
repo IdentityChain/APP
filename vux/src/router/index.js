@@ -4,11 +4,13 @@ import Router from 'vue-router'
 // import Page2 from '@/components/HelloFromVux2'
 // import Page3 from '@/components/HelloFromVux3'
 import Template from '@/components/Template'
-import Home from '@/view/Home'
+import Home from '@/view/main/Home'
 import Login from '@/view/Login'
 import ResetPasswd from '@/view/ResetPassword'
+import TopBang from '@/view/top/TopBang'
 import Register from '@/view/Register'
 import convertConsumeCoin from '@/view/myinfo/convertConsumeCoin'
+import Application from '@/view/activity/Activity'
 import orderView from '@/view/myinfo/orderView'
 import reConsume from '@/view/myinfo/reConsume'
 import resetSetting from '@/view/myinfo/resetSetting'
@@ -57,6 +59,22 @@ export default new Router({
       path: '/my/orderView',
       name: 'orderView',
       component: orderView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/applications',
+      name: 'applications',
+      component: Application,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/topBang',
+      name: 'topBang',
+      component: TopBang,
       meta: {
         requiresAuth: true
       }

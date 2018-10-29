@@ -150,16 +150,15 @@
                       <p style="color: grey;font-size: 10pt;">
                         勾选后，将在某一天随机出现在公开信箱中。
                       </p>
-                      <div style="float: left">
-                        <p style="float: left;">是否加密</p>
-                      </div>
-                      <div style="text-align: right;margin-bottom: 5px;">
-                        <check-icon :value="mailOptions.isEncryption" style="text-align: right"
-                                    @click.native="changePublic"></check-icon>
-                      </div>
-                      <p style="color: grey;font-size: 10pt;">
-
-                      </p>
+                      <!--<div style="float: left">-->
+                        <!--<p style="float: left;">是否加密</p>-->
+                      <!--</div>-->
+                      <!--<div style="text-align: right;margin-bottom: 5px;">-->
+                        <!--<check-icon :value="mailOptions.isEncryption" style="text-align: right"-->
+                                    <!--@click.native="changePublic"></check-icon>-->
+                      <!--</div>-->
+                      <!--<p style="color: grey;font-size: 10pt;">-->
+                      <!--</p>-->
                     </div>
                     <div
                       style="position: fixed; bottom: calc(30px + env(safe-area-inset-bottom));width: 80%;margin-left: 10%;">
@@ -475,6 +474,7 @@
 </script>
 
 <style scoped>
+
   .bg {
     background-image: url(../../../assets/activity/sendMail/mailbg.png);
     background-repeat: no-repeat;

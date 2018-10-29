@@ -52,10 +52,10 @@ module.exports = {
     // Template for index.html
     prodEnv: require('./prod.env'),
     webEnv: require('./web.env'),
-    index: path.resolve(__dirname, '../../../APP/buildAPP/www/index.html'),
+    index: path.resolve(__dirname, '../../../APP/izone/www/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../../APP/buildAPP/www'),
+    assetsRoot: path.resolve(__dirname, '../../../APP/izone/www'),
     assetsSubDirectory: 'static',
     assetsPublicPath: './',
 
