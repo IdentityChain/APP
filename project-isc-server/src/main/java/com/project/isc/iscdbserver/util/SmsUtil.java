@@ -9,6 +9,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.project.isc.iscdbserver.statusType.SmsType;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,12 +33,12 @@ public class SmsUtil {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAInsLbmn3XvGvg";
-    static final String accessKeySecret = "a3qpFIjIu6z4AuiXUFJvPw8hfjIGiM";
+    static final String accessKeyId = "LTAIqEwMPwPPW339";
+    static final String accessKeySecret = "iI9dQoOYQXDgD7HbBSDLcFWOJDOUw4";
     
     
 
-    public static SendSmsResponse sendSms(String phoneNumber,String code) throws ClientException {
+    public static SendSmsResponse sendSms(String phoneNumber,String code,String codeType) throws ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -52,10 +53,37 @@ public class SmsUtil {
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
         request.setPhoneNumbers(phoneNumber);
-        //必填:短信签名-可在短信控制台中找到
-        request.setSignName("完善信息");
-        //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_138065715");
+        if(SmsType.SMS_CODE_TYPE_PHONELOGIN.equals(codeType)){
+            //用户注册
+            //必填:短信签名-可在短信控制台中找到
+            request.setSignName("ISC");
+            //必填:短信模板-可在短信控制台中找到
+            request.setTemplateCode(SmsType.SMS_CODE_TYPE_PHONELOGIN_KEY);
+        }else if(SmsType.SMS_CODE_TYPE_PHONECHANGEPWD.equals(codeType)){
+            //用户修改密码
+            //必填:短信签名-可在短信控制台中找到
+            request.setSignName("ISC");
+            //必填:短信模板-可在短信控制台中找到
+            request.setTemplateCode(SmsType.SMS_CODE_TYPE_PHONECHANGEPWD_KEY);
+        }else if(SmsType.SMS_CODE_TYPE_PHONECHANGEPAYPWD.equals(codeType)){
+            //用户修改交易密码
+            //必填:短信签名-可在短信控制台中找到
+            request.setSignName("ISC");
+            //必填:短信模板-可在短信控制台中找到
+            request.setTemplateCode(SmsType.SMS_CODE_TYPE_PHONECHANGEPAYPWD_KEY);
+        }else{
+            //默认-用户注册的CODE
+            //必填:短信签名-可在短信控制台中找到
+            request.setSignName("ISC");
+            //必填:短信模板-可在短信控制台中找到
+            request.setTemplateCode(SmsType.SMS_CODE_TYPE_DEFAULT_KEY);
+        }
+
+
+//        //必填:短信签名-可在短信控制台中找到
+//        request.setSignName("完善信息");
+//        //必填:短信模板-可在短信控制台中找到
+//        request.setTemplateCode("SMS_138065715");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         request.setTemplateParam("{\"name\":\"Tom\", \"code\":\"" + code + "\"}");
 
@@ -70,7 +98,6 @@ public class SmsUtil {
 
         return sendSmsResponse;
     }
-
 
     public static QuerySendDetailsResponse querySendDetails(String bizId, String phoneNumber) throws ClientException {
 
@@ -106,7 +133,8 @@ public class SmsUtil {
     public static void main(String[] args) throws ClientException, InterruptedException {
 
         //发短信
-        SendSmsResponse response = sendSms("18637953970","1024");
+        //SMS_150182511
+        SendSmsResponse response = sendSms("18637953970","1024",SmsType.SMS_CODE_TYPE_DEFAULT);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
