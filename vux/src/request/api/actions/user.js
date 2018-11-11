@@ -82,9 +82,18 @@ const requestObj = {
       'phone': '',
       'smsCode': ''
     }
+  },
+  getTotalCount: {
+    method: get,
+    url: '/user/findUserCount',
+    params: {}
   }
 }
 const userapi = {
+  // 获取系统所有用户数量
+  getTotalCount () {
+    return http.doRequest(requestObj.getTotalCount)
+  },
   // 根据短信重置密码
   resetLoginPasswordBySms (phone, password, smsCode) {
     requestObj.resetLoginPasswordBySms.params.phone = phone
@@ -138,6 +147,7 @@ const userapi = {
     requestObj.setPayPasswordBySmsCode.params.smsCode = smsCode
     return http.doRequest(requestObj.setPayPasswordBySmsCode)
   },
+  // 使用旧交易密码重设交易密码
   resetPayPassword (phone, account, loginPassword, oldPayPassword, newPayPassword) {
     requestObj.resetPayPassword.params.phone = phone
     requestObj.resetPayPassword.params.account = account

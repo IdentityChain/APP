@@ -10,6 +10,7 @@ import store from './store/index'
 import * as myUtil from './util/myUtils'
 import { sync } from 'vuex-router-sync'
 import {ToastPlugin, LoadingPlugin, BusPlugin} from 'vux'
+import VueClipboard from 'vue-clipboard2'
 import * as config from './config/config'
 import HttpRequest from './util/ajax'
 import api from './request/api'
@@ -17,6 +18,7 @@ var db = require('store')
 
 Vue.use(VueRouter)
 Vue.use(HttpRequest)
+Vue.use(VueClipboard)
 Vue.use(BusPlugin)
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)

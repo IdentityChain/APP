@@ -2,7 +2,7 @@
   <div style="height: 100%;background-color: #EDEAF3">
     <view-box :body-padding-top="showHeader ? '46px' : '0px'" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
         <x-header :left-options="{showBack: false}"
                   style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">IZone
         </x-header>

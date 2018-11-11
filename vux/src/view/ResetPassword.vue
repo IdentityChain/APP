@@ -2,7 +2,7 @@
   <div class="bg">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: mediumslateblue;z-index: 100">
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);;z-index: 100">
         <x-header :left-options="{showBack: true, backText: ''}"
                   style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;">找回密码
         </x-header>

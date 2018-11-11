@@ -39,7 +39,7 @@
     <div class="count-people-body">
       <p>iZone总人数</p>
       <p style="background-color: #10aeff;width: auto;display: inline; border-radius: 5px;">
-        &nbsp;&nbsp;100&nbsp;&nbsp;
+        &nbsp;&nbsp;{{totalPeople}}&nbsp;&nbsp;
       </p>
     </div>
     <keep-alive>
@@ -51,7 +51,7 @@
     </div>
 
     <div class="function">
-      <img src="../../assets/wakuang/icon-yaoqing.png" height="35px" width="35px"/>
+      <img src="../../assets/wakuang/icon-yaoqing.png" height="35px" width="35px" @click="goTo('invite')"/>
       <p>邀请好友</p>
       <br>
       <img src="../../assets/wakuang/icon-apps.png" height="35px" width="35px" @click="goTo('applications')"/>
@@ -89,7 +89,7 @@
     },
     data () {
       return {
-        totalPeople: 10000,
+        totalPeople: 0,
         coins: [],
         personal: {
           showCenter: false,
@@ -116,6 +116,7 @@
         this.personal.account = user.account
         this.getCoinRequest(user.userId)
         this.getNotice()
+        // this.getTotalCount()
       },
       goTo (target) {
         this.$router.push({name: target})
@@ -126,15 +127,6 @@
         user.iscCoin += addISC
         this.$db.set('User', user)
         this.totalElm.endNum += addISC
-        // this.$api.calculateApi.checkCalculate(iscLID).then(result => {
-        //   if (result.data.success) {
-        //   } else {
-        //     this.$vux.toast.show({
-        //       type: 'text',
-        //       text: result.data.message
-        //     })
-        //   }
-        // })
       },
       mingciCSS: function (item) {
         if (item === 1) {
@@ -168,6 +160,14 @@
             }
           }
         })
+      },
+      getTotalCount () {
+        this.$api.userApi.getTotalCount().then(result => {
+          if (result.data.success) {
+            this.totalPeople = result.data.data
+          } else {
+          }
+        })
       }
     },
     computed: {}
@@ -199,7 +199,7 @@
 
   .people-body {
     position: absolute;
-    top: calc(env(safe-area-inset-top) + 46px + 10%);
+    top: calc(46px + 10vh + env(safe-area-inset-top));
     width: auto;
     height: 60px;
   }
@@ -223,7 +223,7 @@
 
   .wallet-body {
     position: absolute;
-    top: calc(env(safe-area-inset-top) + 126px + 10%);
+    top: calc(126px + 10vh);
     left: 15px;
     height: 120px;
     width: 100px;

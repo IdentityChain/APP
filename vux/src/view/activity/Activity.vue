@@ -56,6 +56,15 @@
           case 'duobao':
             this.currentProgram = Comming
             break
+          case 'suocang':
+            this.currentProgram = Comming
+            break
+          case 'chargePhone':
+            this.currentProgram = Comming
+            break
+          case 'onlineHealth':
+            this.currentProgram = Comming
+            break
         }
         this.showProgram = true
         this.programName = item.title
@@ -86,6 +95,21 @@
           title: '开心夺宝',
           desc: '平台提供各种奖品，每个奖品分配对应数量的号码，每个号码价值1个ISC币，当一件奖品所有号码售出后，根据既定的规则计算出一个幸运号码，持有该号码的用户，直接获得该奖品。',
           program: 'duobao'
+        }, {
+          src: require('../../assets/activity/suocang/suocang.jpeg'),
+          title: '锁仓奖励',
+          desc: '锁仓奖励说明锁仓奖励说明锁仓奖励说明锁仓奖励说明锁仓奖励说明锁仓奖励说明锁仓奖励说明锁仓奖励说明',
+          program: 'suocang'
+        }, {
+          src: require('../../assets/activity/huafeichognzhi/chargePhone.jpeg'),
+          title: '话费充值',
+          desc: '使用ISC元素兑换话费使用ISC元素兑换话费使用ISC元素兑换话费使用ISC元素兑换话费使用ISC元素兑换话费使用ISC元素兑换话费',
+          program: 'chargePhone'
+        }, {
+          src: require('../../assets/activity/health/health.jpeg'),
+          title: '在线医疗',
+          desc: '在线医疗在线医疗在线医疗在线医疗在线医疗在线医疗在线医疗在线医疗在线医疗在线医疗',
+          program: 'onlineHealth'
         }]
       }
     }

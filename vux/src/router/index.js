@@ -8,6 +8,7 @@ import Home from '@/view/main/Home'
 import Login from '@/view/Login'
 import ResetPasswd from '@/view/ResetPassword'
 import TopBang from '@/view/top/TopBang'
+import Invite from '@/view/main/invite/InvitePage'
 import Register from '@/view/Register'
 import convertConsumeCoin from '@/view/myinfo/convertConsumeCoin'
 import Application from '@/view/activity/Activity'
@@ -75,6 +76,14 @@ export default new Router({
       path: '/topBang',
       name: 'topBang',
       component: TopBang,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/invite',
+      name: 'invite',
+      component: Invite,
       meta: {
         requiresAuth: true
       }

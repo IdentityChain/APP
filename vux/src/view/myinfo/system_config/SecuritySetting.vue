@@ -23,7 +23,7 @@
             :show-bottom-border="false"
             @on-click-left="showEdit = false"
             @on-click-right="doReset"
-            style="background-color: mediumslateblue;color: white;padding-top: env(safe-area-inset-top)"></popup-header>
+            style="background-color: rgb(50,112,222);color: white;padding-top: env(safe-area-inset-top)"></popup-header>
           <group v-if="editModel.currentEdit === 'nickName'">
             <!--修改昵称-->
             <x-input ref="nickNameInput" v-model="$store.state.currentUser.nickName"></x-input>

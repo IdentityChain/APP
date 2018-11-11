@@ -99,14 +99,14 @@
   .body-header {
     position: absolute;
     top: 45px;
-    height: calc(5vh + 15vw);
+    height: calc(8vh + 15vw);
     width: 100vw;
     background-color: rgb(50, 112, 222);
   }
 
   .top-bang {
     position: absolute;
-    top: calc(5vh + 5vw);
+    top: calc(8vh + 5vw);
     left: 10vw;
     background-color: white;
     height: 80vh;
