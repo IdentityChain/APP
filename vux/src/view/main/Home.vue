@@ -223,6 +223,7 @@
   }
 
   .wallet-body {
+    margin-top:90px;
     position: absolute;
     top: calc(126px + 10vh);
     left: 15px;
