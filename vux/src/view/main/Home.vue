@@ -201,7 +201,7 @@
     position: absolute;
     top: calc(46px + 10vh + env(safe-area-inset-top));
     width: auto;
-    margin-top: 26px;
+    margin-top: 27px;
     height: 60px;
   }
 
