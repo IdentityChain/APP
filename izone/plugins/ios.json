@@ -21,6 +21,12 @@
     },
     "cordova-plugin-wkwebview-engine": {
       "PACKAGE_NAME": "com.isc.izone"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.isc"
+    },
+    "org.devgeeks.Canvas2ImagePlugin": {
+      "PACKAGE_NAME": "com.isc"
     }
   },
   "dependent_plugins": {}

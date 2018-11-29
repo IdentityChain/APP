@@ -47,17 +47,17 @@
       <Conis class="coin-body" @add-event="doGetCoin" :coins="coins"></Conis>
     </keep-alive>
     <div class="add-power">
-      <button class="add-button" style="height: 30px;">提升洪荒之力</button>
+      <button class="add-button" style="height: 40px;font-size: 17pt">提升洪荒之力</button>
     </div>
 
     <div class="function">
-      <img src="../../assets/wakuang/icon-yaoqing.png" height="35px" width="35px" @click="goTo('invite')"/>
+      <img src="../../assets/main/wallet.png" height="40px" width="40px" @click="goTo('invite')"/>
+      <p>我的钱包</p>
+      <img src="../../assets/wakuang/icon-yaoqing.png" height="40px" width="40px" @click="goTo('invite')"/>
       <p>邀请好友</p>
-      <br>
-      <img src="../../assets/wakuang/icon-apps.png" height="35px" width="35px" @click="goTo('applications')"/>
+      <img src="../../assets/wakuang/icon-apps.png" height="40px" width="40px" @click="goTo('applications')"/>
       <p>应用</p>
-      <br>
-      <img src="../../assets/wakuang/icon-top.png" height="35px" width="35px" @click="goTo('topBang')"/>
+      <img src="../../assets/wakuang/icon-top.png" height="40px" width="40px" @click="goTo('topBang')"/>
       <p>排行榜</p>
     </div>
 
@@ -179,7 +179,7 @@
     background-color: white;
   }
   .bg {
-    background: url(../../assets/wakuang/beijingsmall.png) no-repeat center;
+    background: url(../../assets/wakuang/beijing.jpg) no-repeat center;
     background-size: cover;
     position: fixed;
     top: 0;
@@ -225,7 +225,7 @@
   .wallet-body {
     margin-top:90px;
     position: absolute;
-    top: calc(126px + 10vh);
+    top: calc(126px + 10vh + env(safe-area-inset-top));
     left: 15px;
     height: 120px;
     width: 100px;
@@ -262,7 +262,7 @@
   .function {
     position: absolute;
     right: 5px;
-    bottom: 12%;
+    bottom: 18%;
     width: 60px;
     color: white;
     font-size: 6pt;
@@ -270,7 +270,7 @@
   }
   .coin-body {
     position: absolute;
-    bottom: calc(25vh);
+    bottom: 27vh;
     height: 50vw;
     width: 50vw;
     left: 26vw;

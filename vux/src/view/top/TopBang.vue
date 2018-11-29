@@ -2,9 +2,9 @@
   <div style="height: 100%; width: 100%;background-color: white">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div class="header-css" slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
+           style="position: fixed;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
         <x-header :left-options="{showBack: true, backText: ''}"
-                  style="position: absolute;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;background-color: rgb(50,112,222);">排行榜
+                  style="position: fixed;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;background-color: rgb(50,112,222);">排行榜
         </x-header>
       </div>
       <div class="body-header">

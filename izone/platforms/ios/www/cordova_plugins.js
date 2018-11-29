@@ -39,6 +39,22 @@ module.exports = [
     "clobbers": [
       "window.WkWebView"
     ]
+  },
+  {
+    "id": "cordova-plugin-dialogs.notification",
+    "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+    "pluginId": "cordova-plugin-dialogs",
+    "merges": [
+      "navigator.notification"
+    ]
+  },
+  {
+    "id": "org.devgeeks.Canvas2ImagePlugin.Canvas2ImagePlugin",
+    "file": "plugins/org.devgeeks.Canvas2ImagePlugin/www/Canvas2ImagePlugin.js",
+    "pluginId": "org.devgeeks.Canvas2ImagePlugin",
+    "clobbers": [
+      "window.canvas2ImagePlugin"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -48,7 +64,9 @@ module.exports.metadata =
   "cordova-plugin-device": "2.0.2",
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-statusbar": "2.4.2",
-  "cordova-plugin-wkwebview-engine": "1.1.4"
+  "cordova-plugin-wkwebview-engine": "1.1.4",
+  "cordova-plugin-dialogs": "2.0.1",
+  "org.devgeeks.Canvas2ImagePlugin": "0.6.0"
 };
 // BOTTOM OF METADATA
 });

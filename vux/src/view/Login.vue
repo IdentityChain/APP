@@ -22,7 +22,7 @@
     </div>
     <div class="third-login">
       <divider>快速登录</divider>
-      <div style="position: absolute;top: 40px;width: 100%">
+      <div style="position: absolute;top: 40px;width: 100%;height: 60px;">
         <img style="position: absolute;left: 0" src="../assets/login/weixin.png" width="40px" height="40px"/>
         <img style="position: absolute;left: calc(50% - 22px)"src="../assets/login/weibo.png" width="40px" height="40px"/>
         <img style="position: absolute;right: 0" src="../assets/login/QQ.png" width="40px" height="40px"/>
@@ -148,7 +148,7 @@
 
   .third-login {
     position: absolute;
-    height: 20%;
+    height: 100px;
     width: 75%;
     left: 12.5%;
     bottom: env(safe-area-inset-bottom);

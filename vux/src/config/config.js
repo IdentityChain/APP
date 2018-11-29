@@ -20,8 +20,8 @@ var useAuth = true
 switch (process.env.NODE_ENV) {
   case 'development':
     deployAPP = false
-    // apiServer = 'http://localhost:9088'
-    apiServer = 'http://identitychain.vip:9088'
+    apiServer = 'http://localhost:9088'
+    // apiServer = 'http://identitychain.vip:9088'
     break
   case 'production':
     deployAPP = true

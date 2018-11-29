@@ -40,13 +40,13 @@
 
 <style scoped>
   .img {
-    height: 30px;
-    width: 30px;
+    height: 14vw;
+    width: 14vw;
     position: absolute;
   }
   .number {
     color: white;
-    top: 30px;
+    top: 14vw;
     position: absolute;
   }
   .show {
@@ -58,8 +58,8 @@
     animation-fill-mode: forwards;
   }
   .coin {
-    width: 30px;
-    height: 30px;
+    width: 14vw;
+    height: 14vw;
     /*iphone上悬浮效果会影响定位,建议关闭*/
     /*background-color: #9ed99d;*/
     -webkit-animation: heart 1.3s ease-in-out 0.7s infinite alternate;

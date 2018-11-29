@@ -2,9 +2,9 @@
   <div style="height: 100%;background-color: #EDEAF3">
     <view-box body-padding-top="0px" body-padding-bottom="55px">
       <div slot="header"
-           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: white;z-index: 100">
+           style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
         <x-header :left-options="{showBack: false}"
-                  style="position: absolute;left:0;background-color: white;top: env(safe-area-inset-top);width: 100%;z-index: 100;"><p style="color: black;font-weight: bold;font-size: 13pt;line-height: 46px;">{{titleStr}}</p>
+                  style="position: absolute;left:0;background-color: rgb(50,112,222);top: env(safe-area-inset-top);width: 100%;z-index: 100;"><p style="color: white;font-weight: bold;font-size: 13pt;line-height: 46px;">{{titleStr}}</p>
           <div class="program" slot="right">
             <img @click="showAbout"  src="../../assets/activity/more.png" style="height: 20px;width: 18px;float: left;margin-top: 4px;margin-left: 10px;z-index: 1999"/>
             <p style="color: #b2b2b2;float: left;line-height: 28px;">&nbsp;&nbsp;|&nbsp;&nbsp;</p>

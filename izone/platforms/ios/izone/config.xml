@@ -33,6 +33,13 @@
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
+    <feature name="Notification">
+        <param name="ios-package" value="CDVNotification" />
+    </feature>
+    <feature name="Canvas2ImagePlugin">
+        <param name="ios-package" value="Canvas2ImagePlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>izone</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

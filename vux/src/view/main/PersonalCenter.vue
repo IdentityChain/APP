@@ -63,9 +63,25 @@
         this.$emit('close-center')
       },
       logout () {
-        window.localStorage.clear()
-        window.sessionStorage.clear()
-        this.$router.replace({'name': 'login'})
+        if (this.$appConfig.deployAPP) {
+          let message = '确定退出登录?'
+          let title = '提示'
+          let buttonLabels = '取消,确定'
+          const _that = this
+          navigator.notification.confirm(message, (buttonText) => {
+            console.log(buttonText)
+            if (buttonText === 2) {
+              console.log('点击了确定')
+              window.localStorage.clear()
+              window.sessionStorage.clear()
+              _that.$router.replace({'name': 'login'})
+            }
+          }, title, buttonLabels)
+        } else {
+          window.localStorage.clear()
+          window.sessionStorage.clear()
+          this.$router.replace({'name': 'login'})
+        }
       }
     }
   }

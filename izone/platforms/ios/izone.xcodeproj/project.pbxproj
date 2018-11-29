@@ -21,6 +21,10 @@
 		8FC17A2438684BF9B36EE8B8 /* CDVViewController+SplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A9CCD0D3891D49C084E5563B /* CDVViewController+SplashScreen.m */; };
 		FAD6C48C5DA84AAF846A0D71 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27B5AE22C02F4281A5C02BAE /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		FFDCBEC31A63419987CAC2B4 /* CDVWKWebViewUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5506B61665434AC480091F85 /* CDVWKWebViewUIDelegate.m */; };
+		BFAEF55D9EB046DBB6897B93 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 613C7714A3194CDEB18CC669 /* CDVNotification.m */; };
+		58585AC835A3466AB2BB9DE2 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D3EF8D529DE4AFAB749F471 /* CDVNotification.bundle */; };
+		0576098B1CF247369CBAE76C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D1D8202D584E7DB028E486 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		FDBEC046ABE74112A2147274 /* Canvas2ImagePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +87,12 @@
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = izone/config.xml; sourceTree = "<group>"; };
 		FCB650FEDAC04223B4964632 /* CDVSplashScreen.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = "cordova-plugin-splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; };
+		613C7714A3194CDEB18CC669 /* CDVNotification.m */ = {isa = PBXFileReference; name = "CDVNotification.m"; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		7C12114B77E440A7986DF975 /* CDVNotification.h */ = {isa = PBXFileReference; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4D3EF8D529DE4AFAB749F471 /* CDVNotification.bundle */ = {isa = PBXFileReference; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		F7D1D8202D584E7DB028E486 /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */ = {isa = PBXFileReference; name = "Canvas2ImagePlugin.m"; path = "org.devgeeks.Canvas2ImagePlugin/Canvas2ImagePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		19838B8C94824CE2BDF3C70D /* Canvas2ImagePlugin.h */ = {isa = PBXFileReference; name = "Canvas2ImagePlugin.h"; path = "org.devgeeks.Canvas2ImagePlugin/Canvas2ImagePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +102,7 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				FAD6C48C5DA84AAF846A0D71 /* WebKit.framework in Frameworks */,
+				0576098B1CF247369CBAE76C /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +165,7 @@
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* izone-Info.plist */,
 				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
+				4D3EF8D529DE4AFAB749F471 /* CDVNotification.bundle */,
 			);
 			name = Resources;
 			path = izone/Resources;
@@ -163,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				27B5AE22C02F4281A5C02BAE /* WebKit.framework */,
+				F7D1D8202D584E7DB028E486 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -203,6 +216,10 @@
 				CC5AF4AC06CA4E35AAB232FD /* CDVWKWebViewEngine.h */,
 				29BAE3786470478BBEEC46E1 /* CDVWKWebViewUIDelegate.h */,
 				CBC635563D874B2F8A3B7F22 /* CDVWKProcessPoolFactory.h */,
+				613C7714A3194CDEB18CC669 /* CDVNotification.m */,
+				7C12114B77E440A7986DF975 /* CDVNotification.h */,
+				037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */,
+				19838B8C94824CE2BDF3C70D /* Canvas2ImagePlugin.h */,
 			);
 			name = Plugins;
 			path = izone/Plugins;
@@ -299,6 +316,7 @@
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
+				58585AC835A3466AB2BB9DE2 /* CDVNotification.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +355,8 @@
 				39C8DD8D35E84CBD8316D050 /* CDVWKWebViewEngine.m in Sources */,
 				FFDCBEC31A63419987CAC2B4 /* CDVWKWebViewUIDelegate.m in Sources */,
 				8FBD5F71A13540798C64C215 /* CDVWKProcessPoolFactory.m in Sources */,
+				BFAEF55D9EB046DBB6897B93 /* CDVNotification.m in Sources */,
+				FDBEC046ABE74112A2147274 /* Canvas2ImagePlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

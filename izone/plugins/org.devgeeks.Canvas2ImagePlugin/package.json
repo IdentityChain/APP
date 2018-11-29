@@ -1,0 +1,65 @@
+{
+  "_from": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git",
+  "_id": "cordova-plugin-canvas2image@0.6.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-canvas2image",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
+    "rawSpec": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
+    "saveSpec": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git",
+    "fetchSpec": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git#7cb80bb880373f788b5f3c653605e1d533baeabc",
+  "_spec": "https://github.com/devgeeks/Canvas2ImagePlugin.git",
+  "_where": "/Users/lixiaoming/Documents/git/isc/APP/izone",
+  "author": {
+    "name": "tommy-carlos williams",
+    "email": "tommy@devgeeks.org",
+    "url": "http://devgeeks.org"
+  },
+  "bugs": {
+    "url": "https://github.com/devgeeks/Canvas2ImagePlugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "org.devgeeks.Canvas2ImagePlugin",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "This plugin allows you to save the contents of an HTML canvas tag to the iOS Photo Library, or Android Gallery from your app.",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "homepage": "https://github.com/devgeeks/Canvas2ImagePlugin#readme",
+  "keywords": [
+    "canvas",
+    "image",
+    "photo library",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-canvas2image",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git"
+  },
+  "version": "0.6.0"
+}

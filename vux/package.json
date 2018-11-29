@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "fastclick": "^1.0.6",
+    "html2canvas": "^1.0.0-alpha.12",
     "qs": "^6.5.2",
     "store": "^2.0.12",
     "vue": "^2.5.2",

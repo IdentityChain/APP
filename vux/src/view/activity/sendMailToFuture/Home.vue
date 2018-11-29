@@ -476,7 +476,7 @@
 <style scoped>
 
   .bg {
-    background-image: url(../../../assets/activity/sendMail/mailbg.png);
+    background-image: url(../../../assets/activity/sendMail/mail-bg.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     -moz-background-size: 100% 100%;
