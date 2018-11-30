@@ -1,13 +1,12 @@
 package com.project.isc.iscdbserver.schedul;
 
-import java.util.Date;
-
+import com.project.isc.iscdbserver.server.IscServerSchedul;
+import com.project.isc.iscdbserver.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.project.isc.iscdbserver.server.IscServerSchedul;
-import com.project.isc.iscdbserver.util.TimeUtil;
+import java.util.Date;
 
 
 @Component
@@ -52,7 +51,7 @@ public class BonusPaylistScheduling {
     }
 
 //    @Scheduled(cron="0 0 0 * * ?")
-    @Scheduled(cron="0 * * * * ?")
+    @Scheduled(cron="0 0 0/1 * * ?")
     public void cronJob(){
         System.out.println(TimeUtil.getDateFormat(new Date())+" >>每天00:00:00定时任务执行....");
         //获得100统计数据
@@ -63,7 +62,7 @@ public class BonusPaylistScheduling {
         iscServerSchedul.mainDeleteISCcoinlog();
     }
     
-    @Scheduled(cron="0 * * * * ?")
+    @Scheduled(cron="* * * * * ?")
     public void cronJobDay(){
 //        System.out.println(TimeUtil.getDateFormat(new Date())+" >>cron执行....");
 //        earnServerSchedul.mainComperBonuspaylist();
