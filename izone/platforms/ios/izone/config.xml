@@ -36,8 +36,8 @@
     <feature name="Notification">
         <param name="ios-package" value="CDVNotification" />
     </feature>
-    <feature name="Canvas2ImagePlugin">
-        <param name="ios-package" value="Canvas2ImagePlugin" />
+    <feature name="SaveImageGallery">
+        <param name="ios-package" value="SaveImageGallery" />
         <param name="onload" value="true" />
     </feature>
     <name>izone</name>
@@ -53,6 +53,7 @@
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
+    <allow-navigation href="*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-intent href="itms:*" />

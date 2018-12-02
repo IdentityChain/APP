@@ -13,13 +13,14 @@
         "cordova-ios": "^4.5.5",
         "cordova-plugin-canvas2image": "git+https://github.com/devgeeks/Canvas2ImagePlugin.git",
         "cordova-plugin-dialogs": "^2.0.1",
+        "cordova-plugin-save-image-gallery": "0.0.26",
         "cordova-plugin-whitelist": "^1.3.3"
     },
     "cordova": {
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-dialogs": {},
-            "org.devgeeks.Canvas2ImagePlugin": {}
+            "cordova-plugin-save-image-gallery": {}
         },
         "platforms": [
             "ios"

@@ -13,6 +13,7 @@
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
+    <allow-navigation href="*" />
     <preference name="WebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <allow-intent href="mailto:*" />
@@ -44,6 +45,6 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-wkwebview-engine" spec="^1.1.4" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.1" />
-    <plugin name="org.devgeeks.Canvas2ImagePlugin" spec="https://github.com/devgeeks/Canvas2ImagePlugin.git" />
+    <plugin name="cordova-plugin-save-image-gallery" spec="0.0.26" />
     <engine name="ios" spec="^4.5.5" />
 </widget>

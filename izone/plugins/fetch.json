@@ -47,10 +47,10 @@
     "is_top_level": true,
     "variables": {}
   },
-  "org.devgeeks.Canvas2ImagePlugin": {
+  "cordova-plugin-save-image-gallery": {
     "source": {
       "type": "registry",
-      "id": "https://github.com/devgeeks/Canvas2ImagePlugin.git"
+      "id": "cordova-plugin-save-image-gallery"
     },
     "is_top_level": true,
     "variables": {}

@@ -49,11 +49,11 @@ module.exports = [
     ]
   },
   {
-    "id": "org.devgeeks.Canvas2ImagePlugin.Canvas2ImagePlugin",
-    "file": "plugins/org.devgeeks.Canvas2ImagePlugin/www/Canvas2ImagePlugin.js",
-    "pluginId": "org.devgeeks.Canvas2ImagePlugin",
+    "id": "cordova-plugin-save-image-gallery.saveImageGallery",
+    "file": "plugins/cordova-plugin-save-image-gallery/www/saveImageGallery.js",
+    "pluginId": "cordova-plugin-save-image-gallery",
     "clobbers": [
-      "window.canvas2ImagePlugin"
+      "cordova.saveImageGallery"
     ]
   }
 ];
@@ -66,7 +66,7 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-wkwebview-engine": "1.1.4",
   "cordova-plugin-dialogs": "2.0.1",
-  "org.devgeeks.Canvas2ImagePlugin": "0.6.0"
+  "cordova-plugin-save-image-gallery": "0.0.26"
 };
 // BOTTOM OF METADATA
 });

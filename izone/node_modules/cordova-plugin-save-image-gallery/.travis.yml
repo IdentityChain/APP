@@ -1,0 +1,12 @@
+language: node_js
+node_js: node
+install: npm install
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: agommor@gmail.com
+  api_key:
+    secure: fd18sI/u5AXpQZc+kyRWURNtI8DeCZNSBAku62VYtuynZv7gwi/pdAMUrnIWluNk08CxydawqeoVhnR1CM52uZp3WCADmatPKqodh5l74pad6EE8wiBthhDI7N6eH3A8oWBDPWmklXq+n0d5zPoCWSZRze6dHD1wrJantbrli5+g7oydzOuFFqYtxKWn1xwkTAvMlukX55k7h4w/tOzkq3cGDjoLhjVMu4Mp4V8flT0YplKCaaHEWUxBfOCvg2T4mDpwchZiJtAyOb7K8u8jJFCaI1zt7701AVNx2Or/b3VesHOXviZvER3wlzQktfL2UpT7+Za187zXhttYJtovBn90VZ6eOd+nVHOkBmGiXLjO8RjdContP+7b6NK6nrLHVTzLzh3b6o1kwn3aEyBNK9wcmZZGfpWv0ZZBhecDhh4aU/t0c7g+GXu91shG2cgaaK5GkgdL7HZQrvOVbYmG7HP20es+WG3Rlm3V0QlkeD8pb+3b2WJ5SuS3UdJMQVm1yq/fVpAOmJa4vhd4Af+EhGOCpDoULsN5iRRWGWUgr8yZpDBenFk5QTuf8rhDJFsk01M4ZZkPzLeYpNcf5GnlQJk4KFO8dX0xQTb3T/CtpAQZ8+ZMhs4ceSbsIQ6iWAasneIEHOm+AqsQCjDR8bLfO/AH6wiJh5a/MNwXlUoYycE=
+  on:
+    repo: agomezmoron/cordova-save-image-gallery
+    branch: master

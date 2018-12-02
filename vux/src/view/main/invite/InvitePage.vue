@@ -128,24 +128,32 @@
         //   },
         //   document.getElementById('myCanvas')
         // )
+        document.createElement('canvas').toDataURL()
+        var c = document.createElement('canvas')
+        var data = c.toDataURL('image/png')
+        console.log(data.indexOf('data:image/png') === 0)
         html2canvas(this.$refs.imageWrapper, {
           backgroundColor: null
         }).then((canvas) => {
-          var temp = document.createElement('canvas')
-          temp = canvas
-          temp.setAttribute('id', 'myCanvas')
-          canvas.setAttribute('width', '100%')
-          canvas.setAttribute('height', '100%')
-          document.body.appendChild(temp)
-          window.canvas2ImagePlugin.saveImageDataToLibrary(
-            function (msg) {
-              console.log(msg)
-            },
-            function (err) {
-              console.log(err)
-            },
-            document.getElementById('myCanvas')
-          )
+          let scrBase64 = canvas.toDataURL('image/jpeg')
+          scrBase64 = scrBase64.split(',')[1]
+          console.log('22222222')
+          console.log(scrBase64)
+          // var base64Str = canvas.toDataURL('image/jpeg')
+        //   let imageDataUrl = canvas.toDataURL('image/jpeg', 1.0)
+        //   let imageData = imageDataUrl.replace(/data:image\/jpeg;base64,/, '')
+        //   console.log(imageData)
+        //   var params = {data: imageData, prefix: 'myPrefix_', format: 'JPEG', quality: 80, mediaScanner: true}
+        //   console.log(params)
+        //   window.imageSaver.saveBase64Image(params,
+        //     function (filePath) {
+        //       console.log('File saved on ' + filePath)
+        //     },
+        //     function (msg) {
+        //       console.log('1111111')
+        //       console.error(msg)
+        //     }
+        //   )
         })
       }
     }

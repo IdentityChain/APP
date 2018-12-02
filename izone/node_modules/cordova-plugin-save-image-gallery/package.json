@@ -1,0 +1,103 @@
+{
+  "_from": "cordova-plugin-save-image-gallery",
+  "_id": "cordova-plugin-save-image-gallery@0.0.26",
+  "_inBundle": false,
+  "_integrity": "sha1-a4nt9K8Jmd4gaGwK4DRxL8/69b8=",
+  "_location": "/cordova-plugin-save-image-gallery",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-save-image-gallery",
+    "name": "cordova-plugin-save-image-gallery",
+    "escapedName": "cordova-plugin-save-image-gallery",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/cordova-plugin-save-image-gallery/download/cordova-plugin-save-image-gallery-0.0.26.tgz",
+  "_shasum": "6b89edf4af0999de20686c0ae034712fcffaf5bf",
+  "_spec": "cordova-plugin-save-image-gallery",
+  "_where": "/Users/lixiaoming/Documents/git/isc/APP/izone",
+  "author": {
+    "name": "Alejandro Gomez",
+    "email": "agommor@gmail.com",
+    "url": "http://github.com/agomezmoron"
+  },
+  "bugs": {
+    "url": "https://github.com/agomezmoron/cordova-save-image-gallery/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Ignacio Gonzalez",
+      "email": "natete981@gmail.com",
+      "url": "http://github.com/agomezmoron"
+    },
+    {
+      "name": "StefanoMagrassi",
+      "email": "stefano.magrassi@gmail.com",
+      "url": "http://thinkwritedone.com"
+    },
+    {
+      "name": "Simba Zhang",
+      "email": "solderzzc@gmail.com",
+      "url": "http://www.tiegushi.com"
+    },
+    {
+      "name": "Bastian Meier",
+      "email": "post@bastianmeier.de",
+      "url": "http://github.com/bastian-meie"
+    }
+  ],
+  "cordova": {
+    "id": "cordova-save-image-gallery",
+    "platforms": [
+      "ios",
+      "android",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova plugin to save base64 data as a png/jpg image into the device and applying compression if needed",
+  "devDependencies": {
+    "eslint": "1.10.3",
+    "nodemsg": "1.0.0"
+  },
+  "engines": [
+    {
+      "cordova": ">=3.0.0"
+    },
+    {
+      "node": ">=0.12"
+    }
+  ],
+  "homepage": "https://github.com/agomezmoron/cordova-save-image-gallery#readme",
+  "keywords": [
+    "image",
+    "base64",
+    "save",
+    "png",
+    "jpg",
+    "photo library",
+    "gallery",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android",
+    "cordova-wp8"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-save-image-gallery",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agomezmoron/cordova-save-image-gallery.git"
+  },
+  "scripts": {
+    "lint": "eslint www/saveImageGallery.js"
+  },
+  "version": "0.0.26"
+}

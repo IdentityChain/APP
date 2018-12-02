@@ -24,7 +24,7 @@
 		BFAEF55D9EB046DBB6897B93 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 613C7714A3194CDEB18CC669 /* CDVNotification.m */; };
 		58585AC835A3466AB2BB9DE2 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4D3EF8D529DE4AFAB749F471 /* CDVNotification.bundle */; };
 		0576098B1CF247369CBAE76C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7D1D8202D584E7DB028E486 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		FDBEC046ABE74112A2147274 /* Canvas2ImagePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		B1A09C0D1A6144A4ACB70D8F /* SaveImageGallery.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D4B3E66326439E91662AB5 /* SaveImageGallery.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,8 +91,8 @@
 		7C12114B77E440A7986DF975 /* CDVNotification.h */ = {isa = PBXFileReference; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		4D3EF8D529DE4AFAB749F471 /* CDVNotification.bundle */ = {isa = PBXFileReference; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
 		F7D1D8202D584E7DB028E486 /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
-		037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */ = {isa = PBXFileReference; name = "Canvas2ImagePlugin.m"; path = "org.devgeeks.Canvas2ImagePlugin/Canvas2ImagePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		19838B8C94824CE2BDF3C70D /* Canvas2ImagePlugin.h */ = {isa = PBXFileReference; name = "Canvas2ImagePlugin.h"; path = "org.devgeeks.Canvas2ImagePlugin/Canvas2ImagePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		A8D4B3E66326439E91662AB5 /* SaveImageGallery.m */ = {isa = PBXFileReference; name = "SaveImageGallery.m"; path = "cordova-plugin-save-image-gallery/SaveImageGallery.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E518E3392CDC40F0A54E9AB7 /* SaveImageGallery.h */ = {isa = PBXFileReference; name = "SaveImageGallery.h"; path = "cordova-plugin-save-image-gallery/SaveImageGallery.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,8 +218,8 @@
 				CBC635563D874B2F8A3B7F22 /* CDVWKProcessPoolFactory.h */,
 				613C7714A3194CDEB18CC669 /* CDVNotification.m */,
 				7C12114B77E440A7986DF975 /* CDVNotification.h */,
-				037C14A8FA164245B4A7C90F /* Canvas2ImagePlugin.m */,
-				19838B8C94824CE2BDF3C70D /* Canvas2ImagePlugin.h */,
+				A8D4B3E66326439E91662AB5 /* SaveImageGallery.m */,
+				E518E3392CDC40F0A54E9AB7 /* SaveImageGallery.h */,
 			);
 			name = Plugins;
 			path = izone/Plugins;
@@ -356,7 +356,7 @@
 				FFDCBEC31A63419987CAC2B4 /* CDVWKWebViewUIDelegate.m in Sources */,
 				8FBD5F71A13540798C64C215 /* CDVWKProcessPoolFactory.m in Sources */,
 				BFAEF55D9EB046DBB6897B93 /* CDVNotification.m in Sources */,
-				FDBEC046ABE74112A2147274 /* Canvas2ImagePlugin.m in Sources */,
+				B1A09C0D1A6144A4ACB70D8F /* SaveImageGallery.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
