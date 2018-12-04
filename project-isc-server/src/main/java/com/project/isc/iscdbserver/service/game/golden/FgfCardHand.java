@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.iscapp.common.util.CommonUtil;
+import com.project.isc.iscdbserver.util.CommonUtil;
 
 public class FgfCardHand extends Poker {
 	public static Map<Integer, String> HAND_TYPES = new HashMap<Integer, String>();
