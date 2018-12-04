@@ -1,18 +1,23 @@
 package com.project.isc.iscdbserver.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
+import com.project.isc.iscdbserver.entity.achieve.Achievement;
 import com.project.isc.iscdbserver.repository.CalculateLogRepository;
 import com.project.isc.iscdbserver.repository.CalculateRepository;
 import com.project.isc.iscdbserver.repository.CalculateStatisticsRepository;
 import com.project.isc.iscdbserver.repository.ISCLogRepository;
+import com.project.isc.iscdbserver.repository.achieve.AchievementRepository;
+import com.project.isc.iscdbserver.repository.achieve.AchievementUserRepository;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 成就服务
@@ -29,6 +34,10 @@ public class CalculateService {
 	private CalculateStatisticsRepository calculateStatisticsRepository;
 	@Autowired
 	private ISCLogRepository iscLogRepository;
+	@Autowired
+	private AchievementRepository achievementRepository;
+	@Autowired
+	private AchievementUserRepository achievementUserRepository;
 	
 	/**
 	 * 这个用户的所有数据
@@ -94,5 +103,18 @@ public class CalculateService {
 		//这里只出现新增的
 		List<ISCLog> isclogs = iscLogRepository.findByCreateTimeLessThanAndStatus(date,status);
 		return isclogs;
+	}
+
+	/**
+	 * 获得用户可用的
+	 * @param userid
+	 * @param type
+	 * @return
+	 */
+	public List<Achievement> getAchievements(String userid,String type,int page,int pagesize){
+		Pageable pageable = new PageRequest(0, 10, Sort.Direction.DESC, "createTime");
+		List<Achievement> achievements = achievementRepository.findAchievementsByAvailableAndType(true,type,pageable);
+
+		return achievements;
 	}
 }

@@ -1,22 +1,10 @@
 package com.project.isc.iscdbserver.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import com.project.isc.iscdbserver.annotation.Auth;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.service.AchievementService;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
@@ -25,9 +13,15 @@ import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
 import com.project.isc.iscdbserver.viewentity.ISCLogVO;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -45,6 +39,8 @@ public class CalculateController {
 	private CalculateService calculateService;
 	@Autowired
 	private ActivtyService activtyService;
+	@Autowired
+	private AchievementService achievementService;
 	
 	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
@@ -144,5 +140,52 @@ public class CalculateController {
 
 		return retMsg;
 	}
-	
+
+	/**
+	 * 获得用户每日任务情况
+	 *
+	 * @param userid
+	 * @return
+	 */
+	@ApiOperation(value="获得用户每日任务情况", notes="")
+	@GetMapping("/getAchievementDay/{userid}")
+	@Transactional
+	@Auth
+	public RetMsg getAchievementDay(@PathVariable("userid") String userid) {
+		RetMsg retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData("");
+		retMsg.setMessage("成功");
+		retMsg.setSuccess(true);
+
+		return retMsg;
+	}
+
+	/**
+	 * 获得用户任务情况-不是每日
+	 *
+	 * @param userid
+	 * @return
+	 */
+	@ApiOperation(value="获得用户每日任务情况", notes="")
+	@GetMapping("/getAchievementAll/{userid}")
+	@Transactional
+	@Auth
+	public RetMsg getAchievementAll(@PathVariable("userid") String userid) {
+		RetMsg retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData("");
+		retMsg.setMessage("成功");
+		retMsg.setSuccess(true);
+
+		return retMsg;
+	}
+
+	@ApiOperation(value="获得用户每日任务情况", notes="")
+	@GetMapping("/test")
+	@Transactional
+	public List<ISCLog>  test(){
+		List<ISCLog> isclogs = calculateService.getAllCalculateLog();
+		return isclogs;
+	}
 }
