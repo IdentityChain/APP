@@ -25,31 +25,6 @@
         </div>
       </div>
     </view-box>
-    <!--<div v-show="false" style="border-radius: 10px;background-color: #fbf9fe;height: 230px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">-->
-      <!--&lt;!&ndash;<group title="" style="margin-top: 30px">&ndash;&gt;-->
-      <!--<div style="margin-top: 10px;margin-bottom: 30px;margin-left: 20px;margin-right: 20px;background-color: ghostwhite">-->
-        <!--<x-input title="手机号" mask="999 9999 9999" required v-model="telNum" :max="13" ref="input1" is-type="china-mobile">-->
-          <!--&lt;!&ndash;<img slot="label" style="padding-right:10px;display:block;" src="../../assets/icon/tel.png"&ndash;&gt;-->
-          <!--&lt;!&ndash;width="24" height="24">&ndash;&gt;-->
-
-        <!--</x-input>-->
-        <!--<x-input title="验证码" class="weui-vcode" v-model="vcode">-->
-          <!--<x-button slot="right" type="primary" mini @click.native="getSmsCode" :disabled="waiting">获取验证码{{reget}}</x-button>-->
-        <!--</x-input>-->
-
-        <!--<x-input title="新密码" type="password"  required v-model="password" :min="6" :max="13" ref="input2"></x-input>-->
-      <!--</div>-->
-      <!--&lt;!&ndash;</group>&ndash;&gt;-->
-      <!--<flexbox>-->
-        <!--<flexbox-item>-->
-          <!--<x-button plain type="default" @click.native="goLogin">返回登陆</x-button>-->
-        <!--</flexbox-item>-->
-        <!--<flexbox-item>-->
-          <!--<x-button plain type="default" @click.native="doResetPasswd">重置密码</x-button>-->
-        <!--</flexbox-item>-->
-      <!--</flexbox>-->
-    <!--</div>-->
-
   </div>
 </template>
 

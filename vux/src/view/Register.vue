@@ -129,11 +129,8 @@
         if (this.$refs.input1.valid) {
           console.log(this.telNum)
           console.log(this.telNum.replace(/[ ]/g, ''))
-          const urlstr = this.$appConfig.apiServer + '/sms/getCodeByPhone/' + this.telNum.replace(/[ ]/g, '')
-          this.doGet({
-            url: urlstr
-          }).then(result => {
-            if (result.success) {
+          this.$api.smsApi.getSmsCode(this.telNum.replace(/[ ]/g, ''), 'PHONELOGIN').then(result => {
+            if (result.data.success) {
               this.waiting = true
               this.timer = setInterval(this.changeBtnText, 1000)
               this.$vux.toast.show({
@@ -143,7 +140,7 @@
             } else {
               this.$vux.toast.show({
                 type: 'warn',
-                text: '请求失败'
+                text: result.data.message
               })
             }
           })
