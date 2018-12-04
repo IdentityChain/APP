@@ -27,6 +27,9 @@
     },
     "cordova-plugin-save-image-gallery": {
       "PACKAGE_NAME": "com.isc"
+    },
+    "cordova-plugin-keyboard": {
+      "PACKAGE_NAME": "com.isc"
     }
   },
   "dependent_plugins": {}

@@ -55,6 +55,14 @@ module.exports = [
     "clobbers": [
       "cordova.saveImageGallery"
     ]
+  },
+  {
+    "id": "cordova-plugin-keyboard.keyboard",
+    "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
+    "pluginId": "cordova-plugin-keyboard",
+    "clobbers": [
+      "window.Keyboard"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -66,7 +74,8 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.4.2",
   "cordova-plugin-wkwebview-engine": "1.1.4",
   "cordova-plugin-dialogs": "2.0.1",
-  "cordova-plugin-save-image-gallery": "0.0.26"
+  "cordova-plugin-save-image-gallery": "0.0.26",
+  "cordova-plugin-keyboard": "1.2.0"
 };
 // BOTTOM OF METADATA
 });

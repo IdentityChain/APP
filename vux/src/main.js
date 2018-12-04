@@ -140,7 +140,14 @@ if (config.deployAPP) {
       router,
       render: h => h(App)
     }).$mount('#app-box')
+    console.log('platform is:' + window.cordova.platformId)
     window.navigator.splashscreen.hide()
+    window.addEventListener('keyboardWillHide', function () {
+      document.getElementsByTagName('html')[0].style.height = '101vh'
+      setTimeout(() => {
+        document.getElementsByTagName('html')[0].style.height = '100vh'
+      }, 40)
+    })
   }, false)
 } else {
   new Vue({

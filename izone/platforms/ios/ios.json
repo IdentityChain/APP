@@ -43,6 +43,10 @@
             {
               "xml": "<feature name=\"SaveImageGallery\"><param name=\"ios-package\" value=\"SaveImageGallery\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"CDVKeyboard\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -69,6 +73,9 @@
       "PACKAGE_NAME": "com.isc"
     },
     "cordova-plugin-save-image-gallery": {
+      "PACKAGE_NAME": "com.isc"
+    },
+    "cordova-plugin-keyboard": {
       "PACKAGE_NAME": "com.isc"
     }
   },
@@ -129,6 +136,14 @@
       "clobbers": [
         "cordova.saveImageGallery"
       ]
+    },
+    {
+      "id": "cordova-plugin-keyboard.keyboard",
+      "file": "plugins/cordova-plugin-keyboard/www/keyboard.js",
+      "pluginId": "cordova-plugin-keyboard",
+      "clobbers": [
+        "window.Keyboard"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -138,6 +153,7 @@
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-wkwebview-engine": "1.1.4",
     "cordova-plugin-dialogs": "2.0.1",
-    "cordova-plugin-save-image-gallery": "0.0.26"
+    "cordova-plugin-save-image-gallery": "0.0.26",
+    "cordova-plugin-keyboard": "1.2.0"
   }
 }
