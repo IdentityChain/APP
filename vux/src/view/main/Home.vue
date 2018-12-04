@@ -116,7 +116,7 @@
         this.personal.account = user.account
         this.getCoinRequest(user.userId)
         this.getNotice()
-        // this.getTotalCount()
+        this.getTotalCount()
       },
       goTo (target) {
         this.$router.push({name: target})

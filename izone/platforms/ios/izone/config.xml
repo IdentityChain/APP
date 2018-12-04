@@ -40,6 +40,9 @@
         <param name="ios-package" value="SaveImageGallery" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Keyboard">
+        <param name="ios-package" onload="true" value="CDVKeyboard" />
+    </feature>
     <name>izone</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -85,7 +88,4 @@
     <preference name="WebViewBounce" value="false" />
     <preference name="orientation" value="portrait" />
     <preference name="AllowBackForwardNavigationGestures" value="false" />
-    <feature name="Keyboard">
-        <param name="ios-package" onload="true" value="CDVKeyboard" />
-    </feature>
 </widget>

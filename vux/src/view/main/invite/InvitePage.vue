@@ -37,10 +37,10 @@
         </div>
         <div v-transfer-dom>
           <popup v-model="showCard" height="100%"  width="100%" :show-mask=false :hide-on-deactivated=false id="canvas-container">
-            <div class="invite-body" ref="imageWrapper" v-show="showMyInfo" >
-              <div class="invite-content">
-                <img src="../../../assets/main/izone.png" width="50%" height="40px"/>
-                <p style="color: white">为你打开未来之门</p>
+            <div class="invite-body"  v-show="showMyInfo" >
+              <img src="../../../assets/main/izone.png" width="50%" height="40px"/>
+              <p style="color: white">为你打开未来之门</p>
+              <div class="invite-content" ref="imageWrapper">
                 <div class="qrcode-card">
                   <p style="color: blueviolet;font-size: larger">您的专属邀请码</p>
                   <p style="font-size: x-large;color: dodgerblue">{{inviteCode}}</P>
@@ -128,32 +128,34 @@
         //   },
         //   document.getElementById('myCanvas')
         // )
-        document.createElement('canvas').toDataURL()
-        var c = document.createElement('canvas')
-        var data = c.toDataURL('image/png')
-        console.log(data.indexOf('data:image/png') === 0)
+        let that = this
         html2canvas(this.$refs.imageWrapper, {
+          useCORS: true,
           backgroundColor: null
         }).then((canvas) => {
-          let scrBase64 = canvas.toDataURL('image/jpeg')
-          scrBase64 = scrBase64.split(',')[1]
-          console.log('22222222')
-          console.log(scrBase64)
+          // let scrBase64 = canvas.toDataURL('image/jpeg')
+          // scrBase64 = scrBase64.split(',')[1]
+          // console.log('22222222')
+          // console.log(scrBase64)
           // var base64Str = canvas.toDataURL('image/jpeg')
         //   let imageDataUrl = canvas.toDataURL('image/jpeg', 1.0)
         //   let imageData = imageDataUrl.replace(/data:image\/jpeg;base64,/, '')
-        //   console.log(imageData)
-        //   var params = {data: imageData, prefix: 'myPrefix_', format: 'JPEG', quality: 80, mediaScanner: true}
-        //   console.log(params)
-        //   window.imageSaver.saveBase64Image(params,
-        //     function (filePath) {
-        //       console.log('File saved on ' + filePath)
-        //     },
-        //     function (msg) {
-        //       console.log('1111111')
-        //       console.error(msg)
-        //     }
-        //   )
+          console.log(canvas.toDataURL('image/png'))
+          var params = {data: canvas.toDataURL('image/png'), quality: 80, mediaScanner: true}
+          console.log(params)
+          window.imageSaver.saveBase64Image(params,
+            function (filePath) {
+              that.$router.replace({name: 'home'})
+              alert('已保存到相册,请分享给您的好友')
+              console.log('File saved on ' + filePath)
+            },
+            function (msg) {
+              console.log('1111111')
+              console.error(msg)
+            }
+          )
+        }).catch(err => {
+          console.log('err:' + err)
         })
       }
     }

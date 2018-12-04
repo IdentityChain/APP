@@ -24,7 +24,7 @@ switch (process.env.NODE_ENV) {
     // apiServer = 'http://identitychain.vip:9088'
     break
   case 'production':
-    deployAPP = false
+    deployAPP = true
     apiServer = 'http://identitychain.vip:9088'
     break
   case 'web':
