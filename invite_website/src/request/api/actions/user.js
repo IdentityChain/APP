@@ -74,6 +74,16 @@ const requestObj = {
       'smsCode': ''
     }
   },
+  registerUserByInviteCode: {
+    method: post,
+    url: '/user/firstsave',
+    params: {
+      'password': '',
+      'phone': '',
+      'smsCode': '',
+      'invitationCode': ''
+    }
+  },
   resetLoginPasswordBySms: {
     method: post,
     url: '/user/updateLoginPasswordBySms',
@@ -107,6 +117,14 @@ const userapi = {
     requestObj.registerUser.params.phone = phone
     requestObj.registerUser.params.smsCode = smsCode
     return http.doRequest(requestObj.registerUser)
+  },
+  // 使用邀请码注册用户
+  registerUserByInviteCode (phone, smsCode, inviteCode, password) {
+    requestObj.registerUserByInviteCode.params.password = password
+    requestObj.registerUserByInviteCode.params.phone = phone
+    requestObj.registerUserByInviteCode.params.invitationCode = inviteCode
+    requestObj.registerUserByInviteCode.params.smsCode = smsCode
+    return http.doRequest(requestObj.registerUserByInviteCode)
   },
   // 根据用户ID获取用户信息
   getUserInfoById (userid) {

@@ -22,7 +22,7 @@
             <p>邀请链接二维码</p>
             <br>
             <!--<qrcode :value="'http://identitychain.vip/invite?inviteCode=' + inviteCode" type="img" size="200"></qrcode>-->
-            <qrcode value="http://identitychain.vip/webapp/index.html" type="img" :size=200 ref="qrcodeImg"></qrcode>
+            <qrcode :value="'http://invite.mobile.identitychain.vip/#/?inviteCode=' + inviteCode" type="img" :size=200 ref="qrcodeImg"></qrcode>
             <br>
             <p style="color: gray;text-align: left;">
               奖励规则<br>
@@ -38,6 +38,8 @@
         <div v-transfer-dom>
           <popup v-model="showCard" height="100%"  width="100%" :show-mask=false :hide-on-deactivated=false id="canvas-container">
             <div class="invite-body"  v-show="showMyInfo" >
+              <div style="height: 7vh">
+              </div>
               <img src="../../../assets/main/izone.png" width="50%" height="40px"/>
               <p style="color: white">为你打开未来之门</p>
               <div class="invite-content" ref="imageWrapper">
@@ -46,20 +48,16 @@
                   <p style="font-size: x-large;color: dodgerblue">{{inviteCode}}</P>
                   <p style="font-size: small;color:grey;margin-bottom: 20px">每邀请一位好友+10算力<br>上限封顶为10个好友</p>
                   <div style="border-bottom: 1px solid lightgray;width: 100%;"></div>
-                  <qrcode style="padding-top: 20px" value="http://identitychain.vip/webapp/index.html" type="img"
+                  <qrcode style="padding-top: 20px" :value="'http://invite.mobile.identitychain.vip/#/?inviteCode=' + inviteCode" type="img"
                           :size=100 ref="qrcodeImg"></qrcode>
                   <p style="font-size: small;color:grey;padding-bottom: 25px">扫码下载iZone<br>加入iZone提早享受更多权益</p>
                 </div>
               </div>
-            </div>
-            <div style="position: fixed;bottom: 5vh;text-align: center;width: 30vw;left: 35vw;height: 30vw;color: dodgerblue;background-color: white">
-              <img src="../../../assets/main/photo.png" width="30px" height="30px" @click="toImage">
-              <p>保存到相册</p>
+              <img src="../../../assets/main/inviteButton.png" width="40%" height="40px" @click="toImage" style="position:absolute;bottom: 6vh;left: 30vw">
             </div>
           </popup>
         </div>
       </div>
-
     </view-box>
   </div>
 </template>
@@ -107,39 +105,13 @@
       createCard () {
         this.showMyInfo = true
         this.showCard = true
-        // html2canvas(this.$refs.imageWrapper, {
-        //   backgroundColor: null
-        // }).then((canvas) => {
-        //   document.getElementById('canvas-container').appendChild(canvas)
-        //   this.showCard = true
-        //   this.showMyInfo = false
-        // })
       },
       toImage () {
-        // var container = document.getElementById('canvas-container')
-        // var canvas1 = container.children[0]
-        // canvas1.id = 'myCanvas'
-        // window.canvas2ImagePlugin.saveImageDataToLibrary(
-        //   function (msg) {
-        //     console.log(msg)
-        //   },
-        //   function (err) {
-        //     console.log(err)
-        //   },
-        //   document.getElementById('myCanvas')
-        // )
         let that = this
         html2canvas(this.$refs.imageWrapper, {
           useCORS: true,
           backgroundColor: null
         }).then((canvas) => {
-          // let scrBase64 = canvas.toDataURL('image/jpeg')
-          // scrBase64 = scrBase64.split(',')[1]
-          // console.log('22222222')
-          // console.log(scrBase64)
-          // var base64Str = canvas.toDataURL('image/jpeg')
-        //   let imageDataUrl = canvas.toDataURL('image/jpeg', 1.0)
-        //   let imageData = imageDataUrl.replace(/data:image\/jpeg;base64,/, '')
           console.log(canvas.toDataURL('image/png'))
           var params = {data: canvas.toDataURL('image/png'), quality: 80, mediaScanner: true}
           console.log(params)
@@ -227,15 +199,19 @@
     text-align: center;
     height: 100vh;
     width: 100vw;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
     background: url(../../../assets/main/invite-bg.png) no-repeat center;
     background-size: cover;
   }
 
   .invite-content {
     position: absolute;
-    top: 10vh;
+    margin: auto;
+    top: 0; left: 0; bottom: 0; right: 0;
     width: 80vw;
-    left: 10vw;
+    height: 60vh;
+    /*left: 10vw;*/
   }
 
   .qrcode-card {

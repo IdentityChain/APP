@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="bg1">
     <view-box body-padding-top="46px" body-padding-bottom="55px">
       <div v-if="showHeader" slot="header"
            style="position: absolute;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: white;z-index: 100">
@@ -21,8 +21,7 @@
           <x-input placeholder="请输入新密码,(最少8位,字母+数字)" style="margin-bottom: 5px;" required v-model="password" :min="8" :max="20"
                    ref="input3" type="password">
           </x-input>
-          <x-input  style="margin-bottom: 5px;" required v-model="inviteCode" :min="8" :max="20" :disabled=true
-                   ref="input3" type="text">
+          <x-input  style="margin-bottom: 5px;" required v-model="inviteCode" :min="8" :max="20" :disabled=true type="text">
             <x-button slot="right" style="background-color: #6699FF;color: white" plain mini @click.native="getSmsCode" :disabled=true>好友邀请码
             </x-button>
           </x-input>
@@ -107,13 +106,13 @@
       doRegister () {
         if (this.$refs.input1.valid && this.$refs.input2.valid && this.$refs.input3.valid) {
           console.log('do register')
-          this.$api.userApi.registerUser(this.telNum.replace(/[ ]/g, ''), this.vcode, this.password).then(result => {
+          this.$api.userApi.registerUserByInviteCode(this.telNum.replace(/[ ]/g, ''), this.vcode, this.inviteCode, this.password).then(result => {
             if (result.data.success) {
               this.$vux.toast.show({
                 type: 'success',
                 text: '注册成功'
               })
-              this.$router.replace({name: 'login'})
+              this.$router.replace({name: 'download'})
             } else {
               this.$vux.toast.show({
                 type: 'text',
@@ -184,8 +183,7 @@
   html, body {
     background-color: white;
   }
-
-  .bg {
+  .bg1 {
     position: fixed;
     height: 100%;
     width: 100%;
