@@ -3,6 +3,7 @@ package com.project.isc.iscdbserver.service;
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.achieve.Achievement;
+import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
 import com.project.isc.iscdbserver.repository.CalculateLogRepository;
 import com.project.isc.iscdbserver.repository.CalculateRepository;
 import com.project.isc.iscdbserver.repository.CalculateStatisticsRepository;
@@ -17,7 +18,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 成就服务
@@ -116,5 +119,72 @@ public class CalculateService {
 		List<Achievement> achievements = achievementRepository.findAchievementsByAvailableAndType(true,type,pageable);
 
 		return achievements;
+	}
+
+	public List<AchievementUser> getAchievementUsers(String userid,String type,int page,int pagesize){
+		Pageable pageable = new PageRequest(0, 10, Sort.Direction.DESC, "createTime");
+		List<AchievementUser> achievementUserList = achievementUserRepository.findAchievementUsersByUserIdAndType(userid,type,pageable);
+		return achievementUserList;
+	}
+
+	public Map<String,Achievement> getAchievementsBy(List<String> ids){
+		List<Achievement> achievements = achievementRepository.findAchievementsByIdIn(ids);
+		Map<String,Achievement> map = null;
+		if(achievements!=null&& achievements.size()>0){
+			map = new HashMap<>();
+			for (Achievement am:achievements
+				 ) {
+				map.put(am.getId(),am);
+			}
+		}
+		return map;
+	}
+
+	public Map<String,AchievementUser> getAchievementUsersBy(List<String> ids){
+		List<AchievementUser> achievementUserList = achievementUserRepository.findAchievementUsersByAchIdIn(ids);
+		Map<String,AchievementUser> map = null;
+		if(achievementUserList!=null&& achievementUserList.size()>0){
+			map = new HashMap<>();
+			for (AchievementUser amu:achievementUserList
+					) {
+				map.put(amu.getId(),amu);
+			}
+		}
+		return map;
+	}
+
+	public Achievement findAchievementOne(String id){
+		return achievementRepository.findOne(id);
+	}
+
+	public AchievementUser findAchievementUserOne(String id){
+		return achievementUserRepository.findOne(id);
+	}
+
+	public boolean insertAchievement(Achievement achievement){
+		try {
+
+			achievementRepository.save(achievement);
+			return  true;
+		}catch (Exception e){
+			return false;
+		}
+	}
+
+	public boolean insertAchievementUser(AchievementUser achievementUser){
+		try {
+			achievementUserRepository.save(achievementUser);
+			return  true;
+		}catch (Exception e){
+			return false;
+		}
+	}
+
+	public AchievementUser findAchievementUserByUserIdAndAchId(String userid,String achid){
+		return achievementUserRepository.findAchievementUserByUserIdAndAchId(userid,achid);
+	}
+
+	public List<Achievement> findAllAchievement(){
+		return achievementRepository.findAll();
 	}
 }

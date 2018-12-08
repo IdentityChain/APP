@@ -4,15 +4,19 @@ import com.project.isc.iscdbserver.annotation.Auth;
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.entity.achieve.Achievement;
+import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
 import com.project.isc.iscdbserver.service.AchievementService;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.transfEntity.AchievementTransf;
 import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
 import com.project.isc.iscdbserver.viewentity.ISCLogVO;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
+import com.project.isc.iscdbserver.viewentity.achieve.AchievementVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,44 +152,79 @@ public class CalculateController {
 	 * @return
 	 */
 	@ApiOperation(value="获得用户每日任务情况", notes="")
-	@GetMapping("/getAchievementDay/{userid}")
+	@GetMapping("/getAchievementDay/{type}/{userid}/{page}/{pagesize}")
 	@Transactional
-	@Auth
-	public RetMsg getAchievementDay(@PathVariable("userid") String userid) {
+//	@Auth
+	public RetMsg getAchievement(@PathVariable("type") String type,@PathVariable("userid") String userid,@PathVariable("page") int page,@PathVariable("pagesize") int pagesize) {
 		RetMsg retMsg = new RetMsg();
 		retMsg.setCode(200);
 		retMsg.setData("");
 		retMsg.setMessage("成功");
 		retMsg.setSuccess(true);
-
+		List<AchievementUser> listau =calculateService.getAchievementUsers(userid,type,page,pagesize);
+		if(listau!=null && listau.size()>0){
+			List<AchievementVO> achievementVOS = new ArrayList<>();
+			for (AchievementUser au: listau
+				 ) {
+				Achievement aa = calculateService.findAchievementOne(au.getAchId());
+				achievementVOS.add(AchievementTransf.transfToVO(aa,au));
+			}
+			retMsg.setData(achievementVOS);
+		}
 		return retMsg;
 	}
 
-	/**
-	 * 获得用户任务情况-不是每日
-	 *
-	 * @param userid
-	 * @return
-	 */
-	@ApiOperation(value="获得用户每日任务情况", notes="")
-	@GetMapping("/getAchievementAll/{userid}")
+	@ApiOperation(value="根据任务ID获得此任务的具体描述情况", notes="")
+	@GetMapping("/getAchievement/{achievementid}")
 	@Transactional
-	@Auth
-	public RetMsg getAchievementAll(@PathVariable("userid") String userid) {
+//	@Auth
+	public RetMsg getAchievement(@PathVariable("achievementid") String achievementid){
 		RetMsg retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData("");
+		Achievement achievement = calculateService.findAchievementOne(achievementid);
+		retMsg.setData(achievement);
 		retMsg.setMessage("成功");
 		retMsg.setSuccess(true);
-
 		return retMsg;
 	}
+
+	@ApiOperation(value="根据任务ID获得此任务的具体描述情况", notes="")
+	@GetMapping("/getAchievementUser/{achievementUserid}")
+	@Transactional
+//	@Auth
+	public RetMsg getAchievementUser(@PathVariable("achievementUserid") String achievementUserid){
+		RetMsg retMsg = new RetMsg();
+		retMsg.setCode(200);
+		AchievementUser achievementUser = calculateService.findAchievementUserOne(achievementUserid);
+		retMsg.setData(achievementUser);
+		retMsg.setMessage("成功");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
+
 
 	@ApiOperation(value="获得用户每日任务情况", notes="")
 	@GetMapping("/test")
 	@Transactional
-	public List<ISCLog>  test(){
-		List<ISCLog> isclogs = calculateService.getAllCalculateLog();
-		return isclogs;
+	public void   test(){
+		int[] steps = {1,30,100,1000,10000};
+		for (int step:steps
+			 ) {
+			Achievement aa = new Achievement();
+			aa.setAvailable(true);
+			aa.setTitle("标题：每日任务-签到-连续签到："+step+"天");
+			aa.setAddiscValue(0);//每日签到不给ISC
+			aa.setContent("内容：每日签到获得的成就");
+			aa.setCreateTime(new Date());
+			aa.setGrayImgPath("这个图片路径需要提供，界面的相对路径");
+			aa.setImg_path("这个图片路径需要提供，界面的相对路径");
+			aa.setType("type");
+			aa.setCalculateValue(10);
+			aa.setSteps(step);
+			calculateService.insertAchievement(aa);
+		}
+		AchievementUser au = new AchievementUser();
+		calculateService.insertAchievementUser(au);
+
 	}
 }

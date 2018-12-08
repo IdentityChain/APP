@@ -10,7 +10,7 @@ import java.util.Date;
  * 成就任务进度类
  */
 @Entity
-@Table(name = "tb_achievement")
+@Table(name = "tb_achievement_user")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class AchievementUser implements Serializable{
 
@@ -25,7 +25,8 @@ public class AchievementUser implements Serializable{
 	private String achId;			//成就任务ID
 	@Column(length = 64)
 	private String userId;			//用户ID
-	private String userSteps;		//用户进度
+	@Column
+	private int userSteps;		//用户进度
 	@Column
 	private int completeRate;		//完成率
 	@Column
@@ -38,6 +39,8 @@ public class AchievementUser implements Serializable{
 	private boolean is_create;		//是否领取
 	@Column
 	private boolean available;		//是否可用
+	@Column
+	private String type;			//成就类型-每日成就，成就，签到成就，ISC
 
 	public boolean isAvailable() {
 		return available;
@@ -79,11 +82,11 @@ public class AchievementUser implements Serializable{
 		this.userId = userId;
 	}
 
-	public String getUserSteps() {
+	public int getUserSteps() {
 		return userSteps;
 	}
 
-	public void setUserSteps(String userSteps) {
+	public void setUserSteps(int userSteps) {
 		this.userSteps = userSteps;
 	}
 
@@ -121,6 +124,14 @@ public class AchievementUser implements Serializable{
 
 	public Date getUpdateTime() {
 		return updateTime;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setUpdateTime(Date updateTime) {

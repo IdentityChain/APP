@@ -1,24 +1,24 @@
 package com.project.isc.iscdbserver.server;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.entity.achieve.Achievement;
+import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class IscServerSchedul {
@@ -135,5 +135,45 @@ public class IscServerSchedul {
 			}
 			calculateService.savaAllCalculateLog(isclogs);
 		}
+	}
+
+	public void createAchievementUserList(){
+		List<User> users = userService.findAll();
+		List<Achievement> acmlist = calculateService.findAllAchievement();
+		if(users!=null && users.size()>0 && acmlist!=null && acmlist.size()>0){
+			for (User u:users
+				 ) {
+				for (Achievement ach:acmlist
+					 ) {
+					AchievementUser au = calculateService.findAchievementUserByUserIdAndAchId(u.getUserId(),ach.getId());
+					if(au==null){
+						AchievementUser achievementUser = creatAchievmentUser(ach,u.getUserId());
+						calculateService.insertAchievementUser(achievementUser);
+					}
+				}
+			}
+
+		}
+	}
+
+	/**
+	 * 如果数据为空，表示没有给这个用户创建所属于他的任务，所以需要创建
+	 * @param ach
+	 * @param userid
+	 * @return
+	 */
+	private AchievementUser creatAchievmentUser(Achievement ach,String userid){
+		AchievementUser acu = new AchievementUser();
+		acu.setAchId(ach.getId());
+		acu.setAvailable(true);
+		acu.isAvailable();
+		acu.setCreateTime(new Date());
+		acu.setType(ach.getType());
+		acu.setIs_create(false);
+		acu.setUserId(userid);
+		acu.setCompleteRate(0); //百分之0
+		acu.setUserSteps(0);
+
+		return acu;
 	}
 }

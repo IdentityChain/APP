@@ -24,7 +24,7 @@ public class Achievement implements Serializable{
 	@Column
 	private double addiscValue;	//给ISC数目
 	@Column
-	private String calculateValue;	//给成就点数目
+	private int calculateValue;	//给成就点数目
 	@Column
 	private String content;			//成就完成规则
 	@Column
@@ -45,7 +45,7 @@ public class Achievement implements Serializable{
 	@Column
 	private boolean available;	//是否可用
 	@Column
-	private String type;			//成就类型-每日成就，成就
+	private String type;			//成就类型-每日成就，成就，签到成就，ISC
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;		//更新时间
@@ -78,11 +78,11 @@ public class Achievement implements Serializable{
 		this.addiscValue = addiscValue;
 	}
 
-	public String getCalculateValue() {
+	public int getCalculateValue() {
 		return calculateValue;
 	}
 
-	public void setCalculateValue(String calculateValue) {
+	public void setCalculateValue(int calculateValue) {
 		this.calculateValue = calculateValue;
 	}
 
