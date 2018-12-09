@@ -223,8 +223,5 @@ public class CalculateController {
 			aa.setSteps(step);
 			calculateService.insertAchievement(aa);
 		}
-		AchievementUser au = new AchievementUser();
-		calculateService.insertAchievementUser(au);
-
 	}
 }

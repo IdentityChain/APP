@@ -1,20 +1,12 @@
 package com.project.isc.iscdbserver.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.GenericGenerator;
-
 import com.project.isc.iscdbserver.statusType.UserLevel;
 import com.project.isc.iscdbserver.statusType.UserType;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户类，映射用户表 注解@Entity一定要带，这个是数据库映射的注解
@@ -118,6 +110,17 @@ public class User implements Serializable {
 	// 真实地址
 	@Column
 	private String address;
+
+	@Column
+	private String ethAddress;
+
+	public String getEthaddress() {
+		return ethAddress;
+	}
+
+	public void setEthaddress(String ethaddress) {
+		this.ethAddress = ethaddress;
+	}
 
 	public String getIdentityNo() {
 		return identityNo;
