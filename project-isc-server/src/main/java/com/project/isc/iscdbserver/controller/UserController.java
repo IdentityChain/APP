@@ -1,31 +1,28 @@
 package com.project.isc.iscdbserver.controller;
 
 
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
-
 import com.project.isc.iscdbserver.annotation.Auth;
-import com.project.isc.iscdbserver.util.*;
-import com.project.isc.iscdbserver.viewentity.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import com.project.isc.iscdbserver.entity.SmsCode;
 import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.service.RedisService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.SmsType;
 import com.project.isc.iscdbserver.transfEntity.UserTransf;
-
+import com.project.isc.iscdbserver.util.*;
+import com.project.isc.iscdbserver.viewentity.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
 @Api(value = "用户管理", tags = "用户管理")
 @RestController
@@ -104,6 +101,7 @@ public class UserController {
 			//返回用户的邀请码
 			String myInvitationCode = ShareCodeUtil.getMyInvitationCode(user.getUserId());
 			user.setInvitationCode(myInvitationCode);
+			user.setEthAddress("12312");
 			userService.save(user);
 			// 返回新增用户信息
 			retMsg = new RetMsg();

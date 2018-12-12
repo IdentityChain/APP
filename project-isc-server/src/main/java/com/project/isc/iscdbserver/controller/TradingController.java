@@ -1,20 +1,20 @@
 package com.project.isc.iscdbserver.controller;
 
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.service.CoinEthService;
+import com.project.isc.iscdbserver.service.TradingService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.ISCInfoVo;
+import com.project.isc.iscdbserver.viewentity.RetMsg;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.project.isc.iscdbserver.service.TradingService;
-import com.project.isc.iscdbserver.viewentity.RetMsg;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Api(value = "交易管理", tags = "交易管理")
 @RestController
@@ -22,41 +22,65 @@ import java.util.List;
 @CrossOrigin
 public class TradingController {
 
+    private static final String typeCreate="create";
+    private static final String typeSelect="Select";
+
     @Autowired
     private TradingService tradingService;
 
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CoinEthService coinEthService;
+
     @ApiOperation(value = "创建钱包", notes = "")
     @PostMapping("/getTradingCreate")
     public RetMsg getTradingCreate(@RequestParam("userid") String userid) {
         // 如果数据校验有误，则直接返回校验错误信息
         RetMsg retMsg = new RetMsg();
-
+        String logs ="";
+        String logstotal = "用户创建："+userid+"\t";
         try {
             if (StringUtils.getStringisNotNull(userid)) {
                 User user = userService.getUserById(userid);
-                if (user != null) {
+                if (user != null && user.getEthAddress()==null) {
                     retMsg = tradingService.getCreatewallet();
+                    if(retMsg!=null && retMsg.getData()!=null){
+                        Map<String,String> map = (Map<String,String> )retMsg.getData();
+                        String privatekey = map.get("privatekey");
+                        String address = map.get("address");
+                        logs ="创建的地址为："+address;
+                        coinEthService.recodeCreateWallet(userid,typeCreate,address,privatekey,typeCreate);
+                        user.setEthAddress(address);
+                        userService.save(user);
+                    }else {
+                        logs ="创建接口调用返回为空";
+                    }
+                    savelog(userid,logs,logstotal+logs,typeCreate);
+                    retMsg.setData(logs);
                     return retMsg;
                 } else {
-                    retMsg.setData("没有这个用户");
+                    logs="没有这个用户或者此用户已分配ISC钱包地址";
+                    retMsg.setData(logs);
                 }
             } else {
-                retMsg.setData("ID为空");
+                logs="ID为空";
+                retMsg.setData(logs);
             }
             retMsg.setCode(400);
-
-            retMsg.setMessage("钱包查询异常");
+            logs="创建钱包异常";
+            retMsg.setMessage(logs);
             retMsg.setSuccess(true);
 
             return retMsg;
         } catch (Exception e) {
             retMsg.setCode(400);
-            retMsg.setData("创建钱包失败!");
+            logs="创建钱包失败";
+            retMsg.setData(logs);
             retMsg.setMessage("创建钱包失败，请联系管理员解决!");
             retMsg.setSuccess(true);
+            savelog(userid,logs,logstotal+logs,typeCreate);
             return retMsg;
         }
     }
@@ -66,30 +90,46 @@ public class TradingController {
     public RetMsg getTradingFind(@RequestParam("userid") String userid, @RequestParam("address") String address) {
         // 如果数据校验有误，则直接返回校验错误信息
         RetMsg retMsg = new RetMsg();
-
+        String logstotal = "用户"+userid+"调用查询接口，查询地址："+address+"\t";
+        String logs = "";
         try {
             if (StringUtils.getStringisNotNull(userid)) {
                 User user = userService.getUserById(userid);
                 if (user != null) {
                     retMsg = tradingService.getIscNumber(address);
+                    logs="值为：";
+                    if(retMsg!=null && retMsg.getData()!=null){
+                        logs = "结果为："+retMsg.getData().toString();
+                    }
                 } else {
-                    retMsg.setData("没有这个用户");
+                    logs ="没有这个用户";
+                    retMsg.setData(logs);
                 }
             } else {
-                retMsg.setData("ID为空");
+                logs="ID为空";
+                retMsg.setData(logs);
             }
-            retMsg.setCode(400);
-
-            retMsg.setMessage("钱包查询异常");
+            retMsg.setCode(200);
+            retMsg.setMessage(logs);
             retMsg.setSuccess(true);
-
+            savelog(userid,logs,logstotal+logs,typeSelect);
             return retMsg;
         } catch (Exception e) {
             retMsg.setCode(400);
             retMsg.setData("0");
-            retMsg.setMessage("钱包查询异常");
+            logs="钱包查询异常";
+            retMsg.setMessage(logs);
             retMsg.setSuccess(true);
+            savelog(userid,logs,logstotal+logs,typeSelect);
             return retMsg;
+        }
+    }
+
+    private void savelog(String userid,String content,String contTotal,String type){
+        try{
+            coinEthService.recodeLog(userid,content,contTotal,type);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -125,11 +165,6 @@ public class TradingController {
         ISCInfoVo iizzl8 =new ISCInfoVo("zzl6","朱自立","币乐交易所ISC","ISC","",0,50000,-1,"2018年11月2日","2018年11月2日");
         ISCInfoVo iizzl9 =new ISCInfoVo("zzl6","朱自立","币乐交易所USDT","USDT","",0,50000,-1,"2018年11月2日","2018年11月2日");
         ISCInfoVo iizzl10 =new ISCInfoVo("zzl6","朱自立","币乐交易所ETH","ETH","",0,50000,-1,"2018年11月2日","2018年11月2日");
-
-
-
-
-//        lisc.add(ii);?÷
         return lisc;
 
     }

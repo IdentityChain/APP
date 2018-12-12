@@ -1,14 +1,9 @@
 package com.project.isc.iscdbserver.service;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
-
+import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.repository.UserRepository;
+import com.project.isc.iscdbserver.util.DateFormatUtil;
+import com.project.isc.iscdbserver.viewentity.UserTypeQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,10 +12,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.project.isc.iscdbserver.entity.User;
-import com.project.isc.iscdbserver.repository.UserRepository;
-import com.project.isc.iscdbserver.util.DateFormatUtil;
-import com.project.isc.iscdbserver.viewentity.UserTypeQueryRequest;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -88,8 +86,6 @@ public class UserService {
 		return this.userRepositoy.findAllOrderByCalculateValueTop100(pageable);
 	}
 
-
-	@Transactional
 	public User getUserById(String id) {
 		return userRepositoy.findOne(id);
 	}

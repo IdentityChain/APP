@@ -114,12 +114,12 @@ public class User implements Serializable {
 	@Column
 	private String ethAddress;
 
-	public String getEthaddress() {
+	public String getEthAddress() {
 		return ethAddress;
 	}
 
-	public void setEthaddress(String ethaddress) {
-		this.ethAddress = ethaddress;
+	public void setEthAddress(String ethAddress) {
+		this.ethAddress = ethAddress;
 	}
 
 	public String getIdentityNo() {

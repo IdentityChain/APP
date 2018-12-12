@@ -53,6 +53,17 @@ public class UserVO {
 	// 用户身份证号码
 	private String identityNo;
 
+	//用户ETH地址
+	private String ethAddress;
+
+	public String getEthAddress() {
+		return ethAddress;
+	}
+
+	public void setEthAddress(String ethAddress) {
+		this.ethAddress = ethAddress;
+	}
+
 	public String getRealName() {
 		return realName;
 	}

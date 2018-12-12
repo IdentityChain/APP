@@ -177,7 +177,7 @@ public class CalculateController {
 	@ApiOperation(value="根据任务ID获得此任务的具体描述情况", notes="")
 	@GetMapping("/getAchievement/{achievementid}")
 	@Transactional
-//	@Auth
+	@Auth
 	public RetMsg getAchievement(@PathVariable("achievementid") String achievementid){
 		RetMsg retMsg = new RetMsg();
 		retMsg.setCode(200);
@@ -191,7 +191,7 @@ public class CalculateController {
 	@ApiOperation(value="根据任务ID获得此任务的具体描述情况", notes="")
 	@GetMapping("/getAchievementUser/{achievementUserid}")
 	@Transactional
-//	@Auth
+	@Auth
 	public RetMsg getAchievementUser(@PathVariable("achievementUserid") String achievementUserid){
 		RetMsg retMsg = new RetMsg();
 		retMsg.setCode(200);

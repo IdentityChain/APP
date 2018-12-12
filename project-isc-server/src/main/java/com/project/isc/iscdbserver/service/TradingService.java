@@ -1,17 +1,22 @@
 package com.project.isc.iscdbserver.service;
 
+import com.project.isc.iscdbserver.repository.coin.CoinETHAddressRepository;
+import com.project.isc.iscdbserver.repository.coin.CoinSearchLogRepository;
+import com.project.isc.iscdbserver.viewentity.RetMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import com.project.isc.iscdbserver.viewentity.RetMsg;
 
 @Service
 public class TradingService {
 
 	@Autowired
     private RestTemplate restTemplate;
+	@Autowired
+	private CoinETHAddressRepository coinETHAddressRepository;
+	@Autowired
+	private CoinSearchLogRepository coinSearchLogRepository;
     
 	@Value("${app.tradingurl.host}")
 	private String tradingurlHost;
@@ -26,6 +31,7 @@ public class TradingService {
     public RetMsg getIscNumber(String address) {
     		String getIscNumber ="http://"+tradingurlHost+":"+tradingurlPort+"/ethapi/getiscbanvalue/";
     		RetMsg retMsg  = this.restTemplate.getForObject(getIscNumber+address,RetMsg.class);
+
     		return retMsg;
     }
 

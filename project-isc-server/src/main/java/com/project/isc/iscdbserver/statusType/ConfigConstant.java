@@ -5,4 +5,10 @@ public class ConfigConstant {
 	public static final int EARNING_SURPLUSNUMBER = 30;
 
 	public static final String Calculate_type_everyday="everyday";
+
+
+	public static final String LOG_TYPE_INFO ="INFO";
+	public static final String LOG_TYPE_ERROR ="ERROR";
+
+
 }
