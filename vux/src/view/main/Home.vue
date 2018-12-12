@@ -47,11 +47,11 @@
       <Conis class="coin-body" @add-event="doGetCoin" :coins="coins"></Conis>
     </keep-alive>
     <div class="add-power">
-      <button class="add-button" style="height: 40px;font-size: 17pt">提升洪荒之力</button>
+      <img src="../../assets/main/addPowerButton.png" height="35px" @click="goTo('addPowerHome')"/>
     </div>
 
     <div class="function">
-      <img src="../../assets/main/wallet.png" height="40px" width="40px" @click="goTo('invite')"/>
+      <img src="../../assets/main/wallet.png" height="40px" width="40px" @click="goTo('Wallet')"/>
       <p>我的钱包</p>
       <img src="../../assets/wakuang/icon-yaoqing.png" height="40px" width="40px" @click="goTo('invite')"/>
       <p>邀请好友</p>
@@ -246,6 +246,7 @@
     position: absolute;
     bottom: 5%;
     width: 50%;
+    text-align: center;
     left: 25%;
   }
 
