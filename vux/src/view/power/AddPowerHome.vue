@@ -18,8 +18,32 @@
             </div>
           </div>
         </div>
-        <div style="width: 80%; margin-left: 10%;">
+        <div style="width: 90%; margin-left: 5%;">
           <divider style="margin-left: 10%;width: 80%;">任务列表</divider>
+          <tab :line-width=2 active-color='rgb(50, 112, 222)' v-model="TaskList.listGroupIndex">
+            <tab-item class="vux-center" v-for="(item,index) in GroupList" :selected="TaskList.listGroupName === item"  @click.native="changeGroup(item)" :key="index">{{item}}</tab-item>
+          </tab>
+          <div style="width: 100%;height: calc(100vh - 220px) ; overflow-x:hidden;overflow-y:auto;">
+          <swiper :height="swiperHeight" ref="swiper1" :show-dots=false v-model="TaskList.listGroupIndex">
+            <swiper-item class="black" >
+              <!--高分任务-->
+              <div class="tab-swiper vux-center">
+                <task-list v-for="(item,index) in HighScoreTaskList" :key="index" :task-obj="item" @do-task="clickTaskBtn">
+                </task-list>
+              </div>
+            </swiper-item>
+            <swiper-item class="black" >
+              <!--日常任务-->
+              <div class="tab-swiper vux-center">
+              </div>
+            </swiper-item>
+            <swiper-item class="black" >
+              <!--成就奖励-->
+              <div class="tab-swiper vux-center">
+              </div>
+            </swiper-item>
+          </swiper>
+          </div>
         </div>
       </div>
     </view-box>
@@ -27,14 +51,106 @@
 </template>
 
 <script>
-  import {ViewBox, XHeader, Divider} from 'vux'
-
+  import {ViewBox, XHeader, Divider, Tab, TabItem, Swiper, SwiperItem} from 'vux'
+  import TaskList from '../../components/AddPower/TaskList'
   export default {
     name: 'AddPowerHome',
     components: {
       ViewBox,
       XHeader,
-      Divider
+      Swiper,
+      SwiperItem,
+      Divider,
+      TaskList,
+      Tab,
+      TabItem
+    },
+    data () {
+      return {
+        GroupList: ['高分任务', '日常任务', '成就奖励'],
+        TaskList: {
+          listGroupIndex: 0,
+          listGroupName: '高分任务'
+        },
+        currentList: [1, 2, 1, 1],
+        HighScoreTaskList: [
+          {
+            imgUrl: 'webchat.png',
+            imgUrlDone: 'webchat-done.png',
+            status: 'done',
+            title: '关注微信公众号',
+            describe: '关注微信公众号XXX即可获取奖励',
+            toolType: 'text',
+            toolText: '+10'
+          },
+          {
+            imgUrl: 'webchat.png',
+            imgUrlDone: 'webchat-done.png',
+            status: 'done',
+            title: '关注微信公众号',
+            describe: '关注微信公众号XXX即可获取奖励',
+            toolType: 'text',
+            toolText: '+10'
+          },
+          {
+            imgUrl: 'webchat.png',
+            imgUrlDone: 'webchat-done.png',
+            status: 'running',
+            title: '关注微信公众号',
+            describe: '关注微信公众号XXX即可获取奖励',
+            toolType: 'text',
+            toolText: '+10'
+          },
+          {
+            imgUrl: 'webchat.png',
+            imgUrlDone: 'webchat-done.png',
+            status: 'running',
+            title: '关注微信公众号',
+            describe: '关注微信公众号XXX即可获取奖励',
+            toolType: 'button',
+            toolEvent: 'checkin',
+            toolText: '签到'
+          }
+        ]
+      }
+    },
+    methods: {
+      changeGroup (index) {
+        switch (index) {
+          case '高分任务':
+            this.currentList = [1, 1, 1, 1]
+            break
+          case '日常任务':
+            this.currentList = [1, 1]
+            break
+          case '成就奖励':
+            this.currentList = [1, 1, 1, 1, 1, 1, 1]
+            break
+        }
+        this.$nextTick(() => {
+          this.$refs.swiper1.xheight = this.swiperHeight
+        })
+      },
+      clickTaskBtn (event) {
+        console.log(event)
+      },
+      sortList () {
+        this.HighScoreTaskList.sort(function (a, b) {
+          if (a.status > b.status) {
+            return -1
+          } else {
+            return 1
+          }
+        })
+      }
+    },
+    computed: {
+      swiperHeight: function () {
+        return this.currentList.length * 80 + 40 + 'px'
+      }
+    },
+    mounted: function () {
+      this.sortList()
     }
   }
 </script>

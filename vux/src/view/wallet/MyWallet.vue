@@ -11,18 +11,18 @@
         <div class="body-content">
           <group>
             <cell title="交易记录" is-link :link="{name:'transRecord'}">
-              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/person-head.png">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/a.png">
             </cell>
             <cell title="总资产">
-              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-yaoqing1.png">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/b.png">
               <p style="font-size: small;margin-right: 14px;">1000&nbsp;ISC</p>
             </cell>
             <cell title="余额" is-link link="/myWallet/balanceDetail">
-              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-fankui.png">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/c.png">
               <p style="font-size: small">1000&nbsp;ISC</p>
             </cell>
             <cell title="余币宝" is-link link="/myWallet/yuBiBao">
-              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-setting.png">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/d.png">
             </cell>
           </group>
         </div>

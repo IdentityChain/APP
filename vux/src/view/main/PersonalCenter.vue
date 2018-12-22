@@ -18,18 +18,18 @@
         <cell title="个人信息" :border-intent=false is-link link="/my/resetSetting">
           <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/person-head.png">
         </cell>
-        <cell title="邀请好友" :border-intent=false  is-link link="">
+        <cell title="邀请好友" :border-intent=false  is-link link="/invite">
           <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-yaoqing1.png">
         </cell>
         <br>
-        <cell title="用户反馈" :border-intent=true is-link link="">
-          <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-fankui.png">
-        </cell>
+        <!--<cell title="用户反馈" :border-intent=true is-link link="">-->
+          <!--<img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-fankui.png">-->
+        <!--</cell>-->
         <cell title="系统设置" :border-intent=true is-link link="/my/systemSetting">
           <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-setting.png">
         </cell>
         <cell title="退出登录" :border-intent=true is-link @click.native="logout">
-          <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-fankui.png">
+          <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/my/logout.png">
         </cell>
       </div>
     </view-box>
