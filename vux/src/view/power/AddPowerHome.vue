@@ -170,6 +170,7 @@
     top: 45px;
     height: 0px;
     width: 100vw;
+    padding-top: env(safe-area-inset-top);
     background-color: rgb(50, 112, 222);
   }
 

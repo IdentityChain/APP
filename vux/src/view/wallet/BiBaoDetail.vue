@@ -9,24 +9,24 @@
       </div>
       <div class="body-header">
         <div class="body-content">
-          <div style="height: 120px;width: 100%;background-color: rgb(42 124 246);position: relative;">
+          <div style="height: 120px;width: 100%;background-color: #2A7CF6;position: relative;">
             <div style="height: 80px;width: 60%;background-color: white;border-radius: 10px;position: absolute;left: 20%;top: 20px">
               <div style="width: 50%;text-align: center;float: left;">
-                <div style="color: rgb(188 2 0)">
+                <div style="color: #BC0200">
                   <p style="display: inline">+</p><p style="display: inline;font-size: xx-large">{{Math.floor(expectIncrease)}}</p><p style="display: inline">.{{floatNum}}%</p>
                 </div>
                 <p style="font-size: xx-small;color: gray">预期增长率</p>
               </div>
               <div style="width: 50%; margin-left: 50%;">
                 <div style="text-align: center;margin-top: 20px;">
-                  <p style="display: inline;font-size: small;color: rgb(42 124 246)">管理期限</p> <p style="display: inline;font-size: medium;color: rgb(188 2 0)">30天</p>
+                  <p style="display: inline;font-size: small;color: #1272BC">管理期限</p> <p style="display: inline;font-size: medium;color: #BC0200">30天</p>
                   <p style="font-size: small;color: gray;">较低风险</p>
                 </div>
               </div>
             </div>
-            <div style="width: 20px;height: 20px;border-radius: 10px;background-color: rgb(42 124 246);position: absolute;left: calc(50% - 10px);top: 10px;">
+            <div style="width: 20px;height: 20px;border-radius: 10px;background-color: #2A7CF6;position: absolute;left: calc(50% - 10px);top: 10px;">
             </div>
-            <div style="width: 20px;height: 20px;border-radius: 10px;background-color: rgb(42 124 246);position: absolute;left: calc(50% - 10px);top: 90px;">
+            <div style="width: 20px;height: 20px;border-radius: 10px;background-color: #2A7CF6;position: absolute;left: calc(50% - 10px);top: 90px;">
             </div>
           </div>
           <div style="width: 100%;">
@@ -34,7 +34,7 @@
               <cell title="产品特点">量化自动交易、风险低</cell>
               <cell title="投资币种">ISC</cell>
               <cell title="投资资格">实名认证通过</cell>
-              <cell title="限制数量">10000ISC起投</cell>
+              <cell title="限制数量"><p style="color: #BC0200;">10000ISC起投</p></cell>
             </group>
           </div>
           <div style="height: 100px;width: 100%;background-color: rgb(242 242 242);text-align: center;">
@@ -51,11 +51,11 @@
                   <p style="font-size: xx-small;color: gray;display: inline;margin-left: 5px;width: 32%;">起投日+31天00:00后</p>
                 </div>
               </div>
-              <div style="border-bottom: 4px solid rgb(42 124 246);border-right: 4px solid rgb(42 124 246);height: 10px;width: 22%;float: left;margin-left: 5%;top: 40px;position: absolute;left: 5%">
+              <div style="border-bottom: 4px solid #2A7CF6;border-right: 4px solid #2A7CF6;height: 10px;width: 22%;float: left;margin-left: 5%;top: 40px;position: absolute;left: 5%">
               </div>
-              <div style="height: 10px;width: 34%;border-bottom: 4px solid rgb(42 124 246);border-right: 4px solid rgb(42 124 246);float:left;top: 40px;position: absolute;left: 27%;">
+              <div style="height: 10px;width: 34%;border-bottom: 4px solid #2A7CF6;border-right: 4px solid #2A7CF6;float:left;top: 40px;position: absolute;left: 27%;">
               </div>
-              <div style="height: 10px;width: 30%;border-bottom: 4px solid rgb(42 124 246);float: left;top: 40px;position: absolute;left: 59%">
+              <div style="height: 10px;width: 30%;border-bottom: 4px solid #2A7CF6;float: left;top: 40px;position: absolute;left: 59%">
               </div>
               <div style="position: absolute;top: 55px;width: 80%;left: 10%;">
                 <div style="float: left;width: 28%;text-align: center">
@@ -136,6 +136,7 @@
     position: absolute;
     top: 46px;
     height: 0px;
+    padding-top: env(safe-area-inset-top);
     width: 100vw;
     background-color: rgb(50, 112, 222);
   }
