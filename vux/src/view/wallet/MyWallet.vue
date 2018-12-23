@@ -67,13 +67,14 @@
   .body-header {
     position: absolute;
     top: 45px;
-    height: calc(8vh + 5vw);
+    height: 0;
+    padding-top: env(safe-area-inset-top);
     width: 100vw;
     background-color: rgb(50, 112, 222);
   }
 
   .body-content {
-    margin-top: calc(8vh +  5vw);
+    margin-top: 0;
   }
 
 </style>

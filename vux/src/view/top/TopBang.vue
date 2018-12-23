@@ -12,7 +12,7 @@
           <div>
             星球总榜
           </div>
-          <div class="x-table" style="position: absolute;top: 40px;left: 0; width: 100%">
+          <div class="x-table" style="position: absolute;top: 40px;left: 0; width: 100%;height: calc(100% - 50px);overflow:scroll">
             <x-table :cell-bordered="false" :content-bordered="false" style="border: none">
               <thead style="color: grey;border: none;font-size: small;background-color: rgb(247, 247, 247);line-height: 26px;">
               <tr>
@@ -21,7 +21,7 @@
                 <th>洪荒之力</th>
               </tr>
               </thead>
-              <tbody>
+              <tbody style="">
               <tr v-for="listItem in paihangList">
                 <td>
                   <div class="mingci" :class="mingciCSS(listItem.ranking)">
@@ -99,14 +99,14 @@
   .body-header {
     position: absolute;
     top: 45px;
-    height: calc(8vh + 15vw);
+    height: calc(8vh + 10vw);
     width: 100vw;
     background-color: rgb(50, 112, 222);
   }
 
   .top-bang {
     position: absolute;
-    top: calc(8vh + 5vw);
+    top: calc(8vh + 0vw);
     left: 10vw;
     background-color: white;
     height: 80vh;

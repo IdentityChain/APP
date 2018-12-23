@@ -143,7 +143,7 @@
 
   .body-content {
     position: absolute;
-    margin-top: 0px;
+    margin-top: 0;
     width: 100vw;
   }
 
