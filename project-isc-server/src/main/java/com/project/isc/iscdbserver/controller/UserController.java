@@ -41,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	private Md5TokenGenerator tokenGenerator;
+
+	@Autowired
+	private TradingController tradingController;
 	
 	/**
 	 * @Description：新增用户
@@ -101,7 +104,11 @@ public class UserController {
 			//返回用户的邀请码
 			String myInvitationCode = ShareCodeUtil.getMyInvitationCode(user.getUserId());
 			user.setInvitationCode(myInvitationCode);
-			user.setEthAddress("12312");
+			try{
+				tradingController.getTradingCreate(user.getUserId());
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 			userService.save(user);
 			// 返回新增用户信息
 			retMsg = new RetMsg();

@@ -68,7 +68,7 @@ public class BonusPaylistScheduling {
 //        earnServerSchedul.mainComperBonuspaylist();
     }
     
-    @Scheduled(cron="0 * * * * ?")
+    @Scheduled(cron="* 0 * * * ?")
     public void cronJobForFiveSecond(){
     	iscServerSchedul.createAchievementUserList();
 //        System.out.println(TimeUtil.getDateFormat(new Date())+" >>5秒cron执行....");
