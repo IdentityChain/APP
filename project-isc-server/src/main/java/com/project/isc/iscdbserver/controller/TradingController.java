@@ -44,7 +44,7 @@ public class TradingController {
         try {
             if (StringUtils.getStringisNotNull(userid)) {
                 User user = userService.getUserById(userid);
-                if (user != null && user.getEthAddress()==null) {
+                if (user != null && (user.getEthAddress()==null || "".equals(user.getEthAddress()))) {
                     retMsg = tradingService.getCreatewallet();
                     if(retMsg!=null && retMsg.getData()!=null){
                         Map<String,String> map = (Map<String,String> )retMsg.getData();
