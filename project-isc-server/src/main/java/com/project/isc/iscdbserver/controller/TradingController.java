@@ -86,8 +86,8 @@ public class TradingController {
     }
 
     @ApiOperation(value = "钱包查询", notes = "")
-    @PostMapping("/getTradingFind")
-    public RetMsg getTradingFind(@RequestParam("userid") String userid, @RequestParam("address") String address) {
+    @GetMapping("/getTradingFind/{userid}/{address}")
+    public RetMsg getTradingFind(@PathVariable("userid") String userid, @PathVariable("address") String address) {
         // 如果数据校验有误，则直接返回校验错误信息
         RetMsg retMsg = new RetMsg();
         String logstotal = "用户"+userid+"调用查询接口，查询地址："+address+"\t";
