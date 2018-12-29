@@ -125,6 +125,46 @@ public class TradingController {
         }
     }
 
+    @ApiOperation(value = "钱包查询", notes = "")
+    @PostMapping("/getTradingFindPost")
+    public RetMsg getTradingFindPost(@RequestParam(value="userid") String userid, @RequestParam(value="address") String address) {
+        // 如果数据校验有误，则直接返回校验错误信息
+        RetMsg retMsg = new RetMsg();
+        String logstotal = "用户"+userid+"调用查询接口，查询地址："+address+"\t";
+        String logs = "";
+        try {
+            if (StringUtils.getStringisNotNull(userid)) {
+                User user = userService.getUserById(userid);
+                if (user != null) {
+                    retMsg = tradingService.getIscNumber(address);
+                    logs="值为：";
+                    if(retMsg!=null && retMsg.getData()!=null){
+                        logs = "结果为："+retMsg.getData().toString();
+                    }
+                } else {
+                    logs ="没有这个用户";
+                    retMsg.setData(logs);
+                }
+            } else {
+                logs="ID为空";
+                retMsg.setData(logs);
+            }
+            retMsg.setCode(200);
+            retMsg.setMessage(logs);
+            retMsg.setSuccess(true);
+            savelog(userid,logs,logstotal+logs,typeSelect);
+            return retMsg;
+        } catch (Exception e) {
+            retMsg.setCode(400);
+            retMsg.setData("0");
+            logs="钱包查询异常";
+            retMsg.setMessage(logs);
+            retMsg.setSuccess(true);
+            savelog(userid,logs,logstotal+logs,typeSelect);
+            return retMsg;
+        }
+    }
+
     private void savelog(String userid,String content,String contTotal,String type){
         try{
             coinEthService.recodeLog(userid,content,contTotal,type);

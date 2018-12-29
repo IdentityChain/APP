@@ -50,6 +50,26 @@ public class Achievement implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;		//更新时间
 
+	public Achievement() {
+		super();
+	}
+
+	public Achievement(double addiscValue, int calculateValue, String content, Date createTime, String createUserId, String createUserName, String grayImgPath, String img_path, int steps, String title, boolean available, String type, Date updateTime) {
+		this.addiscValue = addiscValue;
+		this.calculateValue = calculateValue;
+		this.content = content;
+		this.createTime = createTime;
+		this.createUserId = createUserId;
+		this.createUserName = createUserName;
+		this.grayImgPath = grayImgPath;
+		this.img_path = img_path;
+		this.steps = steps;
+		this.title = title;
+		this.available = available;
+		this.type = type;
+		this.updateTime = updateTime;
+	}
+
 	public static long getSerialVersionUId() {
 		return serialVersionUId;
 	}
@@ -165,4 +185,5 @@ public class Achievement implements Serializable{
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+
 }

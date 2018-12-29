@@ -10,6 +10,7 @@ import com.project.isc.iscdbserver.service.AchievementService;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
+import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.transfEntity.AchievementTransf;
 import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
@@ -202,26 +203,76 @@ public class CalculateController {
 		return retMsg;
 	}
 
+	@ApiOperation(value="获得任务成就奖励，对满足100条件的", notes="")
+	@GetMapping("/getAchievementUser/{userid}/{achievementUserid}/{achievementid}")
+	@Transactional
+	@Auth
+	public RetMsg getAchievementUser(@PathVariable("userid") String userid,@PathVariable("achievementUserid") String achievementUserid,@PathVariable("achievementid") String achievementid){
+		RetMsg retMsg = new RetMsg();
+		retMsg.setCode(200);
+		AchievementUser achievementUser = calculateService.findAchievementUserOne(achievementUserid);
+		//!achievementUser.isIs_create()  是否已领取
+		if(achievementUser!=null && achievementUser.getUserId().equals(userid) && !achievementUser.isIs_create()){
+			Achievement achievement = calculateService.findAchievementOne(achievementid);
+			User user = userService.getUserById(userid);
+			user.setCalculateValue(user.getCalculateValue()+achievement.getCalculateValue());
+			achievementUser.setIs_create(true);
+			//更新用户成就表和成就表
+			calculateService.insertAchievementUser(achievementUser);
+			userService.save(user);
+		}
+		retMsg.setData("");
+		retMsg.setMessage("成功");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
+
 
 	@ApiOperation(value="获得用户每日任务情况", notes="")
 	@GetMapping("/test")
 	@Transactional
 	public void   test(){
-		int[] steps = {1,30,100,1000,10000};
+		int[] steps = {1};
 		for (int step:steps
 			 ) {
 			Achievement aa = new Achievement();
 			aa.setAvailable(true);
-			aa.setTitle("标题：每日任务-签到-连续签到："+step+"天");
+			aa.setTitle("每日任务-签到");
 			aa.setAddiscValue(0);//每日签到不给ISC
-			aa.setContent("内容：每日签到获得的成就");
+			aa.setContent("每日签到获得的成就");
 			aa.setCreateTime(new Date());
-			aa.setGrayImgPath("这个图片路径需要提供，界面的相对路径");
-			aa.setImg_path("这个图片路径需要提供，界面的相对路径");
-			aa.setType("type");
+			aa.setGrayImgPath("images/taskimg/daily/login-done.png");
+			aa.setImg_path("images/taskimg/daily/login.png");
+			aa.setType(ConfigConstant.TASK_TYPE_EVERYDAY);
 			aa.setCalculateValue(10);
 			aa.setSteps(step);
 			calculateService.insertAchievement(aa);
 		}
+
+		Achievement aa = new Achievement();
+		aa.setAvailable(true);
+		aa.setTitle("每日任务-签到-连续签到：30天");
+		aa.setAddiscValue(0);//每日签到不给ISC
+		aa.setContent("每日签到获得的成就");
+		aa.setCreateTime(new Date());
+		aa.setGrayImgPath("images/taskimg/daily/login-done.png");
+		aa.setImg_path("images/taskimg/daily/login.png");
+		aa.setType(ConfigConstant.TASK_TYPE_ACHIEVE);
+		aa.setCalculateValue(10);
+		aa.setSteps(30);
+		calculateService.insertAchievement(aa);
+
+		Achievement aa1 = new Achievement(0.0,10, "每日签到获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",100, "每日任务-签到-连续签到：100天", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		Achievement aa2 = new Achievement(0.0,20, "每日签到获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",365, "每日任务-签到-连续签到：365天", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		Achievement aa3 = new Achievement(0.0,10, "拥有ISC获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",100, "拥有100个ISC", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		Achievement aa4 = new Achievement(0.0,20, "拥有ISC获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",1000, "拥有1000个ISC", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		Achievement aa5 = new Achievement(0.0,30, "拥有ISC获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",10000, "拥有10000个ISC", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		Achievement aa6 = new Achievement(0.0,50, "拥有ISC获得的成就", new Date(), null, null,"images/taskimg/daily/login-done.png", "images/taskimg/daily/login.png",100000, "拥有100000个ISC", true,ConfigConstant.TASK_TYPE_ACHIEVE, null);
+		calculateService.insertAchievement(aa1);
+		calculateService.insertAchievement(aa2);
+		calculateService.insertAchievement(aa3);
+		calculateService.insertAchievement(aa4);
+		calculateService.insertAchievement(aa5);
+		calculateService.insertAchievement(aa6);
 	}
 }
