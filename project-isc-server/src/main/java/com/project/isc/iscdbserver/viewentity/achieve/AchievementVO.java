@@ -28,6 +28,36 @@ public class AchievementVO {
     private Date aufinishTime;		//完成时间
     private boolean auis_create;		//是否领取
     private boolean auavailable;		//是否可用
+    //toolType: 'button',
+    //            toolEvent: 'checkin',
+    //            toolText: '签到'
+    public String toolType; //button  text
+    public String toolEvent; //checkin
+    public String toolText; //'签到'  +10
+
+    public String getToolType() {
+        return toolType;
+    }
+
+    public void setToolType(String toolType) {
+        this.toolType = toolType;
+    }
+
+    public String getToolEvent() {
+        return toolEvent;
+    }
+
+    public void setToolEvent(String toolEvent) {
+        this.toolEvent = toolEvent;
+    }
+
+    public String getToolText() {
+        return toolText;
+    }
+
+    public void setToolText(String toolText) {
+        this.toolText = toolText;
+    }
 
     public static long getSerialVersionUId() {
         return serialVersionUId;

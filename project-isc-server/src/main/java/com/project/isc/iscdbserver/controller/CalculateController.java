@@ -168,7 +168,17 @@ public class CalculateController {
 			for (AchievementUser au: listau
 				 ) {
 				Achievement aa = calculateService.findAchievementOne(au.getAchId());
-				achievementVOS.add(AchievementTransf.transfToVO(aa,au));
+				AchievementVO avo = AchievementTransf.transfToVO(aa,au);
+				if(ConfigConstant.TASK_TYPE_EVERYDAY.equals(type)){
+					avo.setToolText("+"+aa.getCalculateValue());
+					avo.setToolType("Text");
+					if(aa.getSteps()==1){
+						avo.setToolText("签到");
+						avo.setToolType("button");
+						avo.setToolEvent("checkin");
+					}
+				}
+				achievementVOS.add(avo);
 			}
 			retMsg.setData(achievementVOS);
 		}
