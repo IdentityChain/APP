@@ -8,7 +8,10 @@
         </x-header>
       </div>
       <div class="body-header">
-        <div class="body-content">
+
+        <msg title="功能建设中" description="程序猿兄弟增加加急开发,请耐心等待..." icon="info">
+        </msg>
+        <div v-if="isDone" class="body-content">
           <bi-bao :expect-increase=15.52 :expect-day=30 @click.native="showDetail"></bi-bao>
           <bi-bao :expect-increase=15.52 :expect-day=30></bi-bao>
           <bi-bao :expect-increase=15.52 :expect-day=30></bi-bao>
@@ -19,7 +22,7 @@
 </template>
 
 <script>
-  import {ViewBox, XHeader, Flow, FlowLine, Divider, XInput} from 'vux'
+  import {ViewBox, XHeader, Flow, FlowLine, Divider, XInput, Msg} from 'vux'
   import BiBao from '../../components/Wallet/BiBaoComponent'
   export default {
     name: 'BiBaoHome',
@@ -28,6 +31,7 @@
       ViewBox,
       XHeader,
       BiBao,
+      Msg,
       Flow,
       Divider,
       FlowLine
@@ -36,6 +40,7 @@
     },
     data () {
       return {
+        isDone: false
       }
     },
     methods: {

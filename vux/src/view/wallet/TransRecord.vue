@@ -45,24 +45,24 @@
     data () {
       return {
         transList: [
-          {
-            transType: '充值',
-            account: 'xxxxxsdsfsfsssssds',
-            transTime: '2018-12-09 12:22:00',
-            transNumber: 100.22
-          },
-          {
-            transType: '充值',
-            account: 'xxxxxsdsfsfsssssds',
-            transTime: '2018-12-09 12:22:00',
-            transNumber: 100.22
-          },
-          {
-            transType: '充值',
-            account: 'xxxxxsdsfsfsssssds',
-            transTime: '2018-12-09 12:22:00',
-            transNumber: 100.22
-          }
+          // {
+          //   transType: '充值',
+          //   account: 'xxxxxsdsfsfsssssds',
+          //   transTime: '2018-12-09 12:22:00',
+          //   transNumber: 100.22
+          // },
+          // {
+          //   transType: '充值',
+          //   account: 'xxxxxsdsfsfsssssds',
+          //   transTime: '2018-12-09 12:22:00',
+          //   transNumber: 100.22
+          // },
+          // {
+          //   transType: '充值',
+          //   account: 'xxxxxsdsfsfsssssds',
+          //   transTime: '2018-12-09 12:22:00',
+          //   transNumber: 100.22
+          // }
         ]
       }
     },

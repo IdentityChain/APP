@@ -15,11 +15,12 @@
             </cell>
             <cell title="总资产">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/b.png">
-              <p style="font-size: small;margin-right: 14px;">1000&nbsp;ISC</p>
+              <p style="font-size: small;margin-right: 14px;">{{balance.total}} ISC</p>
             </cell>
-            <cell title="余额" is-link link="/myWallet/balanceDetail">
+            <!--<cell title="余额" is-link link="/myWallet/balanceDetail">-->
+            <cell title="余额">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/c.png">
-              <p style="font-size: small">1000&nbsp;ISC</p>
+              <p style="font-size: small;margin-right: 14px;">{{balance.balance}}&nbsp;ISC</p>
             </cell>
             <cell title="余币宝" is-link link="/myWallet/yuBiBao">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/d.png">
@@ -43,13 +44,33 @@
       Group
     },
     created: function () {
+      this.init()
     },
     data () {
       return {
-        paihangList: []
+        paihangList: [],
+        balance: {
+          total: 0,
+          balance: 0
+        }
       }
     },
     methods: {
+      init () {
+        this.getBalance()
+      },
+      getBalance () {
+        let user = this.$db.get('User')
+        let userId = user.userId
+        let ethAddress = user.ethAddress
+        this.$api.walletApi.getBalance(userId, ethAddress).then(result => {
+          if (result.data.success) {
+            let num = parseInt(result.data.data)
+            this.balance.total = num.toFixed(2)
+            this.balance.balance = num.toFixed(2)
+          }
+        })
+      }
     }
   }
 </script>
