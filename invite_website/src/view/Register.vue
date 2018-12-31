@@ -97,7 +97,8 @@
       }
     },
     mounted: function () {
-      this.inviteCode = this.$route.query.inviteCode
+      // this.inviteCode = this.$route.query.inviteCode
+      window.location.href = 'https://www.pgyer.com/iscapp'
     },
     methods: {
       changeAccept () {
