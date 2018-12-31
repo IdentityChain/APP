@@ -99,7 +99,7 @@ public class UserController {
 			user.setPassword(MD5Util.encrypeByMd5(password));
 			//默认支付密码和登录密码相同
 			user.setPaymentPassword(MD5Util.encrypeByMd5(password));
-			user.setCalculateValue(100);
+			user.setCalculateValue(200);  //元旦更改为200
 			userService.save(user);
 			//返回用户的邀请码
 			String myInvitationCode = ShareCodeUtil.getMyInvitationCode(user.getUserId());

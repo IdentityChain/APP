@@ -46,7 +46,7 @@
                 <div class="qrcode-card">
                   <p style="color: blueviolet;font-size: larger">您的专属邀请码</p>
                   <p style="font-size: x-large;color: dodgerblue">{{inviteCode}}</P>
-                  <p style="font-size: small;color:grey;margin-bottom: 20px">每邀请一位好友+10算力<br>上限封顶为10个好友</p>
+                  <p style="font-size: small;color:grey;margin-bottom: 20px">每邀请一位好友+10算力<br>上不封顶</p>
                   <div style="border-bottom: 1px solid lightgray;width: 100%;"></div>
                   <qrcode style="padding-top: 20px" :value="'http://invite.mobile.identitychain.vip/#/?inviteCode=' + inviteCode" type="img"
                           :size=100 ref="qrcodeImg"></qrcode>
