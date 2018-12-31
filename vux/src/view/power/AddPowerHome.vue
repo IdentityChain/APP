@@ -14,7 +14,7 @@
             <div style="width: 80%;height: 55px;background-color: rgb(42,124,246);margin-left: 10%;border-radius: 8px;">
               <img src="../../assets/power/star.png" width="30px" height="30px" style="margin-top: 12.5px;margin-left: 15px;float: left;"/>
               <p style="color: white;font-size: larger;line-height: 55px;margin-left: 15px;float: left;">洪荒之力</p>
-              <p style="color: white;line-height: 55px;float: right;margin-right: 15px;"> 200</p>
+              <p style="color: white;line-height: 55px;float: right;margin-right: 15px;"> {{personal.power}}</p>
             </div>
           </div>
         </div>
@@ -69,6 +69,14 @@
     },
     data () {
       return {
+        // 用户ISC数目
+        personal: {
+          showCenter: false,
+          power: 0,
+          iscElm: 0,
+          account: '',
+          notice: ''
+        },
         // GroupList: ['高分任务', '日常任务', '成就奖励'],
         GroupList: ['日常任务'],
         TaskList: {
@@ -120,9 +128,20 @@
     methods: {
       init () {
         this.loadDailyTash(1)
+        const user = this.$db.get('User')
+        this.personal.power = user.calculateValue
+        this.personal.iscElm = user.iscCoin
+        this.totalElm.startNum = user.iscCoin
+        this.totalElm.endNum = user.iscCoin
+        this.personal.account = user.account
       },
       loadDailyTash (pageNum) {
         const user = this.$db.get('User')
+        // this.personal.power = user.calculateValue
+        // this.personal.iscElm = user.iscCoin
+        // this.totalElm.startNum = user.iscCoin
+        // this.totalElm.endNum = user.iscCoin
+        // this.personal.account = user.account
         this.$api.calculateApi.getAchievementDayRequest('EVERYDAY', user.userId, pageNum, 10).then(result => {
           if (result.data.success) {
             this.currentList = result.data.data

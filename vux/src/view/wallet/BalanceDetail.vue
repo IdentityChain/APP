@@ -4,7 +4,7 @@
       <div class="header-css" slot="header"
            style="position: fixed;height: calc(40px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
         <x-header :left-options="{showBack: true, backText: ''}"
-                  style="position: fixed;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;background-color: rgb(50,112,222);">余额
+                  style="position: fixed;left:0;top: env(safe-area-inset-top);width: 100%;z-index: 100;background-color: rgb(50,112,222);">充值提现
         </x-header>
       </div>
       <div class="body-header">
@@ -16,8 +16,8 @@
                 <x-input title="提现数量">
                   <p style="display: inline" slot="right">ISC</p>
                 </x-input>
-                <x-input title="提现地址" class="input-my" value="xxxxxxx">
-                  <button slot="right" style="border: none;background-color: rgb(50,112,222);border-radius: 5px;color: white">&nbsp;&nbsp;提现&nbsp;&nbsp;</button>
+                <x-input title="提现地址" class="input-my" value="">
+                  <button slot="right" style="border: none;background-color: rgb(50,112,222);border-radius: 5px;color: white">&nbsp;&nbsp;开发中&nbsp;&nbsp;</button>
                 </x-input>
                 <p style="display: inline;margin-top: 5px;">提现手续费: <p style="font-weight: bold;display: inline">20</p> ISC</p>
                 <p style="font-size: small;">注意:该地址用于ISC提现地址.请自行填写,如果因为用户操作造成的一切后果IZONE概不负责。</p>
@@ -31,8 +31,8 @@
                 <x-input title="充值数量" type="number">
                   <p style="display: inline" slot="right">ISC</p>
                 </x-input>
-                <x-input class="input-my" title="充值地址" value="sfssdssdfsafasfsdfskfjsfjsjfksfksdfsfsdfsfd">
-                  <button slot="right" style="border: none;background-color: rgb(50,112,222);border-radius: 5px;color: white">&nbsp;&nbsp;提现&nbsp;&nbsp;</button>
+                <x-input class="input-my" title="充值地址" :value='ethaddress'>
+                  <button slot="right" style="border: none;background-color: rgb(50,112,222);border-radius: 5px;color: white">&nbsp;&nbsp;充值&nbsp;&nbsp;</button>
                 </x-input>
                 <p style="font-size: small;margin-top: 5px;">注意:该地址只用于ISC充值.如果因为用户操作造成的一切后果IZONE概不负责。</p>
               </div>
@@ -61,9 +61,12 @@
       FlowLine
     },
     created: function () {
+      let user = this.$db.get('User')
+      this.ethaddress = user.ethAddress
     },
     data () {
       return {
+        ethaddress: '',
         transList: [
           {
             transType: '充值',
@@ -87,6 +90,8 @@
       }
     },
     methods: {
+      init () {
+      }
     }
   }
 </script>

@@ -10,17 +10,20 @@
       <div class="body-header">
         <div class="body-content">
           <group>
-            <cell title="交易记录" is-link :link="{name:'transRecord'}">
-              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/a.png">
-            </cell>
             <cell title="总资产">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/b.png">
               <p style="font-size: small;margin-right: 14px;">{{balance.total}} ISC</p>
             </cell>
-            <!--<cell title="余额" is-link link="/myWallet/balanceDetail">-->
+
             <cell title="余额">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/c.png">
               <p style="font-size: small;margin-right: 14px;">{{balance.balance}}&nbsp;ISC</p>
+            </cell>
+            <cell title="充值提现" is-link link="/myWallet/balanceDetail">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/b.png">
+            </cell>
+            <cell title="交易记录" is-link :link="{name:'transRecord'}">
+              <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/a.png">
             </cell>
             <cell title="余币宝" is-link link="/myWallet/yuBiBao">
               <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wallet/d.png">
