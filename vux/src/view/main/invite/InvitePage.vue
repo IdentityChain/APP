@@ -26,8 +26,8 @@
             <br>
             <p style="color: gray;text-align: left;">
               奖励规则<br>
-              1. 每邀请一个好友完成注册,且该好友完成实名认证,即可获得1个ISC元素<br>
-              2. 累计邀请10名好友,即可获得5个ISC元素奖励
+              1. 每邀请一个好友完成注册,且该好友完成实名认证,即可获得10算力奖励<br>
+              2. 上不封顶，快快分享给你的好友吧！
             </p>
           </div>
           <div class="create-invite-card" @click="createCard">
@@ -46,7 +46,7 @@
                 <div class="qrcode-card">
                   <p style="color: blueviolet;font-size: larger">您的专属邀请码</p>
                   <p style="font-size: x-large;color: dodgerblue">{{inviteCode}}</P>
-                  <p style="font-size: small;color:grey;margin-bottom: 20px">每邀请一位好友+10算力<br>上不封顶</p>
+                  <p style="font-size: small;color:grey;margin-bottom: 20px">每邀请一位好友+10算力<br>上不封顶，快快邀请好友加入吧！</p>
                   <div style="border-bottom: 1px solid lightgray;width: 100%;"></div>
                   <qrcode style="padding-top: 20px" :value="'http://invite.mobile.identitychain.vip/#/?inviteCode=' + inviteCode" type="img"
                           :size=100 ref="qrcodeImg"></qrcode>
