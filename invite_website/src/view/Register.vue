@@ -97,8 +97,7 @@
       }
     },
     mounted: function () {
-      // this.inviteCode = this.$route.query.inviteCode
-      window.location.href = 'https://www.pgyer.com/iscapp'
+      this.inviteCode = this.$route.query.inviteCode
     },
     methods: {
       changeAccept () {
@@ -113,7 +112,7 @@
                 type: 'success',
                 text: '注册成功'
               })
-              this.$router.replace({name: 'download'})
+              window.location.href = 'https://www.pgyer.com/iscapp'
             } else {
               this.$vux.toast.show({
                 type: 'text',

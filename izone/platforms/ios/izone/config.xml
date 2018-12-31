@@ -45,10 +45,10 @@
     </feature>
     <name>izone</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        izone is ISC simple app
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        ISC Team
     </author>
     <content src="index.html" />
     <access origin="*" />
