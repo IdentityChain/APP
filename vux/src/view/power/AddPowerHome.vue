@@ -25,23 +25,25 @@
           </tab>
           <div style="width: 100%;height: calc(100vh - 220px) ; overflow-x:hidden;overflow-y:auto;">
           <swiper :height="swiperHeight" ref="swiper1" :show-dots=false v-model="TaskList.listGroupIndex">
-            <swiper-item class="black" >
-              <!--高分任务-->
+            <!--<swiper-item class="black" >-->
+              <!--&lt;!&ndash;高分任务&ndash;&gt;-->
+              <!--<div class="tab-swiper vux-center">-->
+                <!--&lt;!&ndash;<task-list v-for="(item,index) in HighScoreTaskList" :key="index" :task-obj="item" @do-task="clickTaskBtn">&ndash;&gt;-->
+                <!--&lt;!&ndash;</task-list>&ndash;&gt;-->
+              <!--</div>-->
+            <!--</swiper-item>-->
+            <swiper-item class="black" v-for="(item,index) in GroupList" :key="index">
+              <!--日常任务-->
               <div class="tab-swiper vux-center">
-                <task-list v-for="(item,index) in HighScoreTaskList" :key="index" :task-obj="item" @do-task="clickTaskBtn">
+                <task-list v-for="(item,index) in currentList" :key="index" :task-obj="item" @do-task="clickTaskBtn">
                 </task-list>
               </div>
             </swiper-item>
-            <swiper-item class="black" >
-              <!--日常任务-->
-              <div class="tab-swiper vux-center">
-              </div>
-            </swiper-item>
-            <swiper-item class="black" >
-              <!--成就奖励-->
-              <div class="tab-swiper vux-center">
-              </div>
-            </swiper-item>
+            <!--<swiper-item class="black" >-->
+              <!--&lt;!&ndash;成就奖励&ndash;&gt;-->
+              <!--<div class="tab-swiper vux-center">-->
+              <!--</div>-->
+            <!--</swiper-item>-->
           </swiper>
           </div>
         </div>
@@ -67,7 +69,8 @@
     },
     data () {
       return {
-        GroupList: ['高分任务', '日常任务', '成就奖励'],
+        // GroupList: ['高分任务', '日常任务', '成就奖励'],
+        GroupList: ['日常任务'],
         TaskList: {
           listGroupIndex: 0,
           listGroupName: '高分任务'
@@ -75,38 +78,38 @@
         currentList: [1, 2, 1, 1],
         HighScoreTaskList: [
           {
-            imgUrl: 'webchat.png',
-            imgUrlDone: 'webchat-done.png',
-            status: 'done',
-            title: '关注微信公众号',
-            describe: '关注微信公众号XXX即可获取奖励',
+            aaimg_path: 'webchat.png',
+            aagrayImgPath: 'webchat-done.png',
+            aucompleteRate: 1,
+            aatitle: '关注微信公众号',
+            aacontent: '关注微信公众号XXX即可获取奖励',
             toolType: 'text',
             toolText: '+10'
           },
           {
-            imgUrl: 'webchat.png',
-            imgUrlDone: 'webchat-done.png',
-            status: 'done',
-            title: '关注微信公众号',
-            describe: '关注微信公众号XXX即可获取奖励',
+            aaimg_path: 'webchat.png',
+            aagrayImgPath: 'webchat-done.png',
+            aucompleteRate: 1,
+            aatitle: '关注微信公众号',
+            aacontent: '关注微信公众号XXX即可获取奖励',
             toolType: 'text',
             toolText: '+10'
           },
           {
-            imgUrl: 'webchat.png',
-            imgUrlDone: 'webchat-done.png',
-            status: 'running',
-            title: '关注微信公众号',
-            describe: '关注微信公众号XXX即可获取奖励',
+            aaimg_path: 'webchat.png',
+            aagrayImgPath: 'webchat-done.png',
+            aucompleteRate: 0,
+            aatitle: '关注微信公众号',
+            aacontent: '关注微信公众号XXX即可获取奖励',
             toolType: 'text',
             toolText: '+10'
           },
           {
-            imgUrl: 'webchat.png',
-            imgUrlDone: 'webchat-done.png',
-            status: 'running',
-            title: '关注微信公众号',
-            describe: '关注微信公众号XXX即可获取奖励',
+            aaimg_path: 'webchat.png',
+            aagrayImgPath: 'webchat-done.png',
+            aucompleteRate: 0,
+            aatitle: '关注微信公众号',
+            aacontent: '关注微信公众号XXX即可获取奖励',
             toolType: 'button',
             toolEvent: 'checkin',
             toolText: '签到'
@@ -115,6 +118,17 @@
       }
     },
     methods: {
+      init () {
+        this.loadDailyTash(1)
+      },
+      loadDailyTash (pageNum) {
+        const user = this.$db.get('User')
+        this.$api.calculateApi.getAchievementDayRequest('EVERYDAY', user.userId, pageNum, 10).then(result => {
+          if (result.data.success) {
+            this.currentList = result.data.data
+          }
+        })
+      },
       changeGroup (index) {
         switch (index) {
           case '高分任务':
@@ -136,7 +150,7 @@
       },
       sortList () {
         this.HighScoreTaskList.sort(function (a, b) {
-          if (a.status > b.status) {
+          if (a.aucompleteRate < b.aucompleteRate) {
             return -1
           } else {
             return 1
@@ -151,6 +165,7 @@
     },
     mounted: function () {
       this.sortList()
+      this.init()
     }
   }
 </script>

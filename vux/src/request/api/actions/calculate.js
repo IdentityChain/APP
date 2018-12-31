@@ -13,6 +13,10 @@ const requestObj = {
   checkCalculate: {
     method: get,
     url: '/calculate/checkCalculateLog/'
+  },
+  getAchievementDay: {
+    method: get,
+    url: '/calculate/getAchievementDay/'
   }
 }
 
@@ -30,6 +34,11 @@ const calculateApi = {
   checkCalculate (iscLID) {
     requestObj.checkCalculate.url = '/calculate/checkCalculateLog/' + iscLID
     return http.doRequest(requestObj.checkCalculate)
+  },
+  // 查询用户每日任务
+  getAchievementDayRequest (type, userId, page, pageSize) {
+    requestObj.getAchievementDay.url = '/calculate/getAchievementDay/' + type + '/' + userId + '/' + page + '/' + pageSize
+    return http.doRequest(requestObj.getAchievementDay)
   }
 }
 

@@ -17,6 +17,7 @@
 var deployAPP = false
 var apiServer = ''
 var useAuth = true
+var imgServer = 'http://webapp.identitychain.vip/'
 switch (process.env.NODE_ENV) {
   case 'development':
     deployAPP = false
@@ -34,4 +35,4 @@ switch (process.env.NODE_ENV) {
   default:
     deployAPP = false
 }
-export {deployAPP, useAuth, apiServer}
+export {deployAPP, useAuth, apiServer, imgServer}
