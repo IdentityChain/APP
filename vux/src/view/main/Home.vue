@@ -1,13 +1,13 @@
 <template>
   <div class="bg">
-    <div class="notice-body">
+    <div :class="platform === 'android' ? 'notice-body-android' : 'notice-body'">
       <p style="position: absolute;left: 20px;color: white;font-weight: bold;">公告:</p>
       <div style="position: absolute; left: 80px;color: black;margin: 0 auto;width: calc(100vw - 100px);">
         <MarqueeTips :content="personal.notice === '' ? '暂无最新公告' : personal.notice" :speed="5"></MarqueeTips>
       </div>
     </div>
 
-    <div class="people-body">
+    <div :class="platform === 'android' ? 'people-body-android' : 'people-body'">
       <div class="people-head">
         <img src="../../assets/login/touxiang.png" width="60px" height="60px" @click="personal.showCenter = true"/>
       </div>
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div class="wallet-body">
+    <div :class="platform === 'android' ? 'wallet-body-android' : 'wallet-body'">
       <div style="margin-bottom: 15px;">
         <p style="margin-left: 3px;">洪荒之力</p>
         <img style="float: left;margin-right: 3px;" src="../../assets/wakuang/wallte-power.png" width="30px" height="30px"/>
@@ -91,6 +91,7 @@
       return {
         totalPeople: 0,
         coins: [],
+        platform: window.cordova.platformId,
         personal: {
           showCenter: false,
           power: 0,
@@ -188,6 +189,15 @@
     width: 100%;
   }
 
+  .notice-body-android {
+    position: absolute;
+    top: calc(46px);
+    width: 100%;
+    height: 26px;
+    opacity:0.7;
+    background: linear-gradient(left, black, white, white, black);
+  }
+
   .notice-body {
     position: absolute;
     top: calc(46px + env(safe-area-inset-top));
@@ -205,6 +215,13 @@
     height: 60px;
   }
 
+  .people-body-android {
+    position: absolute;
+    top: calc(46px + 10vh);
+    width: auto;
+    margin-top: 26px;
+    height: 60px;
+  }
   .people-head {
     position: absolute;
     top: 0;
@@ -226,6 +243,17 @@
     margin-top:90px;
     position: absolute;
     top: calc(126px + 10vh + env(safe-area-inset-top));
+    left: 15px;
+    height: 120px;
+    width: 100px;
+    font-size: small;
+    color: white;
+  }
+
+  .wallet-body-android {
+    margin-top:90px;
+    position: absolute;
+    top: calc(126px + 10vh);
     left: 15px;
     height: 120px;
     width: 100px;

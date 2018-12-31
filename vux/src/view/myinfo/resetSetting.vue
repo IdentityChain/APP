@@ -19,9 +19,10 @@
         </cell>
       </group>
 
-      <group>
-        <cell title="收货地址" is-link></cell>
-      </group>
+      <!--后续再添加收货地址-->
+      <!--<group>-->
+        <!--<cell title="收货地址" is-link></cell>-->
+      <!--</group>-->
 
       <div v-transfer-dom>
         <popup v-model="showEdit" height="100%">

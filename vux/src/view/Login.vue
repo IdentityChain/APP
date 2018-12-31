@@ -151,6 +151,6 @@
     height: 100px;
     width: 75%;
     left: 12.5%;
-    bottom: env(safe-area-inset-bottom);
+    bottom: 5px;
   }
 </style>

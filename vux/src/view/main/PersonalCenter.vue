@@ -8,13 +8,13 @@
                   @on-click-back="backHome">个人中心
         </x-header>
       </div>
-      <div class="body-header">
-          <div class="person-head">
+      <div :class="platform === 'android' ? 'body-header-android' : 'body-header'">
+          <div :class="platform === 'android' ? 'person-head-android' : 'person-head'" >
             <img src="../../assets/login/touxiang.png"/>
             <p>{{person.account}}</p>
           </div>
       </div>
-      <div class="menu">
+      <div :class="platform === 'android' ? 'menu-android' : 'menu'">
         <cell title="个人信息" :border-intent=false is-link link="/my/resetSetting">
           <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/person-head.png">
         </cell>
@@ -50,6 +50,7 @@
     },
     data () {
       return {
+        platform: window.cordova.platformId,
         person: {
           account: ''
         }
@@ -102,9 +103,29 @@
     width: 100vw;
     background-color: rgb(50,112,222);
   }
+
+  .body-header-android {
+    position: absolute;
+    top: 45px;
+    height: calc(5vh + 15vw);
+    width: 100vw;
+    background-color: rgb(50,112,222);
+  }
   .person-head {
     position: absolute;
     top: calc(5vh + env(safe-area-inset-top));
+    left: 35vw;
+    background-color: white;
+    height: 30vw;
+    width: 30vw;
+    border-radius: 15vw;
+    text-align: center;
+    padding-top: 2vw;
+  }
+
+  .person-head-android {
+    position: absolute;
+    top: calc(5vh);
     left: 35vw;
     background-color: white;
     height: 30vw;
@@ -120,6 +141,13 @@
   .menu {
     position: absolute;
     top: calc(46px + 5vh + 30vw + 60px + env(safe-area-inset-top));
+    width: 80vw;
+    left: 10vw;
+  }
+
+  .menu-android {
+    position: absolute;
+    top: calc(46px + 5vh + 30vw + 60px);
     width: 80vw;
     left: 10vw;
   }

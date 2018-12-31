@@ -8,9 +8,9 @@
           邀请好友
         </x-header>
       </div>
-      <div class="main-content">
-        <div style="height: calc(100% - 46px - env(safe-area-inset-top))">
-          <div class="body-header">
+      <div :class="platform === 'android' ? 'main-content-android' : 'main-content'">
+        <div :class="platform === 'android' ? 'son-content-android' : 'son-content'">
+          <div :class="platform === 'android' ? 'body-header-android' : 'body-header'">
             <p style="font-size: small">我的邀请码</p>
             <p style="font-size: x-large">{{inviteCode}}</P>
             <button
@@ -18,7 +18,7 @@
               :style="clipButton.isClick ? clipButton.clickedCss : ''" @click="clickClip" v-clipboard="inviteCode">&nbsp;&nbsp;&nbsp;{{clipButton.text}}&nbsp;&nbsp;&nbsp;
             </button>
           </div>
-          <div class="invite-qrcode">
+          <div :class="platform === 'android' ? 'invite-qrcode-android' : 'invite-qrcode'">
             <p>邀请链接二维码</p>
             <br>
             <!--<qrcode :value="'http://identitychain.vip/invite?inviteCode=' + inviteCode" type="img" size="200"></qrcode>-->
@@ -79,6 +79,7 @@
     },
     data () {
       return {
+        platform: window.cordova.platformId,
         inviteCode: this.$db.get('User').invitationCode,
         dataURL: '',
         showMyInfo: false,
@@ -151,6 +152,23 @@
     width: 100vw;
     height: calc(100vh - 46px - env(safe-area-inset-top));
   }
+
+  .main-content-android {
+    position: absolute;
+    top: calc(46px);
+    background-color: white;
+    width: 100vw;
+    height: calc(100vh - 46px);
+  }
+
+  .son-content {
+     height: calc(100% - 46px - env(safe-area-inset-top))
+   }
+
+  .son-content-android {
+    height: calc(100% - 46px)
+  }
+
   #myCanvas {
     position: absolute;
     color: black;
@@ -174,15 +192,34 @@
     text-align: center;
   }
 
-  .invite-qrcode {
+  .body-header-android {
     position: absolute;
-    top: calc(10vh + 10vw + 50px + env(safe-area-inset-top));
+    top: 0;
+    height: calc(10vh + 10vw);
+    width: 100vw;
+    background: linear-gradient(top, rgb(50, 112, 222), lightskyblue);
+    color: white;
+    padding-top: 2vh;
+    text-align: center;
+  }
+
+  .invite-qrcode {
+     position: absolute;
+     top: calc(10vh + 10vw + 50px + env(safe-area-inset-top));
+     width: 86vw;
+     left: 7vw;
+     height: 86vw;
+     text-align: center;
+   }
+
+  .invite-qrcode-android {
+    position: absolute;
+    top: calc(10vh + 10vw + 50px);
     width: 86vw;
     left: 7vw;
     height: 86vw;
     text-align: center;
   }
-
   .create-invite-card {
     position: fixed;
     bottom: 5vh;
