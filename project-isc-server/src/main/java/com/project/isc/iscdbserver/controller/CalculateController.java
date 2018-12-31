@@ -6,6 +6,7 @@ import com.project.isc.iscdbserver.entity.ISCLog;
 import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.entity.achieve.Achievement;
 import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
+import com.project.isc.iscdbserver.server.IscServerSchedul;
 import com.project.isc.iscdbserver.service.AchievementService;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
@@ -46,6 +47,9 @@ public class CalculateController {
 	private ActivtyService activtyService;
 	@Autowired
 	private AchievementService achievementService;
+
+	@Autowired
+	private IscServerSchedul iscServerSchedul;
 	
 	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
@@ -284,5 +288,12 @@ public class CalculateController {
 		calculateService.insertAchievement(aa4);
 		calculateService.insertAchievement(aa5);
 		calculateService.insertAchievement(aa6);
+	}
+
+	@ApiOperation(value="测试testAddAchievementUser", notes="")
+	@GetMapping("/testAddAchievementUser")
+	@Transactional
+	public void   testAddAchievementUser(){
+		iscServerSchedul.createAchievementUserList();
 	}
 }
