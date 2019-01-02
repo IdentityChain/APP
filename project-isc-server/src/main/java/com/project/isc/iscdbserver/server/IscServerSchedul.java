@@ -9,6 +9,7 @@ import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.util.TimeUtil;
 import com.project.isc.iscdbserver.util.UserLoginSetting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class IscServerSchedul {
                     CalculateStatistics ccs = new CalculateStatistics();
                     ccs.setCalculateValue(user.getCalculateValue());
                     ccs.setCreateTime(new Date());
-                    ccs.setName(user.getNickName());
+                    ccs.setName(StringUtils.getStringHide(user.getNickName(),StringUtils.HIDE_TOP100));
                     ccs.setRanking(i);
                     i++;
                     ccs.setUserId(user.getUserId());
