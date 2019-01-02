@@ -82,8 +82,8 @@ public class UserService {
 	}
 	
 	public List<User> findAllOrderByCalculateValueTop100() {
-		Pageable pageable = new PageRequest(0, 100, Direction.DESC, "calculate_value");
-		return this.userRepositoy.findAllOrderByCalculateValueTop100(pageable);
+		Pageable pageable = new PageRequest(0, 100);
+		return this.userRepositoy.findAllByOrderByCalculateValueDesc(pageable);
 	}
 
 	public User getUserById(String id) {

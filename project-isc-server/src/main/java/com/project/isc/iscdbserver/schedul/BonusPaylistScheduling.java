@@ -54,12 +54,12 @@ public class BonusPaylistScheduling {
     @Scheduled(cron="0 0 0/1 * * ?")
     public void cronJob(){
         System.out.println(TimeUtil.getDateFormat(new Date())+" >>每天00:00:00定时任务执行....");
+		//获得矿数据
+		iscServerSchedul.mainISCcoin();
+		//更新矿数据
+		iscServerSchedul.mainDeleteISCcoinlog();
         //获得100统计数据
         iscServerSchedul.mainTop100();
-        //获得矿数据
-        iscServerSchedul.mainISCcoin();
-        //更新矿数据
-        iscServerSchedul.mainDeleteISCcoinlog();
     }
     
     @Scheduled(cron="* * * * * ?")

@@ -15,6 +15,7 @@ import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.transfEntity.AchievementTransf;
 import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
+import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
 import com.project.isc.iscdbserver.viewentity.ISCLogVO;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
@@ -53,7 +54,7 @@ public class CalculateController {
 	
 	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
-	@Auth
+//	@Auth
 	public RetMsg getCalculateStatistic100() {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
@@ -75,7 +76,7 @@ public class CalculateController {
 			vo.setCreateTime(ccs.getCreateTime());
 			vo.setCalculateValue(ccs.getCalculateValue());
 			vo.setRanking(ccs.getRanking());
-			vo.setName(ccs.getName());
+			vo.setName(StringUtils.getStringHide(ccs.getName(),StringUtils.HIDE_TOP100));
 			ccsvos.add(vo);
 		}
 		
@@ -295,5 +296,26 @@ public class CalculateController {
 	@Transactional
 	public void   testAddAchievementUser(){
 		iscServerSchedul.createAchievementUserList();
+	}
+
+	@ApiOperation(value="测试testMainISCcoin", notes="")
+	@GetMapping("/testMainISCcoin")
+	@Transactional
+	public void   testMainISCcoin(){
+		iscServerSchedul.mainISCcoin();
+	}
+
+	@ApiOperation(value="测试testMainDeleteISCcoinlog", notes="")
+	@GetMapping("/testMainDeleteISCcoinlog")
+	@Transactional
+	public void   testMainDeleteISCcoinlog(){
+		iscServerSchedul.mainDeleteISCcoinlog();
+	}
+
+	@ApiOperation(value="测试testMainTop100", notes="")
+	@GetMapping("/testMainTop100")
+	@Transactional
+	public void   testMainTop100(){
+		iscServerSchedul.mainTop100();
 	}
 }
