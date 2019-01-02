@@ -14,6 +14,8 @@ public class StringUtils {
 	public final static String HIDE_PHONE="HIDE_PHONE";
 	//隐藏身份证
 	public final static String HIDE_IDENTITY="HIDE_IDENTITY";
+	//排行名称隐藏
+	public final static String HIDE_TOP100="HIDE_TOP100";
 
 	/**
 	 * 隐藏部分文字
@@ -33,6 +35,16 @@ public class StringUtils {
 				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
 			}else if(HIDE_IDENTITY.equals(type)){
 				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+			}else if(HIDE_TOP100.equals(type)){
+				if(str.length()==2){
+					str = str.substring(0, 1)+"*";
+				}else if(str.length()==3){
+					str = str.substring(0, 1)+"*";
+				}else if(str.length()>3){
+					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+				}else {
+					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+				}
 			}else {
 				return str;
 			}
