@@ -57,7 +57,7 @@
       }
     },
     created: function () {
-      this.platform = (typeof window.cordova.platformId) === 'undefined' ? 'web' : window.cordova.platformId
+      this.platform = window.cordova === undefined ? 'web' : window.cordova.platformId
       this.person.account = this.$db.get('User').account
     },
     methods: {

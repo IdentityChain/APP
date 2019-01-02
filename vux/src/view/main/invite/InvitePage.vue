@@ -94,7 +94,7 @@
       }
     },
     mounted: function () {
-      this.platform = (typeof window.cordova.platformId) === 'undefined' ? 'web' : window.cordova.platformId
+      this.platform = window.cordova === undefined ? 'web' : window.cordova.platformId
     },
     methods: {
       clickClip () {
