@@ -43,7 +43,7 @@ public class StringUtils {
 				}else if(str.length()>3){
 					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
 				}else {
-					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+
 				}
 			}else {
 				return str;

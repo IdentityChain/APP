@@ -54,7 +54,7 @@ public class CalculateController {
 	
 	@ApiOperation(value="获得成就排行100", notes="")
 	@GetMapping("/getCalculateStatistic100")
-//	@Auth
+	@Auth
 	public RetMsg getCalculateStatistic100() {
 		// 如果数据校验有误，则直接返回校验错误信息
 		RetMsg retMsg = new RetMsg();
