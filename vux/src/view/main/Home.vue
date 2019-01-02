@@ -91,7 +91,7 @@
       return {
         totalPeople: 0,
         coins: [],
-        platform: window.cordova.platformId,
+        platform: 'web',
         personal: {
           showCenter: false,
           power: 0,
@@ -107,6 +107,7 @@
     },
     methods: {
       init () {
+        this.platform = (typeof window.cordova.platformId) === 'undefined' ? 'web' : window.cordova.platformId
         console.log('进入Init 方法')
         let user = this.$db.get('User')
         console.log(user)

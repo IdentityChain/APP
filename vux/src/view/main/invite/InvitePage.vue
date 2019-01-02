@@ -79,7 +79,7 @@
     },
     data () {
       return {
-        platform: window.cordova.platformId,
+        platform: 'web',
         inviteCode: this.$db.get('User').invitationCode,
         dataURL: '',
         showMyInfo: false,
@@ -92,6 +92,9 @@
           }
         }
       }
+    },
+    mounted: function () {
+      this.platform = (typeof window.cordova.platformId) === 'undefined' ? 'web' : window.cordova.platformId
     },
     methods: {
       clickClip () {

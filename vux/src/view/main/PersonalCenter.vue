@@ -50,13 +50,14 @@
     },
     data () {
       return {
-        platform: window.cordova.platformId,
+        platform: 'web',
         person: {
           account: ''
         }
       }
     },
     created: function () {
+      this.platform = (typeof window.cordova.platformId) === 'undefined' ? 'web' : window.cordova.platformId
       this.person.account = this.$db.get('User').account
     },
     methods: {
