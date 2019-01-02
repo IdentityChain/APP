@@ -46,7 +46,7 @@ public class IscServerSchedul {
                     CalculateStatistics ccs = new CalculateStatistics();
                     ccs.setCalculateValue(user.getCalculateValue());
                     ccs.setCreateTime(new Date());
-                    ccs.setName(StringUtils.getStringHide(user.getNickName(),StringUtils.HIDE_TOP100));
+                    ccs.setName(user.getNickName());
                     ccs.setRanking(i);
                     i++;
                     ccs.setUserId(user.getUserId());
