@@ -31,7 +31,12 @@
 
           <x-button type="default" style="margin-top: 25px;border-radius: 20px;color: white;" @click.native="doRegister" :disabled="!isAccept" >注册
           </x-button>
+          <br>
+          <divider>已完成注册</divider>
+          <x-button type="default" style="border-radius: 20px;color: white;" @click.native="goDownload">下载App</x-button>
+          <x-button type="default" style="border-radius: 20px;color: white;" @click.native="goWeblogin">登录网页版</x-button>
         </div>
+
       </div>
       <!--<div v-show="false"-->
            <!--style="border-radius: 10px;background-color: #fbf9fe;height: 275px;position: fixed;margin:auto 40px;left:0;right:0;top:0;bottom:0;">-->
@@ -69,7 +74,7 @@
 </template>
 
 <script>
-  import {Group, XInput, XButton, Box, Flexbox, FlexboxItem, XHeader, ViewBox, CheckIcon} from 'vux'
+  import {Group, XInput, XButton, Box, Flexbox, FlexboxItem, XHeader, ViewBox, CheckIcon, Divider} from 'vux'
 
   export default {
     components: {
@@ -81,6 +86,7 @@
       ViewBox,
       Box,
       Flexbox,
+      Divider,
       FlexboxItem
     },
     data () {
@@ -100,6 +106,12 @@
       this.inviteCode = this.$route.query.inviteCode
     },
     methods: {
+      goDownload () {
+        window.location.href = 'https://www.pgyer.com/iscapp'
+      },
+      goWeblogin () {
+        window.location.href = 'http://webapp.identitychain.vip/#/'
+      },
       changeAccept () {
         this.isAccept = !this.isAccept
       },
