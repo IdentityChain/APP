@@ -10,17 +10,16 @@ import com.project.isc.iscdbserver.repository.CalculateStatisticsRepository;
 import com.project.isc.iscdbserver.repository.ISCLogRepository;
 import com.project.isc.iscdbserver.repository.achieve.AchievementRepository;
 import com.project.isc.iscdbserver.repository.achieve.AchievementUserRepository;
+import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
+import com.project.isc.iscdbserver.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 成就服务
@@ -122,9 +121,27 @@ public class CalculateService {
 	}
 
 	public List<AchievementUser> getAchievementUsers(String userid,String type,int page,int pagesize){
-		Pageable pageable = new PageRequest(0, 10, Sort.Direction.DESC, "createTime");
-		List<AchievementUser> achievementUserList = achievementUserRepository.findAchievementUsersByUserIdAndType(userid,type,pageable);
-		return achievementUserList;
+		if(ConfigConstant.TASK_TYPE_EVERYDAY.equals(type)){
+			//如果每人操作特殊处理
+			Pageable pageable = new PageRequest(page, pagesize);
+//			List<Achievement> achievements = achievementRepository.findAllByType(ConfigConstant.TASK_TYPE_EVERYDAY,pageable);
+			List<Achievement> achievements = achievementRepository.findAchievementsByAvailableAndType(true,ConfigConstant.TASK_TYPE_EVERYDAY,pageable);
+			if(achievements!=null && achievements.size()>0){
+				List<AchievementUser> achievementUserList = new ArrayList<>();
+				for(Achievement ach:achievements){
+					AchievementUser achievementUser = getNewAUByUserAndTypeIsEveryDay(userid,ach.getId());
+					if(achievementUser!=null){
+						achievementUserList.add(achievementUser);
+					}
+				}
+				return achievementUserList;
+			}
+			return null;
+		}else {
+			Pageable pageable = new PageRequest(page, pagesize, Sort.Direction.DESC, "createTime");
+			List<AchievementUser> achievementUserList = achievementUserRepository.findAchievementUsersByUserIdAndType(userid,type,pageable);
+			return achievementUserList;
+		}
 	}
 
 	public Map<String,Achievement> getAchievementsBy(List<String> ids){
@@ -186,5 +203,14 @@ public class CalculateService {
 
 	public List<Achievement> findAllAchievement(){
 		return achievementRepository.findAll();
+	}
+
+	public AchievementUser getNewAUByUserAndTypeIsEveryDay(String userid,String acmId){
+		Date nowDate = new Date();
+		AchievementUser achievementUser = achievementUserRepository.findFirstByUserIdAndAchIdAndTypeOrderByCreateTimeDesc(userid,acmId,ConfigConstant.TASK_TYPE_EVERYDAY);
+		if(achievementUser!=null && TimeUtil.getTimeSameDay(nowDate,achievementUser.getCreateTime())){
+			return achievementUser;
+		}
+		return null;
 	}
 }

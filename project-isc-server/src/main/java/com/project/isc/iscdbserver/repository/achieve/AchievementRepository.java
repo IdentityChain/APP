@@ -14,6 +14,8 @@ public interface AchievementRepository extends JpaSpecificationExecutor<Achievem
 
     List<Achievement> findAchievementsByIdIn(List<String> ids);
 
+    List<Achievement> findAllByType(String type,Pageable pageable);
+
     //SELECT * FROM tb_achievement_user au LEFT JOIN tb_achievement a on au.ach_id=a.id where au.user_id='' and a.type=''
 //    @Query("SELECT r FROM User r")
 //    @Query("SELECT au,a FROM achievement au LEFT JOIN tb_achievement a on au.ach_id=a.id where au.user_id='' and a.type=''")

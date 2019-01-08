@@ -8,6 +8,7 @@ import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
 import com.project.isc.iscdbserver.service.UserService;
+import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.util.TimeUtil;
@@ -158,6 +159,18 @@ public class IscServerSchedul {
                     ) {
                 for (Achievement ach : acmlist
                         ) {
+                    if(ConfigConstant.TASK_TYPE_EVERYDAY.equals(ach.getType())){
+                        //活动今天的任务列表
+                        //如果有 不管 没有 添加
+                        AchievementUser achievementUser = calculateService.getNewAUByUserAndTypeIsEveryDay(u.getUserId(), ach.getId());
+                        if(achievementUser == null){
+                            achievementUser = creatAchievmentUser(ach, u.getUserId());
+                            //如果是每日任务，就可以领取 更改为100 因为只有签到，就先如此
+                            achievementUser.setCompleteRate(100);
+                            calculateService.insertAchievementUser(achievementUser);
+                        }
+                        continue;
+                    }
                     AchievementUser au = calculateService.findAchievementUserByUserIdAndAchId(u.getUserId(), ach.getId());
                     if (au == null) {
                         AchievementUser achievementUser = creatAchievmentUser(ach, u.getUserId());

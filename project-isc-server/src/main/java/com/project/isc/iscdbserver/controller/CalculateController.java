@@ -221,24 +221,30 @@ public class CalculateController {
 	@ApiOperation(value="获得任务成就奖励，对满足100条件的", notes="")
 	@GetMapping("/getAchievementUser/{userid}/{achievementUserid}/{achievementid}")
 	@Transactional
-	@Auth
+//	@Auth
 	public RetMsg getAchievementUser(@PathVariable("userid") String userid,@PathVariable("achievementUserid") String achievementUserid,@PathVariable("achievementid") String achievementid){
 		RetMsg retMsg = new RetMsg();
 		retMsg.setCode(200);
 		AchievementUser achievementUser = calculateService.findAchievementUserOne(achievementUserid);
 		//!achievementUser.isIs_create()  是否已领取
-		if(achievementUser!=null && achievementUser.getUserId().equals(userid) && !achievementUser.isIs_create()){
-			Achievement achievement = calculateService.findAchievementOne(achievementid);
+		Achievement achievement = calculateService.findAchievementOne(achievementid);
+		if(achievement!=null && achievementUser!=null && achievementUser.getUserId().equals(userid) && !achievementUser.isIs_create()){
+
 			User user = userService.getUserById(userid);
 			user.setCalculateValue(user.getCalculateValue()+achievement.getCalculateValue());
 			achievementUser.setIs_create(true);
 			//更新用户成就表和成就表
 			calculateService.insertAchievementUser(achievementUser);
 			userService.save(user);
+			retMsg.setData("成功");
+			retMsg.setMessage("成功");
+			retMsg.setSuccess(true);
+		}else{
+			retMsg.setData("失败数据存在问题");
+			retMsg.setMessage("失败数据存在问题");
+			retMsg.setSuccess(false);
 		}
-		retMsg.setData("");
-		retMsg.setMessage("成功");
-		retMsg.setSuccess(true);
+
 		return retMsg;
 	}
 
@@ -259,7 +265,7 @@ public class CalculateController {
 			aa.setGrayImgPath("images/taskimg/daily/login-done.png");
 			aa.setImg_path("images/taskimg/daily/login.png");
 			aa.setType(ConfigConstant.TASK_TYPE_EVERYDAY);
-			aa.setCalculateValue(10);
+			aa.setCalculateValue(1);
 			aa.setSteps(step);
 			calculateService.insertAchievement(aa);
 		}

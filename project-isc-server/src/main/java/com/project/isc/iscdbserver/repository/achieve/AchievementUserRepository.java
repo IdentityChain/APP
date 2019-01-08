@@ -19,4 +19,6 @@ public interface AchievementUserRepository extends JpaSpecificationExecutor<Achi
     List<AchievementUser> findAchievementUsersByUserIdAndAchIdIn(String userid,Collection<String> achids);
 
     AchievementUser findAchievementUserByUserIdAndAchId(String userid,String achid);
+
+    AchievementUser findFirstByUserIdAndAchIdAndTypeOrderByCreateTimeDesc(String userid,String achid,String type);
 }
