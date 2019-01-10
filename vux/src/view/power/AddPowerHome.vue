@@ -127,19 +127,16 @@
     },
     methods: {
       init () {
-        this.loadDailyTash(1)
+        this.loadDailyTask(0)
         const user = this.$db.get('User')
         this.personal.power = user.calculateValue
         this.personal.iscElm = user.iscCoin
-        this.totalElm.startNum = user.iscCoin
-        this.totalElm.endNum = user.iscCoin
         this.personal.account = user.account
       },
-      loadDailyTash (pageNum) {
+      loadDailyTask (pageNum) {
         const user = this.$db.get('User')
         // this.personal.power = user.calculateValue
         // this.personal.iscElm = user.iscCoin
-        // this.totalElm.startNum = user.iscCoin
         // this.totalElm.endNum = user.iscCoin
         // this.personal.account = user.account
         this.$api.calculateApi.getAchievementDayRequest('EVERYDAY', user.userId, pageNum, 10).then(result => {
@@ -164,8 +161,16 @@
           this.$refs.swiper1.xheight = this.swiperHeight
         })
       },
-      clickTaskBtn (event) {
-        console.log(event)
+      clickTaskBtn (taskObj) {
+        if (taskObj && taskObj.toolEvent === 'checkin') {
+          console.log('触发签到任务')
+          const user = this.$db.get('User')
+          this.$api.calculateApi.getAchievementUser(user.userId, taskObj.auid, taskObj.auachId).then(result => {
+            if (result.data.success) {
+              taskObj.auis_create = true
+            }
+          })
+        }
       },
       sortList () {
         this.HighScoreTaskList.sort(function (a, b) {

@@ -3,19 +3,19 @@
     <div
       style="width: 90%;margin-left: 5%;height: 60px;background: transparent; border: 1px solid lightgray;border-radius: 10px;margin-top: 10px;display: flex;align-items:Center;flex-direction: row">
       <div style="height: 40px;width: 40px;margin-left: 8px;">
-        <img :src="this.$appConfig.imgServer + (taskObj.aucompleteRate === 0 ? taskObj.aaimg_path : taskObj.aagrayImgPath)"
+        <img :src="this.$appConfig.imgServer + (taskObj.auis_create === false ? taskObj.aaimg_path : taskObj.aagrayImgPath)"
              width="40px" height="40px"/>
       </div>
       <div style="height: 50px;width: auto;margin-left: 10px;line-height: 50px;">
-        <p v-if="taskObj.aucompleteRate === 0" style="color: rgb(50, 112, 222);font-size: small">{{taskObj.aatitle}}</p>
-        <p v-if="taskObj.aucompleteRate !== 0" style="color: grey;font-size: small">{{taskObj.aatitle}}</p>
+        <p v-if="taskObj.auis_create === false" style="color: rgb(50, 112, 222);font-size: small">{{taskObj.aatitle}}</p>
+        <p v-if="taskObj.auis_create !== false" style="color: grey;font-size: small">{{taskObj.aatitle}}</p>
       </div>
       <div style="margin-left: 5px;line-height: 10px;">
-        <img v-if="taskObj.aucompleteRate === 0" src="../../assets/power/task/image/help.png" height="20px" width="20px" @click="showAlert"/>
-        <img v-if="taskObj.aucompleteRate !== 0" src="../../assets/power/task/image/help-done.png" height="20px" width="20px" @click="showAlert"/>
+        <img v-if="taskObj.auis_create === false" src="../../assets/power/task/image/help.png" height="20px" width="20px" @click="showAlert"/>
+        <img v-if="taskObj.auis_create !== false" src="../../assets/power/task/image/help-done.png" height="20px" width="20px" @click="showAlert"/>
       </div>
       <div style="height: 50px;margin-left: auto;display: flex;align-items:Center;">
-        <div v-if="taskObj.aucompleteRate === 1">
+        <div v-if="taskObj.auis_create === true">
           <p style="color: grey;margin-right: 8px;">已完成</p>
         </div>
         <div v-else>
@@ -63,7 +63,7 @@
         this.showHelp = true
       },
       sendEvent () {
-        this.$emit('do-task', this.taskObj.toolEvent)
+        this.$emit('do-task', this.taskObj)
       }
     }
   }
