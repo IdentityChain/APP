@@ -34,14 +34,30 @@ public class Invitation implements Serializable {
 	@Column
 	private String sourceUserId;
 	
-	//被邀请人ID
+	//邀请码
 	@Column
-	private String toUserId;
+	private String sourceCode;
 	
 	// 创建时间
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
+
+	//一级邀请
+	@Column
+	private int invitaFirstNumber;
+
+	//二级邀请
+	@Column
+	private int invitaSecoundNumber;
+
+	//三级邀请
+	@Column
+	private int invitaThreeNumber;
+
+	//四级邀请
+	@Column
+	private int invitaFourNumber;
 
 	public String getInvitaId() {
 		return invitaId;
@@ -59,12 +75,12 @@ public class Invitation implements Serializable {
 		this.sourceUserId = sourceUserId;
 	}
 
-	public String getToUserId() {
-		return toUserId;
+	public String getSourceCode() {
+		return sourceCode;
 	}
 
-	public void setToUserId(String toUserId) {
-		this.toUserId = toUserId;
+	public void setSourceCode(String sourceCode) {
+		this.sourceCode = sourceCode;
 	}
 
 	public Date getCreateTime() {
@@ -74,5 +90,36 @@ public class Invitation implements Serializable {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
+
+	public int getInvitaFirstNumber() {
+		return invitaFirstNumber;
+	}
+
+	public void setInvitaFirstNumber(int invitaFirstNumber) {
+		this.invitaFirstNumber = invitaFirstNumber;
+	}
+
+	public int getInvitaSecoundNumber() {
+		return invitaSecoundNumber;
+	}
+
+	public void setInvitaSecoundNumber(int invitaSecoundNumber) {
+		this.invitaSecoundNumber = invitaSecoundNumber;
+	}
+
+	public int getInvitaThreeNumber() {
+		return invitaThreeNumber;
+	}
+
+	public void setInvitaThreeNumber(int invitaThreeNumber) {
+		this.invitaThreeNumber = invitaThreeNumber;
+	}
+
+	public int getInvitaFourNumber() {
+		return invitaFourNumber;
+	}
+
+	public void setInvitaFourNumber(int invitaFourNumber) {
+		this.invitaFourNumber = invitaFourNumber;
+	}
 }

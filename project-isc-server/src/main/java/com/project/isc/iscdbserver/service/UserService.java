@@ -1,8 +1,12 @@
 package com.project.isc.iscdbserver.service;
 
+import com.project.isc.iscdbserver.entity.Dict;
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.repository.DictRepository;
 import com.project.isc.iscdbserver.repository.UserRepository;
+import com.project.isc.iscdbserver.statusType.DictConstant;
 import com.project.isc.iscdbserver.util.DateFormatUtil;
+import com.project.isc.iscdbserver.util.MathUtil;
 import com.project.isc.iscdbserver.viewentity.UserTypeQueryRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,6 +26,10 @@ import java.util.List;
 
 @Service
 public class UserService {
+
+	@Autowired
+	private DictRepository dictRepository;
+
 	@Autowired
 	private UserRepository userRepositoy;
 	
@@ -74,7 +82,35 @@ public class UserService {
 	}
 
 	public long findUserCount(){
-		return userRepositoy.count();
+		return userRepositoy.count()+usercount();
+	}
+
+	private int usercount(){
+		int count = 0;
+		Dict dict = dictRepository.findDictByDictTypeAndDictKey(DictConstant.USER_COUNT,DictConstant.KEY_USER_COUNT_TEMP);
+		if(dict!=null){
+			dict.setDictValue(getcount(dict.getDictValue(),0)+"");
+		}else {
+			dict = new Dict();
+			dict.setDictType(DictConstant.USER_COUNT);
+			dict.setDictKey(DictConstant.KEY_USER_COUNT_TEMP);
+			dict.setDictValue("0");
+		}
+		dictRepository.save(dict);
+		return getcount(dict.getDictValue(),1);
+	}
+
+	private int getcount(String dictValue,int type){
+		try{
+			int a =Integer.parseInt(dictValue);
+			if(type==0){
+				a = a +MathUtil.redomZeroOrOne();
+			}
+			return a;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public List<User> findAll() {

@@ -85,9 +85,6 @@ public class InvitationController {
 	@GetMapping("/test")
 	public RetMsg testaddInvita() {
 		Invitation iv = new Invitation();
-		iv.setSourceUserId("123123sdsad");
-		iv.setToUserId("q2321312");
-		iv.setCreateTime(new Date());
 		
 		this.invitationService.save(iv);
 		RetMsg retMsg = new RetMsg();

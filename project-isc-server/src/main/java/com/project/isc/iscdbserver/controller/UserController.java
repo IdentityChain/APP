@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Api(value = "用户管理", tags = "用户管理")
 @RestController
