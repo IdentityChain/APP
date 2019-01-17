@@ -3,7 +3,7 @@
     <div :class="platform === 'android' ? 'notice-body-android' : 'notice-body'">
       <p style="position: absolute;left: 20px;color: white;font-weight: bold;">公告:</p>
       <div style="position: absolute; left: 80px;color: black;margin: 0 auto;width: calc(100vw - 100px);">
-        <MarqueeTips :content="personal.notice === '' ? '暂无最新公告' : personal.notice" :speed="8"></MarqueeTips>
+        <MarqueeTips :content="personal.notice === '' ? '暂无最新公告' : personal.notice" :speed="20"></MarqueeTips>
       </div>
     </div>
 
