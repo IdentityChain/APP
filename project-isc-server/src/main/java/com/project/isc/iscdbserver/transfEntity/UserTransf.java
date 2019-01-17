@@ -4,6 +4,9 @@ import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.UserVO;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserTransf{
 	public static UserVO transfToVO(User u) {
 		UserVO uvo = new UserVO();
@@ -24,6 +27,18 @@ public class UserTransf{
 		uvo.setIdentityNo(StringUtils.getStringHide(u.getIdentityNo(),StringUtils.HIDE_IDENTITY));
 		return uvo;
 	}
+
+	public static List<UserVO> transfToVO(List<User> users){
+		if(users!=null){
+			List<UserVO> userVOS =  new ArrayList<>();
+			for(User u:users){
+				userVOS.add(transfToVO(u));
+			}
+			return userVOS;
+		}
+		return null;
+	}
+
 	
 	public static User transfToPO(UserVO uvo) {
 		return null;

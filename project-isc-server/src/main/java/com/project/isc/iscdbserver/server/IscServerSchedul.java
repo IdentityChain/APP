@@ -2,11 +2,13 @@ package com.project.isc.iscdbserver.server;
 
 import com.project.isc.iscdbserver.entity.CalculateStatistics;
 import com.project.isc.iscdbserver.entity.ISCLog;
+import com.project.isc.iscdbserver.entity.Invitation;
 import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.entity.achieve.Achievement;
 import com.project.isc.iscdbserver.entity.achieve.AchievementUser;
 import com.project.isc.iscdbserver.service.ActivtyService;
 import com.project.isc.iscdbserver.service.CalculateService;
+import com.project.isc.iscdbserver.service.InvitationService;
 import com.project.isc.iscdbserver.service.UserService;
 import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
@@ -32,6 +34,8 @@ public class IscServerSchedul {
     private ActivtyService activtyService;
     @Autowired
     private UserLoginSetting userLoginSetting;
+    @Autowired
+    private InvitationService invitationService;
 
     /**
      * 统计top100
@@ -202,5 +206,31 @@ public class IscServerSchedul {
         acu.setUserSteps(0);
 
         return acu;
+    }
+
+    /**
+     * 生成邀请对象
+     * @param userid
+     */
+    public void createInvitation() {
+        List<User> users = userService.findAll();
+        if(users!=null) {
+            for (User user : users) {
+                if(user!=null){
+                    String invataCode = user.getInvitationCode();
+                    int first = userService.countByPinvitationCode(invataCode);
+                    int second = userService.countByPinvitationCodeSecond(invataCode);
+                    Invitation invitation = new Invitation();
+                    invitation.setCreateTime(new Date());
+                    invitation.setSourceCode(invataCode);
+                    invitation.setSourceUserId(user.getUserId());
+                    invitation.setInvitaFirstNumber(first);
+                    invitation.setInvitaSecoundNumber(second);
+                    invitation.setInvitaThreeNumber(0);
+                    invitation.setInvitaFourNumber(0);
+                    invitationService.save(invitation);
+                }
+            }
+        }
     }
 }

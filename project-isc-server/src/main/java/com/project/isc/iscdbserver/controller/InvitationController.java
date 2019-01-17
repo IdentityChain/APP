@@ -2,9 +2,12 @@ package com.project.isc.iscdbserver.controller;
 
 
 import java.util.Date;
+import java.util.List;
 
+import javax.management.modelmbean.InvalidTargetObjectTypeException;
 import javax.transaction.Transactional;
 
+import com.project.isc.iscdbserver.transfEntity.UserTransf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,32 +70,86 @@ public class InvitationController {
 	 * @param userid
 	 * @return
 	 */
-	@ApiOperation(value="获得本用户邀请的人数和总共获得的ISC数量", notes="")
+	@ApiOperation(value="获得本用户邀请的人数", notes="")
 	@GetMapping("/getUserInvitaInfo/{userid}")
 	public RetMsg getUserInvitaInfo(@PathVariable("userid") String userid) {
 		int size = invitationService.getInvitationCountByUser(userid);
-		InvitaInfoVo ivo = new InvitaInfoVo(size);
 		RetMsg retMsg = new RetMsg();
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(ivo);
-		retMsg.setMessage("用户获得邀请码成功");
+		retMsg.setData(size);
+		retMsg.setMessage("获得本用户邀请的人数成功");
 		retMsg.setSuccess(true);
-
 		return retMsg;
 	}
-	
-	@GetMapping("/test")
-	public RetMsg testaddInvita() {
-		Invitation iv = new Invitation();
-		
-		this.invitationService.save(iv);
+
+	/**
+	 * 获得本用户邀请的人数和总共获得的ISC数量
+	 * @param userid
+	 * @return
+	 */
+	@ApiOperation(value="获得本用户邀请的人数对象", notes="")
+	@GetMapping("/getUserInvitaInfoObject/{userid}")
+	public RetMsg getUserInvitaInfoObject(@PathVariable("userid") String userid) {
+		Invitation invitation = invitationService.getInvitationByUserId(userid);
 		RetMsg retMsg = new RetMsg();
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData("xx");
-		retMsg.setMessage("成功");
+		retMsg.setData(invitation);
+		retMsg.setMessage("获得本用户邀请的人数对象成功");
 		retMsg.setSuccess(true);
 		return retMsg;
+	}
+
+	/**
+	 *
+	 * @param userid
+	 * @return
+	 */
+	@ApiOperation(value="获得本用户邀请的人数列表", notes="")
+	@GetMapping("/getUserInvitaInfo/{userid}/{page}/{pagesize}")
+	public RetMsg getInvitaUserList(@PathVariable("userid") String userid,@PathVariable("page") int page,@PathVariable("pagesize") int pagesize) {
+		User user = userService.getUserById(userid);
+		List<User> users = userService.findUserListByInvite(user.getInvitationCode(),page,pagesize);
+		RetMsg retMsg = new RetMsg();
+		retMsg = new RetMsg();
+		retMsg.setCode(200);
+		retMsg.setData(UserTransf.transfToVO(users));
+		retMsg.setMessage("获得本用户邀请的人数列表成功");
+		retMsg.setSuccess(true);
+		return retMsg;
+	}
+
+	/**
+	 * 生成邀请对象
+	 * @param userid
+	 */
+	public void createInvitationByUserId(String userid) {
+		User user = userService.getUserById(userid);
+		if(user!=null){
+			String invataCode = user.getInvitationCode();
+			int first = userService.countByPinvitationCode(invataCode);
+			int second = userService.countByPinvitationCodeSecond(invataCode);
+			Invitation invitation = new Invitation();
+			invitation.setCreateTime(new Date());
+			invitation.setSourceCode(invataCode);
+			invitation.setSourceUserId(userid);
+			invitation.setInvitaFirstNumber(first);
+			invitation.setInvitaSecoundNumber(second);
+			invitation.setInvitaThreeNumber(0);
+			invitation.setInvitaFourNumber(0);
+			invitationService.save(invitation);
+		}
+	}
+
+	@GetMapping("/test")
+	public RetMsg testaddInvita() {
+		List<User> users = userService.findAll();
+		if(users!=null){
+			for (User user:users){
+				createInvitationByUserId(user.getUserId());
+			}
+		}
+		return null;
 	}
 }

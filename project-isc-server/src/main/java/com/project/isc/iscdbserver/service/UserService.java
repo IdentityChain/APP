@@ -122,6 +122,11 @@ public class UserService {
 		return this.userRepositoy.findAllByOrderByCalculateValueDesc(pageable);
 	}
 
+	public List<User> findUserListByInvite(String invite,int page,int size){
+		Pageable pageable = new PageRequest(page, size);
+		return userRepositoy.findUsersByPinvitationCode(invite,pageable);
+	}
+
 	public User getUserById(String id) {
 		return userRepositoy.findOne(id);
 	}
@@ -193,5 +198,22 @@ public class UserService {
 	public User findByUserPhone(String phone) {
 		return this.userRepositoy.findByUserPhone(phone);
 	}
-	
+
+	/**
+	 * 邀请统计
+	 * @param pinvitaCode
+	 * @return
+	 */
+	public int countByPinvitationCode(String pinvitaCode){
+		return this.userRepositoy.countByPinvitationCode(pinvitaCode);
+	}
+
+	/**
+	 * 二级邀请
+	 * @param pinvitaCode
+	 * @return
+	 */
+	public int countByPinvitationCodeSecond(String pinvitaCode){
+		return this.userRepositoy.countByPinvitationCodeSecond(pinvitaCode);
+	}
 }

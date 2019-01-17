@@ -61,9 +61,10 @@ public class BonusPaylistScheduling {
         //获得100统计数据
         iscServerSchedul.mainTop100();
     }
-    
-    @Scheduled(cron="* * * * * ?")
+
+	@Scheduled(cron="0 0 0 * * ?")
     public void cronJobDay(){
+    	iscServerSchedul.createInvitation();
 //        System.out.println(TimeUtil.getDateFormat(new Date())+" >>cron执行....");
 //        earnServerSchedul.mainComperBonuspaylist();
     }

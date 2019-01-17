@@ -23,11 +23,19 @@ public class InvitationService {
 	 * @return
 	 */
 	public int getInvitationCountByUser(String userid) {
-		List<Invitation> list = this.invitationRepositoy.findBySourceUserId(userid);
-		if (list!=null && list.size()>0) {
-			return list.size();
+		Invitation invitation  = this.invitationRepositoy.findFirstBySourceUserIdOrderByCreateTimeDesc(userid);
+		if(invitation!=null){
+			return invitation.getInvitaFirstNumber();
 		}
 		return 0;
+	}
+
+	public Invitation getInvitationByUserId(String userid) {
+		Invitation invitation  = this.invitationRepositoy.findFirstBySourceUserIdOrderByCreateTimeDesc(userid);
+		if(invitation!=null){
+			return invitation;
+		}
+		return null;
 	}
 	
 	// 新增 邀请信息

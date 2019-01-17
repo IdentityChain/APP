@@ -23,7 +23,30 @@ public interface UserRepository extends JpaSpecificationExecutor<User>,JpaReposi
 	//基于createTime，查询用户数
 	@Query("select r from User r where createTime between date_format(?1,'%Y-%m-%d %H:%i:%S') and date_format(?2,'%Y-%m-%d %H:%i:%S')")
 	public List<User> findByCreateTimeBetween(Date startDate,Date endDate);
-	
+
+	/**
+	 * 邀请统计
+	 * @param pinvitaCode
+	 * @return
+	 */
+	int countByPinvitationCode(String pinvitaCode);
+
+	/**
+	 * 二级邀请
+	 * SELECT count(1) FROM tb_user where pinvitation_code in (SELECT tu.invitation_code FROM tb_user tu where tu.pinvitation_code='K3XNTH')
+	 * @param pinvitaCode
+	 * @return
+	 */
+	@Query("SELECT count(t.userId) FROM User t where pinvitationCode in (SELECT tu.invitationCode FROM User tu where tu.pinvitationCode=?1)")
+	int countByPinvitationCodeSecond(String pinvitaCode);
+
+	/**
+	 * 邀请统计列表
+	 * @param pinvitaCode
+	 * @param pageable
+	 * @return
+	 */
+	List<User> findUsersByPinvitationCode(String pinvitaCode, Pageable pageable);
 	//多条件分页查询
 	public Page<User> findAll(Specification<User> spec, Pageable pageable);
 	

@@ -11,6 +11,8 @@ import com.project.isc.iscdbserver.entity.Invitation;
 @Repository
 public interface InvitationRepository extends JpaSpecificationExecutor<Invitation>,JpaRepository<Invitation, String> {
 
-	public List<Invitation> findBySourceUserId(String userid);
+	List<Invitation> findBySourceUserId(String userid);
+
+	Invitation findFirstBySourceUserIdOrderByCreateTimeDesc(String userid);
 
 }
