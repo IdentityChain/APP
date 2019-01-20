@@ -21,6 +21,9 @@
         <cell title="邀请好友" :border-intent=false  is-link link="/invite">
           <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-yaoqing1.png">
         </cell>
+        <cell title="邀请好友列表" :border-intent=false  is-link link="/inviteList">
+          <img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-yaoqing1.png">
+        </cell>
         <br>
         <!--<cell title="用户反馈" :border-intent=true is-link link="">-->
           <!--<img slot="icon" width="20" style="display:block;margin-right:5px;" src="../../assets/wakuang/icon-fankui.png">-->

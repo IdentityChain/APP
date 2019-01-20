@@ -5,6 +5,7 @@ import Home from '@/view/main/Home'
 import Login from '@/view/Login'
 import TopBang from '@/view/top/TopBang'
 import Invite from '@/view/main/invite/InvitePage'
+import InviteList from '@/view/main/invite/InviteList'
 import Application from '@/view/activity/Activity'
 import SendMailHome from '@/view/activity/sendMailToFuture/Home'
 import WriteMail from '@/view/activity/sendMailToFuture/WriteMail'
@@ -48,6 +49,14 @@ export default new Router({
       path: '/invite',
       name: 'invite',
       component: Invite,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/inviteList',
+      name: 'inviteList',
+      component: InviteList,
       meta: {
         requiresAuth: true
       }

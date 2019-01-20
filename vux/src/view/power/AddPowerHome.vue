@@ -168,6 +168,7 @@
           this.$api.calculateApi.getAchievementUser(user.userId, taskObj.auid, taskObj.auachId).then(result => {
             if (result.data.success) {
               taskObj.auis_create = true
+              this.getUserInfoById()
             }
           })
         }
@@ -178,6 +179,16 @@
             return -1
           } else {
             return 1
+          }
+        })
+      },
+      getUserInfoById () {
+        const user = this.$db.get('User')
+        this.$api.userApi.getUserInfoById(user.userId).then(result => {
+          if (result.data.success) {
+            const userObj = result.data.data
+            this.$db.set('User', userObj)
+            this.personal.power = userObj.calculateValue
           }
         })
       }

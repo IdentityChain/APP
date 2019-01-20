@@ -14,9 +14,11 @@ import VueClipboard from 'vue-clipboard2'
 import * as config from './config/config'
 import HttpRequest from './util/ajax'
 import api from './request/api'
+import VueScroller from 'vue-scroller'
 var db = require('store')
 
 Vue.use(VueRouter)
+Vue.use(VueScroller)
 Vue.use(HttpRequest)
 Vue.use(VueClipboard)
 Vue.use(BusPlugin)

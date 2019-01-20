@@ -58,7 +58,7 @@ instance.interceptors.request.use(
     token && (config.headers['Authorization'] = token)
     Vue.$vux.loading.show({
       text: '加载中',
-      delay: 1000
+      delay: 2000
     })
     return config
   },
