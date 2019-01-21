@@ -108,6 +108,10 @@ public class IscServerSchedul {
                 } else {
                     //如果超限降低可获得数目
                     maxblock = totalblock / users.size();
+                    //如果特别的小的话更改最小数目
+                    if(maxblock<0.01){
+                        maxblock = 0.01;
+                    }
                 }
                 for (User user : users) {
                     List<ISCLog> isculogs = calculateService.getCalculateLogByUserIdAndStatus(user.getUserId());
