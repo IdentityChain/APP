@@ -37,6 +37,7 @@ public class UserTransf{
 		uvo.setCreateTime(DateFormatUtil.DateObjectToString(u.getCreateTime()));
 		uvo.setNickName(StringUtils.getStringHide(u.getNickName(),StringUtils.HIDE_PHONE));
 		uvo.setInvitationCode(u.getInvitationCode());
+		uvo.setPinvitationCode(u.getPinvitationCode());
 		return uvo;
 	}
 

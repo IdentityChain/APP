@@ -10,6 +10,9 @@ public class UserVOSimple {
 	//邀请码
 	private String invitationCode;
 
+	//邀请人-谁邀请的我
+	private String pinvitationCode;
+
 	// 创建时间
 	private String createTime;
 
@@ -43,5 +46,13 @@ public class UserVOSimple {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public String getPinvitationCode() {
+		return pinvitationCode;
+	}
+
+	public void setPinvitationCode(String pinvitationCode) {
+		this.pinvitationCode = pinvitationCode;
 	}
 }
