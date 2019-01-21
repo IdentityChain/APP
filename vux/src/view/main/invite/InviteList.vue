@@ -27,7 +27,7 @@
               <!--{{ item }}-->
             <!--</div>-->
             <div style="width: 100%;text-align: center">
-              <x-table :cell-bordered="false" :content-bordered="false" style="border: none;">
+              <x-table :cell-bordered="false" :content-bordered="false" style="border: none;width: 80vw;margin-left: 10vw">
                 <thead style="color: grey;border: none;font-size: small;background-color: rgb(247, 247, 247);line-height: 26px;">
                 <tr>
                   <th style="width: 10vw;">序号</th>
@@ -61,11 +61,7 @@
   import PageView from '../../../components/common/PageBox'
   import {XHeader, XTable} from 'vux'
   export default {
-    components: {PageView, XHeader},
-    comments: {
-      PageView,
-      XTable
-    },
+    components: {PageView, XHeader, XTable},
     name: 'InviteList',
     data () {
       return {
@@ -73,7 +69,7 @@
         items: [],
         loadingTips: '没有更多数据',
         pageNum: 0,
-        pageSize: 10,
+        pageSize: 20,
         noData: false
       }
     },
@@ -91,18 +87,18 @@
       },
       sendRequest (done) {
         if (this.noData) {
-          done(true)
-          console.log('没有更多数据')
+          setTimeout(() => {
+            done(true)
+          }, 1500)
         } else {
-          console.log('api get')
           let userObj = this.$db.get('User')
           this.$api.inviteApi.getUserInvitaInfoRequest(userObj.userId, this.pageNum, this.pageSize).then(result => {
             this.$vux.loading.hide()
             this.pageNum += 1
             if (result.data.success) {
               if (result.data.data.length > 0) {
-                this.$refs.my_scroller.finishInfinite(true)
                 this.items = this.items.concat(result.data.data)
+                done()
               } else {
                 this.noData = true
                 done(true)
@@ -111,24 +107,16 @@
           })
         }
       },
-      getListByPage (done) {
-        if (this.items.length > 25) {
-          done(true)
+      infinite (done) {
+        if (this.noData) {
+          setTimeout(() => {
+            done(true)
+          }, 1500)
           return
         }
         setTimeout(() => {
-          var start = this.bottom + 1
-          for (var i = start; i < start + 10; i++) {
-            this.items.push(i + ' - keep walking, be 2 with you.')
-          }
-          this.bottom = this.bottom + 10
-          done()
-        }, 1500)
-      },
-      infinite (done) {
-        console.log('上拉...')
-        console.log('加载数据')
-        this.sendRequest(done)
+          this.sendRequest(done)
+        }, 500)
       }
     }
   }

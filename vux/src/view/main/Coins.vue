@@ -25,6 +25,8 @@
         console.log('获取币ID: ' + iscLID)
         this.$api.calculateApi.checkCalculate(iscLID).then(result => {
           if (result.data.success) {
+            const userObj = result.data.data
+            this.$db.set('User', userObj)
             this.$emit('add-event', addISC)
           } else {
             this.$vux.toast.show({
