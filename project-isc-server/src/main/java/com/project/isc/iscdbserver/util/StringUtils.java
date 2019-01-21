@@ -23,33 +23,38 @@ public class StringUtils {
 	 * @return
 	 */
 	public static String getStringHide(String str,String type) {
-		if(getStringisNotNull(str)) {
-			if(HIDE_NAME.equals(type)) {
-				if(str.length()==2){
-					str = str.substring(0, 1)+"*";
-				}else {
-					str = str.substring(0, 1)+"*"+str.substring(str.length()-1,str.length());
-				}
+		try {
+			if(getStringisNotNull(str)) {
+				if(HIDE_NAME.equals(type)) {
+					if(str.length()==2){
+						str = str.substring(0, 1)+"*";
+					}else {
+						str = str.substring(0, 1)+"*"+str.substring(str.length()-1,str.length());
+					}
 
-			}else if(HIDE_PHONE.equals(type)){
-				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
-			}else if(HIDE_IDENTITY.equals(type)){
-				str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
-			}else if(HIDE_TOP100.equals(type)){
-				if(str.length()==2){
-					str = str.substring(0, 1)+"*";
-				}else if(str.length()==3){
-					str = str.substring(0, 1)+"*";
-				}else if(str.length()>3){
+				}else if(HIDE_PHONE.equals(type)){
 					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
-				}else {
+				}else if(HIDE_IDENTITY.equals(type)){
+					str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+				}else if(HIDE_TOP100.equals(type)){
+					if(str.length()==2){
+						str = str.substring(0, 1)+"*";
+					}else if(str.length()==3){
+						str = str.substring(0, 1)+"*";
+					}else if(str.length()>3){
+						str = str.substring(0, 3)+"****"+str.substring(str.length()-2,str.length());
+					}else {
 
+					}
+				}else {
+					return str;
 				}
-			}else {
-				return str;
 			}
+			return str;
+		}catch (Exception e){
+			e.printStackTrace();
+			return str;
 		}
-		return str;
 	}
 
 	/**
