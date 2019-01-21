@@ -5,4 +5,5 @@ public class DictConstant {
 
 
     public static final String KEY_USER_COUNT_TEMP = "TEMP";
+    public static final String KEY_USER_COUNT_PROPORTION= "PROPORTION";  //比例
 }
