@@ -6,7 +6,7 @@
         邀请好友列表
       </x-header>
 
-      <div slot="body" style="width: 100vw;height: calc(100vh - 100px)">
+      <div slot="body" style="width: 100vw;height: calc(100vh - 100px);">
         <div style="height: 80px;background: white;z-index: 200">
           <div style="margin-top: 0;height: 60px;width: 100%;text-align: left;background: white">
             <div style="margin-top: 10px;width: 80%;height: 55px;background-color: rgb(42,124,246);margin-left: 10%;border-radius: 8px;">

@@ -4,7 +4,7 @@
            style="position: fixed;height: calc(46px + env(safe-area-inset-top));width:100%;left: 0;top: 0;background-color: rgb(50,112,222);z-index: 100">
         <slot name="header"></slot>
       </div>
-      <div style="position: absolute;top: calc(46px + env(safe-area-inset-top));padding-bottom: env(safe-area-inset-bottom);overflow-y: scroll">
+      <div style="position: absolute;top: 46px;margin-top: env(safe-area-inset-top);padding-bottom: env(safe-area-inset-bottom);overflow-y: scroll">
         <slot name="body"></slot>
       </div>
 
