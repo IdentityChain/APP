@@ -15,6 +15,7 @@ import com.project.isc.iscdbserver.statusType.ConfigConstant;
 import com.project.isc.iscdbserver.statusType.ISCConstant;
 import com.project.isc.iscdbserver.transfEntity.AchievementTransf;
 import com.project.isc.iscdbserver.transfEntity.ISCLogTransf;
+import com.project.isc.iscdbserver.transfEntity.UserTransf;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.CalculateStatisticsVO;
 import com.project.isc.iscdbserver.viewentity.ISCLogVO;
@@ -125,13 +126,14 @@ public class CalculateController {
 		
 //		User user = userService.getUserById(userid);
 		String massage = "数据异常";
+		User user = null;
 		ISCLog isclog = calculateService.getCalculateLog(logid);
 		//状态是新增的处理
 		if(isclog!=null && ISCConstant.ISC_LOG_NEW.equals(isclog.getStatus())) {
 			isclog.setConfirmTime(new Date());
 			
 			String userid = isclog.getUserId();
-			User user = userService.getUserById(userid);
+			user = userService.getUserById(userid);
 			user.setIscCoin(user.getIscCoin()+isclog.getAddISC());
 			isclog.setStatus(ISCConstant.ISC_LOG_CHECK);
 			
@@ -144,7 +146,7 @@ public class CalculateController {
 		
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(massage);
+		retMsg.setData(UserTransf.transfToVO(user));
 		retMsg.setMessage("成功");
 		retMsg.setSuccess(true);
 
