@@ -28,7 +28,7 @@ public class UserVO {
 	private boolean userStatus = true;
 
 	// 创建时间
-	private Date createTime;
+	private String createTime;
 
 	// isc数目
 	private double iscCoin;
@@ -146,11 +146,11 @@ public class UserVO {
 		this.userType = userType;
 	}
 
-	public Date getCreateTime() {
+	public String getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
 

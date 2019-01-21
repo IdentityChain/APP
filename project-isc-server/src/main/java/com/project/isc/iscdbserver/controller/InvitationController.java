@@ -114,7 +114,7 @@ public class InvitationController {
 		RetMsg retMsg = new RetMsg();
 		retMsg = new RetMsg();
 		retMsg.setCode(200);
-		retMsg.setData(UserTransf.transfToVO(users));
+		retMsg.setData(UserTransf.transfToVOSimple(users));
 		retMsg.setMessage("获得本用户邀请的人数列表成功");
 		retMsg.setSuccess(true);
 		return retMsg;

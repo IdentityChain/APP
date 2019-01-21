@@ -1,8 +1,10 @@
 package com.project.isc.iscdbserver.transfEntity;
 
 import com.project.isc.iscdbserver.entity.User;
+import com.project.isc.iscdbserver.util.DateFormatUtil;
 import com.project.isc.iscdbserver.util.StringUtils;
 import com.project.isc.iscdbserver.viewentity.UserVO;
+import com.project.isc.iscdbserver.viewentity.UserVOSimple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class UserTransf{
 		UserVO uvo = new UserVO();
 		uvo.setUserId(u.getUserId());
 		uvo.setAccount(u.getAccount());
-		uvo.setCreateTime(u.getCreateTime());
+		uvo.setCreateTime(DateFormatUtil.DateObjectToString(u.getCreateTime()));
 		uvo.setNickName(u.getNickName());
 		uvo.setInvitationCode(u.getInvitationCode());
 		uvo.setIscCoin(u.getIscCoin());
@@ -28,6 +30,16 @@ public class UserTransf{
 		return uvo;
 	}
 
+
+	public static UserVOSimple transfToVOSimple(User u) {
+		UserVOSimple uvo = new UserVOSimple();
+		uvo.setUserId(u.getUserId());
+		uvo.setCreateTime(DateFormatUtil.DateObjectToString(u.getCreateTime()));
+		uvo.setNickName(StringUtils.getStringHide(u.getNickName(),StringUtils.HIDE_PHONE));
+		uvo.setInvitationCode(u.getInvitationCode());
+		return uvo;
+	}
+
 	public static List<UserVO> transfToVO(List<User> users){
 		if(users!=null){
 			List<UserVO> userVOS =  new ArrayList<>();
@@ -39,6 +51,16 @@ public class UserTransf{
 		return null;
 	}
 
+	public static List<UserVOSimple> transfToVOSimple(List<User> users){
+		if(users!=null){
+			List<UserVOSimple> userVOS =  new ArrayList<>();
+			for(User u:users){
+				userVOS.add(transfToVOSimple(u));
+			}
+			return userVOS;
+		}
+		return null;
+	}
 	
 	public static User transfToPO(UserVO uvo) {
 		return null;
