@@ -88,8 +88,9 @@ public class UserService {
 	private int usercount(){
 		int count = 0;
 		Dict dict = dictRepository.findDictByDictTypeAndDictKey(DictConstant.USER_COUNT,DictConstant.KEY_USER_COUNT_TEMP);
+		Dict dictProportion = dictRepository.findDictByDictTypeAndDictKey(DictConstant.USER_COUNT,DictConstant.KEY_USER_COUNT_PROPORTION);
 		if(dict!=null){
-			dict.setDictValue(getcount(dict.getDictValue(),0)+"");
+			dict.setDictValue(getcount(dict.getDictValue(),0,dictProportion.getDictValue())+"");
 		}else {
 			dict = new Dict();
 			dict.setDictType(DictConstant.USER_COUNT);
@@ -97,14 +98,14 @@ public class UserService {
 			dict.setDictValue("0");
 		}
 		dictRepository.save(dict);
-		return getcount(dict.getDictValue(),1);
+		return getcount(dict.getDictValue(),1,null);
 	}
 
-	private int getcount(String dictValue,int type){
+	private int getcount(String dictValue,int type,String proportion){
 		try{
 			int a =Integer.parseInt(dictValue);
 			if(type==0){
-				a = a +MathUtil.redomZeroOrOne();
+				a = a +MathUtil.redomZeroOrOne(proportion);
 			}
 			return a;
 		}catch (Exception e){
