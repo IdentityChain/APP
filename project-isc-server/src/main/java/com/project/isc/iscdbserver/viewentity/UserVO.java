@@ -30,6 +30,9 @@ public class UserVO {
 	// 创建时间
 	private String createTime;
 
+	// isc钱包数目
+	private double iscMoney;
+
 	// isc数目
 	private double iscCoin;
 	
@@ -152,6 +155,14 @@ public class UserVO {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public double getIscMoney() {
+		return iscMoney;
+	}
+
+	public void setIscMoney(double iscMoney) {
+		this.iscMoney = iscMoney;
 	}
 
 	public double getIscCoin() {

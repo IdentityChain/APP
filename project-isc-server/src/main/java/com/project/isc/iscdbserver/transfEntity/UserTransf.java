@@ -17,6 +17,7 @@ public class UserTransf{
 		uvo.setCreateTime(DateFormatUtil.DateObjectToString(u.getCreateTime()));
 		uvo.setNickName(u.getNickName());
 		uvo.setInvitationCode(u.getInvitationCode());
+		uvo.setIscMoney(u.getIscMoney());
 		uvo.setIscCoin(u.getIscCoin());
 		uvo.setCalculateValue(u.getCalculateValue());
 		uvo.setUserPhone(u.getUserPhone());

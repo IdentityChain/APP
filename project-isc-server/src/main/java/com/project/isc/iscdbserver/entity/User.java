@@ -68,6 +68,9 @@ public class User implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
 
+	// isc钱包数目
+	@Column
+	private double iscMoney;
 	// isc数目
 	@Column
 	private double iscCoin;
@@ -233,6 +236,14 @@ public class User implements Serializable {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public double getIscMoney() {
+		return iscMoney;
+	}
+
+	public void setIscMoney(double iscMoney) {
+		this.iscMoney = iscMoney;
 	}
 
 	public double getIscCoin() {
