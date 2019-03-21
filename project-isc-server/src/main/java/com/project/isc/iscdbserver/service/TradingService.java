@@ -1,5 +1,7 @@
 package com.project.isc.iscdbserver.service;
 
+import com.project.isc.iscdbserver.entity.TradingLog;
+import com.project.isc.iscdbserver.repository.TradingLogRepository;
 import com.project.isc.iscdbserver.repository.coin.CoinETHAddressRepository;
 import com.project.isc.iscdbserver.repository.coin.CoinSearchLogRepository;
 import com.project.isc.iscdbserver.viewentity.RetMsg;
@@ -17,6 +19,8 @@ public class TradingService {
 	private CoinETHAddressRepository coinETHAddressRepository;
 	@Autowired
 	private CoinSearchLogRepository coinSearchLogRepository;
+	@Autowired
+	private TradingLogRepository tradingLogRepository;
     
 	@Value("${app.tradingurl.host}")
 	private String tradingurlHost;
@@ -67,5 +71,18 @@ public class TradingService {
 		String getSendMassagestr ="http://"+tradingurlHost+":"+tradingurlPort+"/ethapi/getcontent/";
 		RetMsg retMsg  = this.restTemplate.getForObject(getSendMassagestr+blockid,RetMsg.class);
 		return retMsg;
+	}
+
+	/**
+	 * 保存日志
+	 * @param tradingLog
+	 * @return
+	 */
+	public TradingLog insertTradingLog(TradingLog tradingLog){
+		if(tradingLog!=null){
+			TradingLog tradingLog1 = tradingLogRepository.save(tradingLog);
+			return tradingLog1;
+		}
+		return null;
 	}
 }

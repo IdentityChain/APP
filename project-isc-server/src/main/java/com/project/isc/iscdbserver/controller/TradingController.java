@@ -1,5 +1,6 @@
 package com.project.isc.iscdbserver.controller;
 
+import com.project.isc.iscdbserver.entity.TradingLog;
 import com.project.isc.iscdbserver.entity.User;
 import com.project.isc.iscdbserver.service.CoinEthService;
 import com.project.isc.iscdbserver.service.TradingService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -212,5 +214,99 @@ public class TradingController {
     private void changeISC(ISCInfoVo ii,long number){
         ii.setValidationNumber(number);
         ii.setDifferenceNumber(ii.getValidationNumber()-ii.getReportNumber());
+    }
+
+    //余额功能
+    //查询余额接口
+    //ISC积分转余额功能
+    //
+    //
+    //日志记录功能
+    //插入日志
+    //查询日志
+    //查询日志-根据ID
+    @ApiOperation(value = "查询余额接口", notes = "")
+    @PostMapping("/getISCvalue")
+    public RetMsg getISCvalue(@RequestParam("userid") String userid) {
+        // 如果数据校验有误，则直接返回校验错误信息
+        RetMsg retMsg = new RetMsg();
+        double iscCoin = 0.0;
+        String logstotal = "用户查询：" + userid + "\t";
+        TradingLog tl = new TradingLog();
+        tl.setCreateTime(new Date());
+        tl.setTradingContent("查询余额接口");
+        tl.setUserId(userid);
+        try {
+            if (StringUtils.getStringisNotNull(userid)) {
+                User user = userService.getUserById(userid);
+                if (user != null) {
+                    tl.setUserName(user.getRealName());
+                    iscCoin=user.getIscMoney();
+                    logstotal+="成功";
+                }
+            }
+            tl.setTradingTitle(logstotal);
+            tl.setOperationResult("成功");
+            retMsg.setCode(200);
+            retMsg.setData(iscCoin);
+            retMsg.setMessage(logstotal);
+            retMsg.setSuccess(true);
+        } catch (Exception e) {
+            retMsg.setCode(400);
+            retMsg.setData("0.0");
+            retMsg.setMessage(logstotal);
+            retMsg.setSuccess(true);
+            tl.setTradingTitle(logstotal);
+            tl.setOperationResult("失败");
+
+        }
+        tradingService.insertTradingLog(tl);
+        return retMsg;
+    }
+
+    @ApiOperation(value = "ISC积分转余额功能", notes = "")
+    @PostMapping("/tranfISCCoin")
+    public RetMsg tranfISCCoin(@RequestParam("userid") String userid,@RequestParam("number") int number) {
+        // 如果数据校验有误，则直接返回校验错误信息
+        RetMsg retMsg = new RetMsg();
+        String log = "积分转余额";
+        String logstotal = "用户查询：" + userid + "\t";
+        TradingLog tl = new TradingLog();
+        tl.setCreateTime(new Date());
+        tl.setTradingContent(log);
+        tl.setUserId(userid);
+        try {
+            if (StringUtils.getStringisNotNull(userid) && number>0) {
+                User user = userService.getUserById(userid);
+                //用户存在且转换数目大于用户实际拥有数目
+                if (user != null && number<user.getIscCoin()) {
+                    tl.setUserName(user.getRealName());
+                    logstotal +="原isc积分："+user.getIscCoin()+"\t原isc余额："+user.getIscMoney();
+                    user.setIscCoin(user.getIscCoin()-number);
+                    user.setIscMoney(user.getIscMoney()+number);
+                    logstotal +="后isc积分："+user.getIscCoin()+"\t后isc余额："+user.getIscMoney();
+                }else {
+                    logstotal +="积分不足";
+                }
+            }
+            tl.setTradingTitle(logstotal);
+            tl.setOperationResult("成功");
+            retMsg.setCode(200);
+            retMsg.setData(log);
+            retMsg.setMessage(logstotal);
+            retMsg.setSuccess(true);
+        } catch (Exception e) {
+            retMsg.setCode(400);
+            retMsg.setData(log);
+            retMsg.setMessage(logstotal);
+            retMsg.setSuccess(true);
+            tl.setTradingTitle(logstotal);
+            tl.setOperationResult("失败");
+
+        }
+        tl.setTradingContent(log);
+        tl.setTradingTitle(logstotal);
+        tradingService.insertTradingLog(tl);
+        return retMsg;
     }
 }
